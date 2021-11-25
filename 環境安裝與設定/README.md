@@ -1,4 +1,9 @@
 # git環境安裝與設定
+
+- 安裝git
+- 會使用基本命令做檔案的管理
+- 會操作Vim
+
 ## 安裝git
 [git官網git-scm.com](https://git-scm.com)
 
