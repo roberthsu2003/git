@@ -12,7 +12,7 @@ $ cd gitTogether1       #進入gitTogether1資料夾
 $ git init              #初始化git
 $ git status
 
-———-
+_________________________
 On branch master
 
 No commits yet
@@ -33,7 +33,7 @@ $ git add —all
 $ git commit -m “建立3個a檔案“
 $ git log                   #git log 是觀察commit的歷史資料
 
-——————————-
+________________________________________________________________
 commit 454c9536865cfbc883084f3da2c4ec025cc09c85 (HEAD -> master)
 Author: Robert Hsu <roberthsu2003@gmail.com>
 Date:   Wed Dec 1 12:14:23 2021 +0800
@@ -48,7 +48,7 @@ Date:   Wed Dec 1 12:14:23 2021 +0800
 ```
 $ git branch
 
-—————————————
+_________________
 * master
 ```
 
@@ -58,9 +58,9 @@ $ git branch
 ￼
 ![](./images/pic1.png)
 
-—-
+___
 
-## 建立三個紀錄點￼(commit)
+## 建立三個紀錄點(commit)
 
 ```
 $ touch b1.html
@@ -76,7 +76,7 @@ $ git add b3.html
 $ git commit -m “建立b3.html”
 
 $ git log
-—————————————————————
+____________________________________________________________
 
 commit 63d60eb52ca806973f428b93e734cbea34cd3376 (HEAD -> master)
 Author: Robert Hsu <roberthsu2003@gmail.com>
@@ -109,7 +109,7 @@ Date:   Wed Dec 1 12:14:23 2021 +0800
 
 ![](./images/pic3.PNG)
 
-—-
+_______
 
 ## 結論
 
