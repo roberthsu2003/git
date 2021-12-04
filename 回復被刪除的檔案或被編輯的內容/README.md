@@ -4,9 +4,12 @@
 
 ![](./images/pic1.PNG)
 
-- 使用git restore
+1. 從工作區回復
+2. 從暫存區回復
 
 ## 從工作區回復
+
+- 使用git restore
 
 ### 新增c1.html,c2.html,c3.html,c3.html加入內容
 
@@ -94,17 +97,7 @@ ________________________________________
 ~
 ~
 ~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
+
 
 ________________________________________
 
@@ -181,4 +174,100 @@ ________________________________
 以上表示全部回復
 
 
+## 從暫存區回復
+
+![](./images/pic2.png)
+
+### 新增d1.html,d2.html,d3.html,d3.html加入內容
+
+```
+$ touch d1.html
+$ touch d2.html
+$ vim d3.html         #d3自己加入內容￼
+$ git add .
+$ git commit -m “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+$ ls d*.html -al
+
+___________________
+-rw-r--r-- 1 User 197121  0 Dec  4 11:13 d1.html
+-rw-r--r-- 1 User 197121  0 Dec  4 11:13 d2.html
+-rw-r--r-- 1 User 197121 22 Dec  4 11:14 d3.html
+
+$ git status
+On branch master
+nothing to commit, working tree clean
+```
+
+
+### 刪除d1.html,d2.html,編輯d3.html,加入暫存區
+
+```
+$ rm d1.html
+$ rm d2.html
+$ vim d3.html    # 修改內容
+$ git add d1.html d2.html d3.html
+$ git status
+________________________________
+
+-On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    d1.html
+        deleted:    d2.html
+        modified:   d3.html
+
+$ ls d*.html -al
+________________________________
+-rw-r--r-- 1 User 197121 44 Dec  4 11:32 d3.html
+
+```
+
+- 以上代表被放入至stage
+- 只剩 d3.html
+
+### 回復至工作區
+
+```
+$ git restore --staged d1.html d2.html d3.html
+
+____________________________
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    d1.html
+        deleted:    d2.html
+        modified:   d3.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+```
+
+- 代表回復至工作區
+
+### 回復到HEAD原始狀態
+
+```
+$ git restore .
+$ git status
+____________________________
+On branch master
+nothing to commit, working tree clean
+
+$ ls d*.* -al
+______________________________
+-rw-r--r-- 1 User 197121  0 Dec  4 11:47 d1.html
+-rw-r--r-- 1 User 197121  0 Dec  4 11:47 d2.html
+-rw-r--r-- 1 User 197121 23 Dec  4 11:47 d3.html
+
+```
+
+- 代表回復到HEAD原始狀態
+- 檔案回復了
+
+
+
+## 從記錄區(commit)回復
+
+![](./images/pic3.png)
 
