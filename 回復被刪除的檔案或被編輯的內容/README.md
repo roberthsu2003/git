@@ -271,3 +271,73 @@ ______________________________
 
 ![](./images/pic3.png)
 
+### 新增e1.html,e2.html,e3.html,並建立記錄點(commit)
+
+```
+$ touch e1.html
+$ touch e2.html
+$ touch e3.html
+$ git add .
+$ git commit  -m “新增e1.html,e2.html,e3.html”   
+$ git status
+_______________________
+On branch master
+nothing to commit, working tree clean
+
+```
+
+### 刪除e1.html,e2.html,e3.html,並建立記錄點(commit)
+
+```
+$ rm e1.html e2.html e3.html
+$ git commit -a -m “刪除e1.html,e2.html,e3.html”    #已經追蹤的檔案可以直接使用 -a 加入暫存庫
+
+$ git log --oneline
+_____________________________________
+d4e1b24 (HEAD -> master) 刪除e1.html,e2.html,e3.html
+c1a6019 新增e1.html,e2.html,e3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+
+```
+
+- 以上代表HEAD識別碼是d4e1b24
+- 前一個識別碼是c1a6019
+
+### 使用git reset 回到前一個comit（HEAD,master都改為指向c1a6019)
+
+```
+$ git reset c1a6019 --hard    #--hard將在後面章節講解
+_____________________________________________
+HEAD is now at c1a6019 新增e1.html,e2.html,e3.html
+
+$ git log --oneline 
+_________________________
+
+c1a6019 (HEAD -> master) 新增e1.html,e2.html,e3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+
+$ ls e*.html
+___________________________
+e1.html  e2.html  e3.html
+
+```
+
+- 上面代表回到前一個記錄點(commit)
+- 刪除的檔案救回來了
+
+
+
+
+
+
+
