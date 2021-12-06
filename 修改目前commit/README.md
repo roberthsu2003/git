@@ -73,6 +73,8 @@ diff --git a/d2.html b/d2.html
 - commit描述已經更改
 - commit儲存的工作狀態是原本的commit和新的工作狀態的組合
 
+### 新增h3.html,修改commit 沒有-m
+
 ```
 $ touch f3.html
 $ git add f3.html
