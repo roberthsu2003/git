@@ -1,6 +1,13 @@
 # 共同分支的好幫手-分支
+## master和commit的關係
 
 ![](./images/pic1_1.png)
+
+## master,commit和專案檔案關係
+
+![](./images/pic2.png)
+
+
 
 ## 主要分支（master)
 > 一個專案至少要有一個分支
@@ -22,8 +29,37 @@
 > HEAD可以切換到不同分支,HEAD一次只可以貼在一個分支上
 
 ## 分支是什麼？
-## 為何建立分支
-## 切換分支
+## 為何建立分支?
+## 建立分支和切換分支和合併分支流程
+
+![](./images/pic3_1.png)
+___
+
+![](./images/pic4.png)
+
+___
+
+![](./images/pic5.png)
+
+___
+
+![](./images/pic6.png)
+
+___
+
+![](./images/pic7.png)
+
+___
+
+![](./images/pic8.png)
+
+___
+
+![](./images/pic9.png)
+
+___
+
+
 ## 合併分支
 ## 刪除分支
 
