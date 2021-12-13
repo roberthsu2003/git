@@ -1,4 +1,4 @@
-# 共同分支的好幫手-分支
+# 共同開發的好幫手-分支
 ## master和commit的關係
 
 ![](./images/pic1_1.png)
@@ -71,7 +71,7 @@ $ git merge 分支名稱
 $ git branch -d 分支名稱
 ```
 
-### 實作流程
+### 實作流程(fast-forward)
 
 #### 新增專案
 
@@ -215,6 +215,101 @@ $ git branch -d sub1
 ```
 
 ![](./images/pic10.png)
+
+___
+
+### 實作流程(recursive)
+
+#### 新增sub2分支
+
+```
+$ touch g1.html
+$ git add g1.html
+$ git commit -m “新增g1.html”
+
+$ touch g2.html
+$ git add g2.html
+$ git commit -m “新增g2.html”
+
+$ touch g3.html
+$ git add g3.html
+$ git commit -m “新增g3.html”
+
+$ git branch sub2
+```
+
+![](./images/pic11.png)
+
+___
+
+#### 切換至sub2分支
+
+```
+$ git checkout sub2
+```
+
+![](./images/pic12.png)
+
+___
+
+#### sub2分支增加一個commit
+
+```
+$ touch h1.html
+$ git add h1.html
+$ git commit -m “新增h1.html”
+```
+
+![](./images/pic13.png)
+
+___
+
+#### sub2分支增加一個commit
+
+```
+$ touch h2.html
+$ git add h2.html
+$ git commit -m “新增h2.html”
+```
+
+![](./images/pic14.png)
+
+___
+
+#### 切換至master分支
+
+```
+$ git checkout master
+```
+
+![](./images/pic15.png)
+
+___
+
+#### master分支增加一個commit
+
+```
+$ touch i1.html
+$ git add i1.html
+$ git commit -m “新增i1.html”
+```
+
+![](./images/pic16.png)
+
+___
+
+#### master 合併 sub2分支(recursive)
+
+```
+$ git merge sub2
+```
+
+![](./images/pic17.png)
+
+
+
+
+
 
 
 
