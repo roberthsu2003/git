@@ -47,7 +47,7 @@ $ sudo apt-get install gitk
 
 ```
 $ git config --global user.name "Robert"
-$ git config --global user.name "roberthsu2003@gmail.com"
+$ git config --global user.email "roberthsu2003@gmail.com"
 ```
 
 - ### 查看使用者
