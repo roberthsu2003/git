@@ -81,7 +81,7 @@ user.email=roberthsu2003@gmail.com
 
 ```
 #使用者目錄(/home/pi)
-pi@raspberrypi: ~ $
+pi@raspberrypi:$ ~
 ```
 
 ```
