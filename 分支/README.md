@@ -14,9 +14,9 @@
 > 
 > 預設分支的名稱是master
 > 
-> master分支是一個指向單一commit的指標,可以想像是一張貼在commit上的標籤
+> master分支是一個指向單一commit的指標,可以想像是一張貼在commit上的貼紙
 > 
-> master是可以移動的標籤
+> master是可以移動的貼紙
 
 ## HEAD是什麼？
 
