@@ -299,6 +299,7 @@ $ git commit -m “新增i1.html”
 ___
 
 #### master 合併 sub2分支(recursive)
+- 合併後的commit有2個來源commit
 
 ```
 $ git merge sub2

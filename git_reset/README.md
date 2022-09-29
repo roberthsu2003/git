@@ -1,5 +1,5 @@
 # git reset (--hard,--soft,--mixed)
-
+> 注意  小心會修改工作目錄內的檔案和內容
 > 回到前面記錄點(commit)
 > 有3種模式 --hard,--soft,--mixed
 
