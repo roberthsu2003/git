@@ -20,10 +20,11 @@ $ git rebase -i HEAD~3
 ```
 
 
+### 使用 --amend
 
 ![](./images/pic1.png)
 
-###  新增h1.html,建立commit
+####  新增h1.html,建立commit
 
 ```
 $ touch f1.html
@@ -54,7 +55,7 @@ Date:   Thu Dec 2 10:27:13 2021 +0800
 
 - 上面建立新fcf905a的commit
 
-### 新增h2.html,修改commit
+#### 新增h2.html,修改commit
 
 ```
 $ touch f2.html
@@ -93,7 +94,7 @@ diff --git a/d2.html b/d2.html
 - commit描述已經更改
 - commit儲存的工作狀態是原本的commit和新的工作狀態的組合
 
-### 新增h3.html,修改commit 沒有-m
+#### 新增h3.html,修改commit 沒有-m
 
 ```
 $ touch f3.html
