@@ -219,7 +219,7 @@ Date:   Fri Sep 8 19:57:25 2023 +0800
 
 ```
 
-#### 一次修改3個commit message
+### 一次修改3個commit message
 
 ```
 $ git rebase -i HEAD~3   #修改前3個
