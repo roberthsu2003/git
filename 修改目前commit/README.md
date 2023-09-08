@@ -1,5 +1,25 @@
-# 修改目前commit
-> 修改目前的commit是一個常見的動作. 所謂修改其實是刪除現有的！建立全新的commit,而原先commit儲存的工作狀態,將會成為新的commit的工作狀態！
+# 修改目前commit或重新修改多個commit
+### - *重要*,修改尚未上傳至github上的commit(本機的commit)
+### - *重要*,github pull 下來的commit,切勿修改(會影響開發團隊的其它開發人員)
+- 使用時機,在上傳至github是,只想保持1個commit的上傳(不想太多的commit上傳至github)
+- 修改目前的commit是一個常見的動作. 所謂修改其實是刪除現有的！建立全新的commit
+### 修改目前commit
+- 修改目前的commit
+
+```
+$ git commit --amend
+```	
+
+
+### 重新修改多個commit 
+
+```
+#修改目前的前3個commit
+
+$ git rebase -i HEAD~3
+```
+
+
 
 ![](./images/pic1.png)
 
