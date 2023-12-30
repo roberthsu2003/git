@@ -4,4 +4,5 @@
 ### 目標3:在本地端建立respo, 使用git CLI 直接在github建立repo 和上傳至git hub
 ### 目標4 git push (如果在本地建立分支,如何push至雲端分支)
 ### 目標5 git pull 的原理(git 衝突的解決方法)
+### 目標6 git merge和rebase的比較
 ### 目標6 git hub (fork,pull requests)
