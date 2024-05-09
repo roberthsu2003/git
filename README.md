@@ -6,14 +6,16 @@
 4. [修改目前commit](./修改目前commit)
 5. [回復被刪除的檔案或被編輯的內容](./回復被刪除的檔案或被編輯的內容)
 6. [不想被追蹤的檔案.gitignore](./不想被追蹤的檔案)
-7. [git reset (--hard,--soft,--mixed)](./git_reset/)
-8. [分支](./分支)
-9. [標籤-tag](./tag)
-10. 共同開發的好幫手-GitHub
-- 使用本地端工作資料夾建立github repo
-- github網站建立repo 	
-- fork
-- Pull request
+## commit的修改
+- [git reset (--hard,--soft,--mixed)](./git_reset/)
+## branch單元
+- ### [分支](./分支)
+### - [標籤-tag](./tag)
+- 共同開發的好幫手-GitHub
+	- 使用本地端工作資料夾建立github repo
+	- github網站建立repo 	
+	- fork
+	- Pull request
 
 ### 附註
 [ssh連線](./ssh/)
