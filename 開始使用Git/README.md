@@ -35,7 +35,6 @@ $ git init            #初始化git, 將資料夾交給git管理
 #### 檢查markdownLag資料夾內的檔案內容:
 
 
-
 ```
 $ ls -al
 
@@ -56,6 +55,29 @@ drwxr-xr-x   9 roberthsu2003  staff  288 11 29 11:26 .git
 ![](./images/pic3.png)
 
 ---
+
+## 取消git的管理(直接刪除.git)
+
+```
+$ rm -rf .git
+```
+
+## 建立不初git管理的檔案清單(.gitignore)
+
+```
+$ touch .gitignore
+```
+
+### .gitignore內容
+
+```
+.DS_Store
+__pycache__
+.env
+.enve
+*.pyc
+```
+
 
 ## 新增1個檔案,並交由git管理
 

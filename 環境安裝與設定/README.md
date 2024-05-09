@@ -17,6 +17,7 @@ $ git --version
 git version 2.31.1
 ```
 
+
 ## 查詢git安裝的位置
 
 ```
@@ -50,7 +51,19 @@ $ git config --global user.name "Robert"
 $ git config --global user.email "roberthsu2003@gmail.com"
 ```
 
-- ### 查看使用者
+- ### git pull和fetch 更改預設的方式為merge
+
+```
+$ git config  pull.rebase false
+```
+
+- ### git 設定default branch name
+
+```
+git config --global init.defaultBranch main
+```
+
+- ### 查看使用者環境設定
 
 ```
 $ git config --list
