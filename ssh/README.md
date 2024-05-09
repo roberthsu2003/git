@@ -1,5 +1,5 @@
 # 設定SSH KEY 連線
-## Mac 電腦
+## Mac和windows 電腦
 ### 1. 建立SSH金鑰
 
 ```
