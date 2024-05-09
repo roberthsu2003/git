@@ -14,10 +14,10 @@
 - ### [分支](./分支)
 - ### [標籤-tag](./tag)
 ## 共同開發的好幫手-GitHub
-	- ### 使用本地端工作資料夾建立github repo
-	- ### github網站建立repo 	
-	- ### fork
-	- ### Pull request
+- ### 使用本地端工作資料夾建立github repo
+- ### github網站建立repo 	
+- ### fork
+- ### Pull request
 
 ### 附註
 [ssh連線](./ssh/)
