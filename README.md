@@ -10,6 +10,10 @@
 - ### [修改目前commit --amend](./修改目前commit)
 - ### [git reset (--hard,--soft,--mixed)](./git_reset/)
 - ### git rebase
+	- #### 修改commit message
+	- #### 刪除commit 
+	- #### 合併commit
+	- #### 切割commit
 ## branch單元
 - ### [分支](./分支)
 - ### [標籤-tag](./tag)
