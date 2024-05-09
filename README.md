@@ -7,7 +7,7 @@
 - ### [回復被刪除的檔案或被編輯的內容](./回復被刪除的檔案或被編輯的內容)
 - ### [不想被追蹤的檔案.gitignore](./不想被追蹤的檔案)
 ## commit的修改
-- ### [修改目前commit](./修改目前commit)
+- ### [修改目前commit --amend](./修改目前commit)
 - ### [git reset (--hard,--soft,--mixed)](./git_reset/)
 - ### git rebase
 ## branch單元
