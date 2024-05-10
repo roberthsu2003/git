@@ -45,7 +45,7 @@ ef76d6a add f4.html
 $ git rebase -i HEAD~3   #修改前3個
 ----------------------------------------												 
 #將pick改為reword改為reword(修改commit message)
-#執行後,會分別出現3次新的commit message修改對話框
+#執行後,會分別出現2次新的commit message修改對話框
 
 reword 807884e 新增f4.html
 reword d0a9f5a 新增f5.html
@@ -58,35 +58,6 @@ reword 0c8d81f 新增f6.html
 # r, reword <commit> = use commit, but edit the commit message
 ```
 
-```
-$ git log   #3個commit,都被修改過了
-
-commit b86cfdfa92386f571318b412a5e4a9e374a6349b (HEAD -> main)
-Author: roberthsu2003 <roberthsu2003@gmail.com>
-Date:   Fri Sep 8 20:07:06 2023 +0800
-
-    新增f6.html修改
-
-commit 949e35b93abb01c79d3a6d832a4b51554f8edd94
-Author: roberthsu2003 <roberthsu2003@gmail.com>
-Date:   Fri Sep 8 20:06:34 2023 +0800
-
-    新增f5.html修改
-
-commit 144a0e88afea3d218b38ee9e019c739afbb1a4e0
-Author: roberthsu2003 <roberthsu2003@gmail.com>
-Date:   Fri Sep 8 20:05:59 2023 +0800
-
-    新增f4.html修改
-
-commit 0abe09ecfe64196e6ad43b764b2077e963cfaca3
-Author: roberthsu2003 <roberthsu2003@gmail.com>
-Date:   Fri Sep 8 19:57:25 2023 +0800
-
-    新增f1.html, f2.html
-    新增f3.thml
-
-```
 
 ### 將3個commit,擠壓成為1個
 
@@ -102,52 +73,120 @@ squash 949e35b 新增f5.html修改
 squash b86cfdf 新增f6.html修改
 ```
 
-#### 修改隔合後的message
+### 將1個commit,拆解為2個
+
+```
+$ git log --oneline
+e341558 (HEAD -> main) add h7.html
+b92cb0f add f5.html-modify add h6.html modify #將要拆解中間這個
+ef76d6a add f4.html
+```
+
+- #### 開始拆解
+
+```
+$ git rebase -i HEAD~2
+
+#將要拆解的改為edit
+pick b92cb0f add f5.html-modify add h6.html modify
+pick e341558 add h7.html
+```
+
+- #### 拆解說明
+	- git commit --amend 
+	- git rebase --continue # 拆解完成要執行這個指令
+
+```
+Stopped at b92cb0f...  add f5.html-modify add h6.html modify
+You can amend the commit now, with
+
+  git commit --amend 
+
+Once you are satisfied with your changes, run
+
+  git rebase --continue
 
 ```
 
-新增f4.html修改
-新增f5.html修改
-新增f6.html修改
+- #### 先使用git status開查stage 和 working directory內的狀態
+	- 無任何東西
+```
+$ git status
+interactive rebase in progress; onto ef76d6a #現在正在rebase中
+Last command done (1 command done):
+   edit b92cb0f add f5.html-modify add h6.html modify
+Next command to do (1 remaining command):
+   pick e341558 add h7.html
+  (use "git rebase --edit-todo" to view and edit)
+You are currently editing a commit while rebasing branch 'main' on 'ef76d6a'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
 
-# Please enter the commit message for your changes. Lines starting
-# with '#' will be ignored, and an empty message aborts the commit.
-#
-# Date:      Fri Sep 8 20:05:59 2023 +0800
-#
-# interactive rebase in progress; onto 0abe09e
-# Last commands done (3 commands done):
-#    squash 949e35b 新增f5.html修改
-#    squash b86cfdf 新增f6.html修改
-# No commands remaining.
-# You are currently rebasing branch 'main' on '0abe09e'.
-#
-# Changes to be committed:
-#       new file:   f4.html
-#       new file:   f5.html
-#       new file:   f6.html
-#
+nothing to commit, working tree clean
 
 ```
 
-#### 3個commit 變一個
+- #### 將目前的commit內容,分解至working directory
 
 ```
-$ git log
----------------------------------------
-commit 94c8275759f686feafcf64643d6cd9264491e76a (HEAD -> main)
-Author: roberthsu2003 <roberthsu2003@gmail.com>
-Date:   Fri Sep 8 20:05:59 2023 +0800
+$ git reset HEAD^
+$ git status
+interactive rebase in progress; onto ef76d6a
+Last command done (1 command done):
+   edit b92cb0f add f5.html-modify add h6.html modify
+Next command to do (1 remaining command):
+   pick e341558 add h7.html
+  (use "git rebase --edit-todo" to view and edit)
+You are currently editing a commit while rebasing branch 'main' on 'ef76d6a'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
 
-    新增f4.html修改
-    新增f5.html修改
-    新增f6.html修改
+Untracked files:  # 已經被拆解至working directory
+  (use "git add <file>..." to include in what will be committed)
+	f5.html
+	f6.html
 
-commit 0abe09ecfe64196e6ad43b764b2077e963cfaca3
-Author: roberthsu2003 <roberthsu2003@gmail.com>
-Date:   Fri Sep 8 19:57:25 2023 +0800
+nothing added to commit but untracked files present (use "git add" to track)
+```
 
-    新增f1.html, f2.html
-    新增f3.thml
+- #### 建立2個新增的commit
 
 ```
+ $ git add f5.html
+ $ git commit -m "add f5.html"
+ $ git add f6.html\
+ $ git commit -m "add f6.html"
+```
+
+- #### 結束rebase,和檢查commit
+
+```
+$ git rebase --continue
+$ git log --oneline
+
+#已經被拆解為2個了
+cfb65c5 (HEAD -> main) add h7.html
+859de98 add f6.html
+09b96cf add f5.html
+ef76d6a add f4.html
+```
+
+### rebase的fixup 和 squash是相似的,也是向前組合commit,但不會要求更改commit的message
+
+```
+$ git rebase -i HEAD~3
+
+#將後面2個組合至第1個
+pick 09b96cf add f5.html
+fixup 859de98 add f6.html
+fixup cfb65c5 add h7.html
+``` 
+
+- #### 檢查commit內容
+
+```
+$ git log --oneline
+b500edb (HEAD -> main) add f5.html
+ef76d6a add f4.html
+```
+
