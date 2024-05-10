@@ -39,7 +39,7 @@ c75f677 add f5.html
 ef76d6a add f4.html
 ```
 
-### 一次修改3個commit message
+- ### 一次修改3個commit message
 
 ```
 $ git rebase -i HEAD~3   #修改前3個
