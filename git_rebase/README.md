@@ -10,7 +10,7 @@ $ git rebase -i HEAD~3
 
 ### 重新修改多個commit的message
 
-- #### 增加3個commit
+1. #### 增加3個commit
 
 ```
 $ echo 'f4.html' >> f4.html
@@ -39,7 +39,7 @@ c75f677 add f5.html
 ef76d6a add f4.html
 ```
 
-- ### 一次修改3個commit message
+2. #### 一次修改3個commit message
 
 ```
 $ git rebase -i HEAD~3   #修改前3個
@@ -82,7 +82,7 @@ b92cb0f add f5.html-modify add h6.html modify #將要拆解中間這個
 ef76d6a add f4.html
 ```
 
-- #### 開始拆解
+1. #### 開始拆解
 
 ```
 $ git rebase -i HEAD~2
@@ -92,7 +92,7 @@ pick b92cb0f add f5.html-modify add h6.html modify
 pick e341558 add h7.html
 ```
 
-- #### 拆解說明
+2. #### 拆解說明
 	- git commit --amend 
 	- git rebase --continue # 拆解完成要執行這個指令
 
@@ -108,7 +108,7 @@ Once you are satisfied with your changes, run
 
 ```
 
-- #### 先使用git status開查stage 和 working directory內的狀態
+3. #### 先使用git status開查stage 和 working directory內的狀態
 	- 無任何東西
 ```
 $ git status
@@ -126,7 +126,7 @@ nothing to commit, working tree clean
 
 ```
 
-- #### 將目前的commit內容,分解至working directory
+4. #### 將目前的commit內容,分解至working directory
 
 ```
 $ git reset HEAD^
@@ -149,7 +149,7 @@ Untracked files:  # 已經被拆解至working directory
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 
-- #### 建立2個新增的commit
+5. #### 建立2個新增的commit
 
 ```
  $ git add f5.html
@@ -158,7 +158,7 @@ nothing added to commit but untracked files present (use "git add" to track)
  $ git commit -m "add f6.html"
 ```
 
-- #### 結束rebase,和檢查commit
+6. #### 結束rebase,和檢查commit
 
 ```
 $ git rebase --continue
@@ -173,6 +173,8 @@ ef76d6a add f4.html
 
 ### rebase的fixup 和 squash是相似的,也是向前組合commit,但不會要求更改commit的message
 
+1. #### 執行rebase
+
 ```
 $ git rebase -i HEAD~3
 
@@ -182,7 +184,7 @@ fixup 859de98 add f6.html
 fixup cfb65c5 add h7.html
 ``` 
 
-- #### 檢查commit內容
+2. #### 檢查commit內容
 
 ```
 $ git log --oneline
