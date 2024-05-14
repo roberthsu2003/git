@@ -1,4 +1,9 @@
-# 共同開發的好幫手-分支
+# branch(分支)
+- git branch 
+- git switch
+- git merge
+- git rebase
+
 ## master和commit的關係
 
 ![](./images/pic1_1.png)
@@ -12,7 +17,7 @@
 ## 主要分支（master)
 > 一個專案至少要有一個分支
 > 
-> 預設分支的名稱是master
+> 預設分支的名稱是master 或 main
 > 
 > master分支是一個指向單一commit的指標,可以想像是一張貼在commit上的貼紙
 > 
@@ -40,11 +45,6 @@
 
 ## 建立分支和切換分支和合併分支
 
-### 新增分支
-
-```
-$ git branch 新的分支名稱
-```
 
 ### 檢視目前分支
 
@@ -52,11 +52,22 @@ $ git branch 新的分支名稱
 $ git branch
 ```
 
+### 新增分支
+
+```
+$ git branch 新的分支名稱
+```
 
 ### 切換分支
 
 ```
-$ git checkout 分支名稱
+$ git switch 分支名稱
+```
+
+### 新增並切換分支
+
+```
+$ git checkout -b 新的分支名稱
 ```
 
 ### 合併分支
@@ -114,7 +125,7 @@ ________________________
 ```
 #切換分支
 
-$ git checkout sub1
+$ git switch sub1
 $ git branch
 ___________________________
   master
@@ -155,7 +166,7 @@ ___
 #### 切換回分支master
 
 ```
-$ git checkout master
+$ git switch master
 $ ls
 ___________________________
 a.html	b.html	c.html
@@ -166,6 +177,7 @@ a.html	b.html	c.html
 ___
 
 #### master合併分支sub1(使用fast-forward)
+- 切換回master分支
 
 ```
 $ git merge sub1
@@ -192,6 +204,18 @@ a.html	b.html	c.html	d.html	e.html
 ![](./images/pic8.png)
 
 ___
+
+#### master目前的commit
+
+```
+$ git log --oneline
+---------------
+b8ea456 (HEAD -> main, sub1) 新增e.html
+42598c2 新增d.html
+88b7fa3 新增c.html
+6f4f91d 新增b.html
+a41b3de 新增a.html
+```
 
 #### master新增commit
 
@@ -245,7 +269,7 @@ ___
 #### 切換至sub2分支
 
 ```
-$ git checkout sub2
+$ git switch sub2
 ```
 
 ![](./images/pic12.png)
@@ -279,7 +303,7 @@ ___
 #### 切換至master分支
 
 ```
-$ git checkout master
+$ git switch master
 ```
 
 ![](./images/pic15.png)
@@ -298,8 +322,10 @@ $ git commit -m “新增i1.html”
 
 ___
 
-#### master 合併 sub2分支(recursive)
-- 合併後的commit有2個來源commit
+#### master 合併 sub2分支(squash)
+- 合併後2個來源的commit要結合為一個新的commit
+- 會跳出編輯視窗,修改新的commit的message
+
 
 ```
 $ git merge sub2
@@ -307,6 +333,19 @@ $ git merge sub2
 
 ![](./images/pic17.png)
 
+
+```
+$ git log --oneline
+
+----------
+aed5872 (HEAD -> master) Merge branch 'sub2' #這個為合併後建立的
+eb69cf3 新增i1.html
+e8c12ca (sub2) 新增h2.html
+b5f7dd4 新增h1.html
+a8e23d0 新增g3.html
+6c65a56 新增g2.html
+2e43837 新增g1.html
+```
 
 
 
