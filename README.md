@@ -7,7 +7,7 @@
 - ### [回復被刪除的檔案或被編輯的內容](./回復被刪除的檔案或被編輯的內容)
 - ### [不想被追蹤的檔案.gitignore](./不想被追蹤的檔案)
 
-## git checkout 檢查先前的修變的內容
+## [git checkout 檢查先前的修改的內容](檢查先前修改的檔案)
   - git checkout [commit hash] -> 切換HEAD至此commit
   - git log --all -> 檢查所有的commit
   - git log --all --graph ->檢查所有的commit和圖形化顯示關係
