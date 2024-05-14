@@ -14,6 +14,10 @@
 	- #### 刪除commit 
 	- #### 合併commit
 	- #### 切割commit
+## git checkout 檢查先前的修變的內容
+  - git checkout [commit hash] -> 切換HEAD至此commit
+  - git log --all -> 檢查所有的commit
+  - git log --all --graph ->檢查所有的commit和圖形化顯示關係
 ## branch單元
 - ### [分支](./分支)
 - ### [標籤-tag](./tag)
@@ -22,8 +26,6 @@
 - ### github網站建立repo 	
 - ### fork
 - ### Pull request
-
-## 使用情境
 
 ### 附註
 [ssh連線](./ssh/)
