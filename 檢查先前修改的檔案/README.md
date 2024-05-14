@@ -1,6 +1,8 @@
 ## 檢查先前修改的檔案
 - 建立3個commit
 - 每個commit增加一個檔案
+- git log
+- git checkout
 
 ```
 $ touch a.txt
