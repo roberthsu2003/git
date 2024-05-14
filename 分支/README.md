@@ -180,7 +180,7 @@ ___
 - 切換回master分支
 
 ```
-$ git merge sub1
+$ git merge sub1 #如果要要fast-forward,要用git merge --no-ff sub1
 _____________________
 Updating 40351bf..af5116d
 Fast-forward
