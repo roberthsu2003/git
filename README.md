@@ -8,9 +8,6 @@
 - ### [不想被追蹤的檔案.gitignore](./不想被追蹤的檔案)
 
 ## [git checkout 檢查先前的修改的內容](檢查先前修改的檔案)
-  - git checkout [commit hash] -> 切換HEAD至此commit
-  - git log --all -> 檢查所有的commit
-  - git log --all --graph ->檢查所有的commit和圖形化顯示關係
 
 ## commit的修改
 - ### [修改目前commit --amend](./修改目前commit)
