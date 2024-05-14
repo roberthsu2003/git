@@ -427,30 +427,50 @@ $ git commit -m “新增i1.html”
 
 ___
 
-#### master 合併 sub2分支(squash)
-- 合併後2個來源的commit要結合為一個新的commit
-- 會跳出編輯視窗,修改新的commit的message
-
+#### 由sub2 rebase master
+- 將sub2重新建立基底
 
 ```
-$ git merge sub2
+$ git switch sub2
+$ git rebase master
+------------------------
+Successfully rebased and updated refs/heads/sub2.
+
+$ git log --oneline     
+----------------------
+377f87c (HEAD -> sub2) 新增h2.html
+f3df131 新增h1.html
+0e1bf3a (master) 新增i1.html  #這裏是由master移進來的
+72bd8f4 新增g3.html
+3df4a30 新增g2.html
+34d9980 新增g1.html
 ```
 
-![](./images/pic17.png)
-
+#### 由master rebase sub2
+- 將master重新建立基底
 
 ```
+$ git switch master
 $ git log --oneline
+-----------------------
+0e1bf3a (HEAD -> master) 新增i1.html
+72bd8f4 新增g3.html
+3df4a30 新增g2.html
+34d9980 新增g1.html
 
-----------
-aed5872 (HEAD -> master) Merge branch 'sub2' #這個為合併後建立的
-eb69cf3 新增i1.html
-e8c12ca (sub2) 新增h2.html
-b5f7dd4 新增h1.html
-a8e23d0 新增g3.html
-6c65a56 新增g2.html
-2e43837 新增g1.html
+$ git rebase sub2
+-------------------------
+Successfully rebased and updated refs/heads/master
+
+$ git log --oneline
+377f87c (HEAD -> master, sub2) 新增h2.html
+f3df131 新增h1.html
+0e1bf3a 新增i1.html
+72bd8f4 新增g3.html
+3df4a30 新增g2.html
+34d9980 新增g1.html
 ```
+
 
 
 
