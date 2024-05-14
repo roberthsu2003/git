@@ -242,7 +242,7 @@ $ git branch -d sub1
 
 ___
 
-### 實作流程(recursive)
+### 實作流程(squash)
 
 #### 新增sub2分支
 
@@ -346,6 +346,114 @@ a8e23d0 新增g3.html
 6c65a56 新增g2.html
 2e43837 新增g1.html
 ```
+
+### 實作流程(rebase)
+
+#### 新增sub2分支
+
+```
+$ touch g1.html
+$ git add g1.html
+$ git commit -m “新增g1.html”
+
+$ touch g2.html
+$ git add g2.html
+$ git commit -m “新增g2.html”
+
+$ touch g3.html
+$ git add g3.html
+$ git commit -m “新增g3.html”
+
+$ git branch sub2
+```
+
+![](./images/pic11.png)
+
+___
+
+#### 切換至sub2分支
+
+```
+$ git switch sub2
+```
+
+![](./images/pic12.png)
+
+___
+
+#### sub2分支增加一個commit
+
+```
+$ touch h1.html
+$ git add h1.html
+$ git commit -m “新增h1.html”
+```
+
+![](./images/pic13.png)
+
+___
+
+#### sub2分支增加一個commit
+
+```
+$ touch h2.html
+$ git add h2.html
+$ git commit -m “新增h2.html”
+```
+
+![](./images/pic14.png)
+
+___
+
+#### 切換至master分支
+
+```
+$ git switch master
+```
+
+![](./images/pic15.png)
+
+___
+
+#### master分支增加一個commit
+
+```
+$ touch i1.html
+$ git add i1.html
+$ git commit -m “新增i1.html”
+```
+
+![](./images/pic16.png)
+
+___
+
+#### master 合併 sub2分支(squash)
+- 合併後2個來源的commit要結合為一個新的commit
+- 會跳出編輯視窗,修改新的commit的message
+
+
+```
+$ git merge sub2
+```
+
+![](./images/pic17.png)
+
+
+```
+$ git log --oneline
+
+----------
+aed5872 (HEAD -> master) Merge branch 'sub2' #這個為合併後建立的
+eb69cf3 新增i1.html
+e8c12ca (sub2) 新增h2.html
+b5f7dd4 新增h1.html
+a8e23d0 新增g3.html
+6c65a56 新增g2.html
+2e43837 新增g1.html
+```
+
+
+
 
 
 
