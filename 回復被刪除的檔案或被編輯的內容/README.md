@@ -266,6 +266,12 @@ ______________________________
 - 檔案回復了
 
 
+### 如果在working area內的是untracked file,必需使用git clean
+
+```
+$ git clean -fd 檔案名稱
+```
+
 
 ## 從記錄區(commit)回復
 
@@ -334,10 +340,4 @@ e1.html  e2.html  e3.html
 
 - 上面代表回到前一個記錄點(commit)
 - 刪除的檔案救回來了
-
-
-
-
-
-
 
