@@ -23,7 +23,8 @@
 - ### [分支](./分支)
 - ### [標籤-tag](./tag)
 ## GitHub
-- git config --global credential.name "github的帳號"
+- git config --global --edit ->編輯config
+- git config --global credential.name "github的帳號"  ->github憑證名稱
 - git remote的使用
 - git fetch
 - git pull
