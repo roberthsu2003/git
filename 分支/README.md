@@ -74,6 +74,8 @@ $ git checkout -b 新的分支名稱
 
 ```
 $ git merge 分支名稱
+$ git merge --no-ff 分支名稱
+$ git merge --squash 分支名稱
 ```
 
 ### 刪除分支
@@ -180,7 +182,7 @@ ___
 - 切換回master分支
 
 ```
-$ git merge sub1 #如果要要fast-forward,要用git merge --no-ff sub1
+$ git merge sub1 #如果不要fast-forward,要用git merge --no-ff sub1
 _____________________
 Updating 40351bf..af5116d
 Fast-forward
