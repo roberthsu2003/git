@@ -30,12 +30,10 @@
 - ### 本地端資料夾(沒有資料)
 	
 ### 4. 建立GitHub專用的憑證
-### 5. 建立GitHub專用的ssh
+### 5. 建立GitHub專用的ssh(./ssh/)
 
 ## 共同開發PR
-- ### fork
-- ### Pull request
+### 1. fork
+### 2. Pull request
 
-### 附註
-[ssh連線](./ssh/)
 
