@@ -1,3 +1,9 @@
+## 0. 有關於GitHub Token 說明
+
+### 0.1 [GitHub Access Tokens explained](https://devopsjournal.io/blog/2022/01/03/GitHub-Tokens)
+
+## Personal Access Token(PATs)
+
 設置 Git 的憑證幫助程序可以簡化身份驗證過程，特別是在使用 GitHub 時。這樣你不必每次推送或拉取時都輸入用戶名和密碼。以下是手動設置 Git 憑證幫助程序的步驟：
 
 ## 1. 設置憑證幫助程序
@@ -100,7 +106,13 @@ git config --global credential.helper wincred
 你可以檢查你的憑證幫助程序配置是否正確：
 
 ```other
-git config --global credential.helper
+git config --list
+```
+
+## 4. 手動編輯git config
+
+```bash
+git config --global --edit
 ```
 
 
