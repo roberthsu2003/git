@@ -61,7 +61,6 @@ cat ~/.ssh/id_rsa.pub
 
 
 ## Raspberry
-## Mac
 ### 1. 建立SSH金鑰
 
 ```
@@ -103,23 +102,17 @@ Host github.com
 eval "$(ssh-agent -s)"
 ```
 
-### 4. 測試SSH agent forwarding
-```
-echo "$SSH_AUTH_SOCK"
-# Print out the SSH_AUTH_SOCK variable
-> /tmp/ssh-4hNGMk8AZX/agent.79453
-```
  
 
 
-### 5. 將我們的將鑰加入至ssh-agent
+### 4. 將我們的將鑰加入至ssh-agent
 
 ```
 ssh-add  ~/.ssh/id_rsa
 ```
 
 
-### 4. 顯示公鑰的內容,並複製所有內容至github repo 的設定內
+### 5. 顯示公鑰的內容,並複製所有內容至github repo 的設定內
 - 顯示公鑰內容
 
 ```
