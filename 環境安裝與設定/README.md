@@ -2,7 +2,7 @@
 
 - 安裝git
 - 會使用基本命令做檔案的管理
-- 會操作Vim
+- 會操作nano,Vim
 
 ## 安裝git
 [git官網git-scm.com](https://git-scm.com)
@@ -51,7 +51,14 @@ $ git config --global user.name "Robert"
 $ git config --global user.email "roberthsu2003@gmail.com"
 ```
 
-### 說明: `git config` 命令用於設置 Git 的配置選項，而這些選項可以在不同的範圍內設置。主要有三個範圍：`--local`、`--global` 和 `--system`。以下是它們之間的差異：
+### 說明: `git config` 命令用於設置 Git 的配置選項，而這些選項可以在不同的範圍內設置。
+
+主要有三個範圍：
+- `--local`
+- `--global`
+- `--system`
+
+#### 以下是它們之間的差異：
 
 #### --local
 
@@ -68,7 +75,6 @@ git config --local user.email "local@example.com"
 當你在某個專案中需要不同於全局配置的用戶名稱和電子郵件地址時，可以使用 `--local` 來設置。
 
 #### --global
-
 - **範圍**：適用於當前用戶的所有儲存庫。
 - **配置文件**：設置會保存在用戶主目錄中的 `~/.gitconfig` 文件中。
 - **用法**：適用於該用戶所有儲存庫的配置，除非在單個儲存庫中被覆蓋。
@@ -128,6 +134,7 @@ $ git config pull.rebase false
 ```base
 $ git config --get pull.rebase
 ```
+
 #### 3.2 設定 git config pull.rebase false 的原因是告訴 Git 在執行 git pull 時，不要使用 rebase 的方式來合併從遠端倉庫拉取的變更。具體來說，這個設定會讓 git pull 使用默認的 merge 策略而不是 rebase 策略。
 
 #### 3.3 什麼是 `git pull`？
