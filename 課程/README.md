@@ -1,7 +1,7 @@
 ## 環境安裝
 - git安裝
 - vscode安裝
-- github帳號
+- github desktop
 - github cli
 - python虛擬環境venv,mini-conda
 ## linux基本檔案處理指令

@@ -2,6 +2,12 @@
 
 當使用git初始化專案時,便會產生master主要分支, 分支是什麼？我們可以把分支想像為這是我們目前工作的分支,所以也可以說現在我們的工作分支是在master分支.
 
+## 將master分支改為main
+
+```bash
+git config --global init.defaultBranch main
+```
+
 ## 建立專案和查看master分支狀態
 - 開啟gitBash
 

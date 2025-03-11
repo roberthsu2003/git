@@ -111,10 +111,10 @@ $ git log --all --graph
       增加a.txt
 ```
 
-- #### git checkout [branch名稱]
+- #### git switch [branch名稱]
 
 ```
-$ git checkout main
+$ git switch main
 Previous HEAD position was 674017c 增加a.txt
 Switched to branch 'main'
 
