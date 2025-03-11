@@ -32,6 +32,9 @@
 ### 4. [建立GitHub專用的憑證](./credential)
 ### 5. [建立GitHub專用的ssh](./ssh/)
 
+## 整合github常遇的衝突
+
+
 ## 共同開發PR
 ### 1. fork
 ### 2. Pull request
