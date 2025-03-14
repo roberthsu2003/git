@@ -11,7 +11,8 @@
 - chatGPT
 - gemini
   1. 使用網址列直接呼叫gemini\
-     使用@prompt
+     使用@prompt\
+     使用查證功能(不要有幻聽)
 - perplexity
 - gork
 - claude
@@ -21,6 +22,8 @@
 - **MarkDown語法**
 - **運動環保_AI**
 - **旅遊減碳**
+- **高雄碼頭發展史**
+  - 請將上面資料轉成表格😜
 - **台灣近代史_AI**
 - **台灣北,中,南旅遊景點_AI**
 - **python基本語法**
