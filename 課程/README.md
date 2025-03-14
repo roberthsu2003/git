@@ -10,9 +10,10 @@
 ## 善用AI
 - chatGPT
 - gemini
-  1. 使用網址列直接呼叫gemini\
-     使用@prompt\
-     使用查證功能(不要有幻聽)
+  1. 使用網址列直接呼叫gemini
+  2. 使用@prompt
+  3. 使用查證功能(不要有幻聽)
+  4. 輸入網址,找尋重點
 - perplexity
 - gork
 - claude
