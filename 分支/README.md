@@ -1,8 +1,22 @@
 # branch(分支)
 - git branch 
-- git switch
+	- 查詢branch
+- git branch 分支名稱
+	- 建立新的分支
+- git branch -D 分支名稱
+	- 刪除分支
+- git branch -M 分支名稱
+	- 改變分支名稱
+- git switch 分支名稱
+	- 切換分支
+- git switch -c 分支名稱
+	- 同時建立新分支和切換分支
 - git merge
+	- 合併分支(自動,fast forward或--no-ff)
+- git merge --no-ff
+	- 強制不使用fast forward
 - git rebase
+	- 改變基底
 
 ## master和commit的關係
 
