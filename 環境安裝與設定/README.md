@@ -123,6 +123,7 @@ git config --local user.name "本地名字"
 
 
 ### 3 git pull和fetch 更改預設的方式為merge
+> [!IMPORTANT]
 > 預設其實就是merge,但使用vscode工具時,在下載更新時,時常遇到此**_提示訊息_**,所以使用vscode最好加上這一行設定
 
 ```bash
