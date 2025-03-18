@@ -19,7 +19,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 ![](./images/pic1.png)
 
-#### 1.2 解決方法1
+#### 解決方法1
 - 自動fetch
 - auto merge
 
@@ -31,7 +31,7 @@ git push #再push #多了一個merge的commit
 ![](./images/pic2.png)
 
 
-#### 1.2 解決方法2
+####  解決方法2
 - rebase (下拉下來的commit,成為本地端commit的parent)
 
 ```bash 
@@ -71,7 +71,8 @@ git pull #檔案沒衝突後,將雲端提取下來
 ```
 
 ###  狀況3 pull(提取)出現檔案衝突
-- **由於有分叉,所以先pull下來
+
+- **由於有分叉,所以先pull下來**
 
 ![](./images/pic5.png)
 
@@ -89,7 +90,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 - **vscode衝突的畫面**
 ![](./images/pic6.png)
 
-#### 解法方法
+#### 解法方法1
 
 **修改衝突檔案**
 
@@ -118,6 +119,41 @@ git push
 ```
 
 ![](./images/pic7.png)
+
+#### 解決方法2
+
+**取法pull的動作**
+
+當 git pull 遇到衝突時，Git 其實是在執行 git fetch + git merge，如果你想取消這個合併，可以執行：
+
+```bash
+git merge --abort
+```
+
+這將會 **取消merge**，並讓你的分支回到 git pull 之前的狀態。
+
+
+#### 解決方法3
+
+**使用 git reset --hard 回到 pull 之前的狀態（注意會丟失未提交的變更)**
+
+如果 git merge --abort 沒有作用（例如你已經手動解決了一些衝突），你可以用 git reset --hard 來強制回到 git pull 之前：
+
+```bash
+git reset --hard HEAD
+```
+
+注意： 這會丟失所有未提交的變更，請謹慎使用。
+
+### 問題:如果 git pull 已經完成但想撤銷
+
+如果 git pull 已經成功執行（即 merge 也完成了），但你想回到 pull 之前的狀態，你可以使用：
+
+```bash
+git reset --hard ORIG_HEAD
+```
+
+這會創建一個新的 commit 來 撤銷 git pull 帶來的變更。
 
 
 
