@@ -1,8 +1,8 @@
 # github常遇的錯誤
 - [push(推送)時出現的錯誤訊息(non-fast-forward error)](#狀況1)
 
-
-###  狀況1 push(推送)時出現的錯誤訊息<a name="狀況1"></a>
+<a name="狀況1"></a>
+## 狀況1 push(推送)時出現的錯誤訊息
 
 - 問題是因為遠端 main 分支有新的提交，而你的本地 main 分支落後於遠端版本，導致 Git 拒絕推送 (non-fast-forward error)。
 
@@ -32,11 +32,14 @@ git fetch origin && git status
 ![](./images/pic1.png)
 
 #### 解決方法1
-- 自動fetch
-- auto merge
+
+> [!TIP]
+> → 使用命令pull
+>> 注意預設會在local自動merge,所以會要求您提供merge的敘述文字\
+>> 預設敘述文字的`#`是註解,被排除為敘述文字
 
 ```bash
-git pull #先pull
+git pull #先pull,要寫敘文字
 git push #再push #多了一個merge的commit
 ```
 
@@ -53,9 +56,10 @@ git pull --rebase origin main
 
 ![](./images/pic3.png)
 
-**如果rebase 過程中遇到衝突，Git 會停止並讓你手動解決。**
+> [!WARNING]
+> → 如果rebase 過程中遇到衝突，Git 會停止並讓你手動解決。
 
-- 編輯有衝突的檔案，解決衝突後，執行：
+**編輯有衝突的檔案，解決衝突後，執行：**
 
 ```base
 git add <修正過的檔案>
@@ -70,7 +74,7 @@ git rebase --abort
 ```
 
 
-###  狀況2 本地端和遠端出現檔案衝突
+##  狀況2 本地端和遠端出現檔案衝突
 
 - **本地端還沒有建立commit時,在vscode就可以知道檔案是否衝突**
 ![](./images/pic4.png)
