@@ -1,4 +1,4 @@
-# github常遇的錯誤
+# 整合github常遇的錯誤訊息
 - [push(推送)時出現的錯誤訊息(non-fast-forward error)](#狀況1)
 - [push(推送) push時本地端和遠端出現檔案衝突](#狀況2)
 - [pull(提取)出現檔案衝突](#狀況3)
