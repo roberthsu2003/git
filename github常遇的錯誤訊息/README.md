@@ -87,13 +87,13 @@ git rebase --abort
 > 透過vscode可以快速發現
 >> 2種方式
 
-## 第1種方式-先pull下來,修改衝突檔
-**解法方式**
-[使用狀況3的解決衝突方式](#狀況3)
 
-### 第2種方式-正在編輯時發現
+### 第1種方式-正在編輯時發現
 
 ![](./images/pic8.png)
+
+
+
 
 **→解決方法:**
 1. 回復至未編輯的狀態(discard changes in working directory)\
@@ -104,11 +104,11 @@ git restore <檔案名稱> #回復衝突檔案
 git pull #檔案沒衝突後,將雲端提取下來
 ```
 
-### 第3種方式-在原始檔控制內發現
+### 第2種方式-在原始檔控制內發現
 - **本地端還沒有建立commit時,在vscode就可以知道檔案是否衝突**
 ![](./images/pic4.png)
 
-**→解決方法:**
+**→解決方法2:**
 1. 回復至未編輯的狀態(discard changes in working directory)\
 2. 再git pull
 
