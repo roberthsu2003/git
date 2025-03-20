@@ -1,11 +1,15 @@
 # github常遇的錯誤
 - [push(推送)時出現的錯誤訊息(non-fast-forward error)](#狀況1)
 - [push(推送) push時本地端和遠端出現檔案衝突](#狀況2)
+- [pull(提取) pull(提取)出現檔案衝突](#狀況3)
+- [pull成功完成後取消前一次的pull](#狀況4)
 
 <a name="狀況1"></a>
 ## 狀況1 push(推送)時出現的錯誤訊息
 
 - 問題是因為遠端 main 分支有新的提交，而你的本地 main 分支落後於遠端版本，導致 Git 拒絕推送 (non-fast-forward error)。
+
+- 因為在github上不會自動merge
 
 ```
 roberthsu2003@xuguotangdeMBP test % git push
@@ -74,21 +78,46 @@ git rebase --continue
 git rebase --abort
 ```
 
+---
 
 <a name="狀況2"></a>
 ##  狀況2 push時本地端和遠端出現檔案衝突
 
-- **本地端還沒有建立commit時,在vscode就可以知道檔案是否衝突**
-![](./images/pic4.png)
+> [!TIP]
+> 透過vscode可以快速發現
+>> 2種方式
 
-#### 解決方法
+### 第1種方式-正在編輯時發現
+
+![](./images/pic8.png)
+
+**→解決方法:**
+1. 回復至未編輯的狀態(discard changes in working directory)\
+2. 再git pull
 
 ```bash
-git restore 檔案名稱 #回覆衝突檔案
+git restore <檔案名稱> #回復衝突檔案
 git pull #檔案沒衝突後,將雲端提取下來
 ```
 
-###  狀況3 pull(提取)出現檔案衝突
+### 第2種方式-在原始檔控制內發現
+- **本地端還沒有建立commit時,在vscode就可以知道檔案是否衝突**
+![](./images/pic4.png)
+
+**→解決方法:**
+1. 回復至未編輯的狀態(discard changes in working directory)\
+2. 再git pull
+
+```bash
+git restore <檔案名稱> #回復衝突檔案
+git pull #檔案沒衝突後,將雲端提取下來
+```
+
+---
+
+<a name="狀況3"></a>
+
+##  狀況3 pull(提取)出現檔案衝突
 
 - **由於有分叉,所以先pull下來**
 
@@ -108,39 +137,31 @@ Automatic merge failed; fix conflicts and then commit the result.
 - **vscode衝突的畫面**
 ![](./images/pic6.png)
 
-#### 解法方法1
+#### 解法方法1-修改衝突
 
-**修改衝突檔案**
+**修改衝突檔案使用vscode**
 
-- **會幫我們標註那些行有衝突**
+- **1️⃣可以在編輯器4個選擇其中1個**
 
-```
-<<<<<<< HEAD
-專門處理commit衝突方法2
-=======
-專門處理commit衝突方法1
->>>>>>> b00f3f8b8b6c3753e7e86d2ed72f2da67e5f7e09
-```
+![](./images/pic9.png)
 
-- **手動修改**
+- **2️⃣自已手動修改**
+- 刪除衝突部分
 
-```
-專門處理commit衝突方法1
-```
+![](./images/pic10.png)
 
 - **建立新的commit**
 
 ```bash
 git add .
-git commit -m "修改衝突"
-git push
+git commit -m "修改衝突和合併變更"
 ```
 
 ![](./images/pic7.png)
 
-#### 解決方法2
+#### 解決方法2-取消pull
 
-**取法pull的動作**
+**1.取消pull的動作**
 
 當 git pull 遇到衝突時，Git 其實是在執行 git fetch + git merge，如果你想取消這個合併，可以執行：
 
@@ -150,20 +171,24 @@ git merge --abort
 
 這將會 **取消merge**，並讓你的分支回到 git pull 之前的狀態。
 
-
-#### 解決方法3
-
-**使用 git reset --hard 回到 pull 之前的狀態（注意會丟失未提交的變更)**
-
-如果 git merge --abort 沒有作用（例如你已經手動解決了一些衝突），你可以用 git reset --hard 來強制回到 git pull 之前：
+**2.回復至前一個commit,放棄本次修改**
 
 ```bash
-git reset --hard HEAD
+git reset --hard HEAD^
 ```
 
-注意： 這會丟失所有未提交的變更，請謹慎使用。
+**3.重新pull**
 
-### 問題:如果 git pull 已經完成但想撤銷
+```bash
+git pull
+```
+
+---
+
+<a name="狀況4"></a>
+## pull成功完成後撤銷前一次的pull
+
+#### 解決方法
 
 如果 git pull 已經成功執行（即 merge 也完成了），但你想回到 pull 之前的狀態，你可以使用：
 
@@ -171,7 +196,6 @@ git reset --hard HEAD
 git reset --hard ORIG_HEAD
 ```
 
-這會創建一個新的 commit 來 撤銷 git pull 帶來的變更。
 
 
 
