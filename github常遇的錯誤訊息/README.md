@@ -1,5 +1,6 @@
 # github常遇的錯誤
 - [push(推送)時出現的錯誤訊息(non-fast-forward error)](#狀況1)
+- [push(推送) push時本地端和遠端出現檔案衝突](#狀況2)
 
 <a name="狀況1"></a>
 ## 狀況1 push(推送)時出現的錯誤訊息
@@ -74,7 +75,8 @@ git rebase --abort
 ```
 
 
-##  狀況2 本地端和遠端出現檔案衝突
+<a name="狀況2"></a>
+##  狀況2 push時本地端和遠端出現檔案衝突
 
 - **本地端還沒有建立commit時,在vscode就可以知道檔案是否衝突**
 ![](./images/pic4.png)
