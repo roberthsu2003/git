@@ -19,7 +19,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 - **依command觀察**
 
-> [TIP]
+> [TIP] 
 > 使用fetch命令取得remote分支的資訊
 
 
