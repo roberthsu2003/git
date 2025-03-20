@@ -59,7 +59,7 @@ git pull --rebase origin main
 > [!WARNING]
 > → 如果rebase 過程中遇到衝突，Git 會停止並讓你手動解決。
 
-**編輯有衝突的檔案，解決衝突後，執行：**
+**1️⃣有衝突的檔案，解決衝突後，執行：**
 
 ```base
 git add <修正過的檔案>
@@ -67,7 +67,7 @@ git rebase --continue
 ```
 
 
-**如果想要放棄 rebase，可以執行：**
+**2️⃣如果想要放棄 rebase，可以執行：**
 
 ```bash
 git rebase --abort
