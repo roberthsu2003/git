@@ -1,8 +1,8 @@
 # github常遇的錯誤
-- push(推送)時出現的錯誤訊息(non-fast-forward error)
+- [push(推送)時出現的錯誤訊息(non-fast-forward error)](#狀況1)
 
 
-###  狀況1 push(推送)時出現的錯誤訊息
+###  狀況1 push(推送)時出現的錯誤訊息<a name="狀況1"></a>
 
 - 問題是因為遠端 main 分支有新的提交，而你的本地 main 分支落後於遠端版本，導致 Git 拒絕推送 (non-fast-forward error)。
 
