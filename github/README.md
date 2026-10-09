@@ -1,5 +1,7 @@
 
 # GitHub基本使用方法
+
+本章是指令查詢，不是要從頭連續執行的練習。想跟同學一起完成作業，請接著閱讀 [GitHub 簡單共同開發與 PR](../協作與PullRequest)；使用 AI 修改程式時，參考 [Git 策略](../日常工作流程)。
 ## 0. 申請一個Github個人帳號
 
 ## 1. 編輯git的config
@@ -28,8 +30,8 @@ Git可以使用憑證幫助程序來管理你的密碼。設置憑證幫助程�
 git config --global credential.helper cache
 ```
 
-### 2.2 查看已保存的憑證
-檢查Git已保存的憑證：
+### 2.2 清除記憶體中的暫存憑證
+以下指令結束 credential-cache 程序，清除其暫存憑證，不是查看憑證：
 
 ```bash
 git credential-cache exit
@@ -78,10 +80,10 @@ git pull origin main
 
 ## 6. merge 和 rebase 的區別
 ### Merge（合併）
-當你執行 git pull 時，如果使用的是合併策略（默認行為），Git 會創建一個新的合併提交，這個提交包含了本地和遠端分支的所有變更歷史。
+使用 `git pull --no-rebase` 時，Git 先 fetch 再 merge。若能 fast-forward，不會建立新的合併提交；兩邊分岔且使用一般合併時才建立 merge commit。單獨 `git pull` 的策略受設定與版本影響，本教材明確指定選項。
 
 ```bash
-git pull origin main
+git pull --no-rebase origin main
 # 等同於：
 git fetch origin
 git merge origin/main
@@ -153,11 +155,7 @@ git push --all origin
 
 #### 7.2.4 強制推送
 
-有時候你可能需要強制推送（注意：這可能會覆蓋遠端分支上的變更，應謹慎使用）：
-
-```bash
-git push --force origin main
-```
+強制推送可能改寫遠端歷史，不適合當作初學共同開發的日常操作。遇到 push 被拒絕，先確認目前分支與遠端變更；不要直接對共享 main 強制推送。需要整理個人分支歷史時，再另外學習並與協作者確認。
 
 #### 7.2.5 推送標籤
 如果你創建了標籤，也可以推送它們到遠端倉庫：
@@ -206,7 +204,7 @@ git push origin main
 #### 7.3.3 推送過程中的常見問題
 ##### 1. 認證問題
 
-在推送過程中，你可能會被要求輸入 GitHub 的用戶名和密碼。為了避免每次都輸入，可以配置 SSH 密鑰或者使用憑證幫助程序。
+GitHub 不接受帳號密碼作為 HTTPS Git 操作的密碼。使用 SSH 金鑰，或 HTTPS 搭配登入／憑證工具或 personal access token；`user.name` 與 `user.email` 是 commit 身分，不是登入憑證。參考 [GitHub 官方驗證說明](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)。
 
 ##### 2. 分支衝突
 如果遠端分支有其他人的變更，你在推送時可能會遇到衝突。在這種情況下，你需要先拉取遠端的變更並解決衝突：

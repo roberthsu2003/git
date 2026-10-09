@@ -1,501 +1,140 @@
-# branch(分支)
-- git branch 
-	- 查詢branch
-- git branch 分支名稱
-	- 建立新的分支
-- git branch -D 分支名稱
-	- 刪除分支
-- git branch -M 分支名稱
-	- 改變分支名稱
-- git switch 分支名稱
-	- 切換分支
-- git switch -c 分支名稱
-	- 同時建立新分支和切換分支
-- git merge
-	- 合併分支(自動,fast forward或--no-ff)
-- git merge --no-ff
-	- 強制不使用fast forward
-- git rebase
-	- 改變基底
+# 分支：先試做功能，再合併回主要版本
 
-## master和commit的關係
+你想新增會員功能，但又想保留目前可以使用的版本。分支可以記錄不同的開發路線；完成後，再把成果合併回主要分支。
 
-![](./images/pic1_1.png)
+先學會 `git add`、`git commit`、`git status`。本章統一使用 `main`；舊專案若叫 `master`，它也能作為主要分支，名稱不同不代表功能不同。
 
-## master,commit和專案檔案關係
+## 1. 先認識三個名稱
 
-![](./images/pic2.png)
+| 名稱 | 意思 |
+| --- | --- |
+| commit | 一次已記錄的檔案版本 |
+| branch（分支） | 指向某個 commit 的名稱，提交後會往新的 commit 移動 |
+| HEAD | 目前所在的位置；一般操作時指向目前分支 |
 
+建立分支時，兩個分支可以先指向同一個 commit。切換分支後新增 commit，這條分支才開始走自己的路。
 
+`git switch` 在同一個資料夾切換分支；受追蹤的檔案會依目標版本更新。尚未提交的修改可能跟著切換，也可能阻止切換，因此本練習先提交再切換。
 
-## 主要分支（master)
-> 一個專案至少要有一個分支
-> 
-> 預設分支的名稱是master 或 main
-> 
-> master分支是一個指向單一commit的指標,可以想像是一張貼在commit上的貼紙
-> 
-> master是可以移動的貼紙
+## 2. 照做：新增會員功能
 
-## HEAD是什麼？
+使用 macOS／Linux 終端機或 Windows Git Bash。已設定 Git 姓名與電子郵件，在你選的練習位置操作；`branch-demo` 必須是尚未使用的資料夾名稱。`bash` 區塊是指令，`text` 區塊是預期結果。
 
-> HEAD代表目前在哪一個commit上
-> 
-> HEAD也是可以移動的標籤
-> 
-> HEAD一般都貼在分支上,當分支移動時,HEAD也會跟著移動
->
-> HEAD可以切換到不同分支,HEAD一次只可以貼在一個分支上
+### 步驟一：建立起點
 
-## 分支是什麼？
-> 分支就是在主要分支建立另一條支線,而每一條分支都有特定的任務！
+操作位置：你選的練習位置。
 
-比方說開發一個購物網頁有會員功能,購物功能,最新訊息,產品上架….,每一個功能都可以建立一個分支,完成後可以合併至主分支
-
-修改一個bug也可以建立一個分支
-
-測試一個功能也可以建立一個分支
-
-
-## 建立分支和切換分支和合併分支
-
-
-### 檢視目前分支
-
-```
-$ git branch
-```
-
-### 新增分支
-
-```
-$ git branch 新的分支名稱
-```
-
-### 切換分支
-
-```
-$ git switch 分支名稱
-```
-
-### 新增並切換分支
-
-```
-$ git checkout -b 新的分支名稱
-```
-
-### 合併分支
-
-```
-$ git merge 分支名稱
-$ git merge --no-ff 分支名稱
-$ git merge --squash 分支名稱
-```
-
-### 刪除分支
-
-```
-$ git branch -d 分支名稱
-```
-
-### 實作流程(fast-forward)
-
-#### 新增專案
-
-```
-$ mkdir worktogether1
-$ cd worktogether1
-$ git init
-
-$ touch a.html
-$ git add a.html
-$ git commit -m “新增a.html”
-
-$ touch b.html
-$ git add b.html
-$ git commit -m “新增b.html”
-
-$ touch c.html
-$ git add c.html
-$ git commit -m “新增c.html”
-```
-
-#### 新增分支sub1
-
-```
-
-$ git branch sub1
-$ git branch
-
-________________________
-* master
-  sub1
-
-```
-
-![](./images/pic3_1.png)
-
-
-#### 切換分支至sub1
-
-```
-#切換分支
-
-$ git switch sub1
-$ git branch
-___________________________
-  master
-* sub1
-```
-
-![](./images/pic4.png)
-
-___
-
-#### 在sub1分支增加commit
-
-```
-$ touch d.html
-$ git add d.html
-$ git commit -m “新增d.html”
-```
-
-![](./images/pic5.png)
-
-___
-
-#### 在sub1分支增加commit
-
-```
-$ touch e.html
-$ git add e.html
-$ git commit -m “新增e.html”
-$ ls 
-_________________________
-a.html	b.html	c.html	d.html	e.html
-```
-
-![](./images/pic6.png)
-
-___
-
-#### 切換回分支master
-
-```
-$ git switch master
-$ ls
-___________________________
-a.html	b.html	c.html
-```
-
-![](./images/pic7.png)
-
-___
-
-#### master合併分支sub1(使用fast-forward)
-- 切換回master分支
-
-```
-$ git merge sub1 #如果不要fast-forward,要用git merge --no-ff sub1
-_____________________
-Updating 40351bf..af5116d
-Fast-forward
-
- d.html | 0
-
- e.html | 0
-
- 2 files changed, 0 insertions(+), 0 deletions(-)
-
- create mode 100644 d.html
- create mode 100644 e.html
-
-$ ls
-_____________________________
-a.html	b.html	c.html	d.html	e.html
-```
-
-
-
-![](./images/pic8.png)
-
-___
-
-#### master目前的commit
-
-```
-$ git log --oneline
----------------
-b8ea456 (HEAD -> main, sub1) 新增e.html
-42598c2 新增d.html
-88b7fa3 新增c.html
-6f4f91d 新增b.html
-a41b3de 新增a.html
-```
-
-#### master新增commit
-
-```
-$ touch f.html
-$ git add f.html
-$ git commit -m “新增f.html”
-____________________________
-a.html	b.html	c.html	d.html	e.html
-
-```
-
-![](./images/pic9.png)
-
-___
-
-#### 刪除分支sub1
-
-```
-$ git branch -d sub1
-```
-
-![](./images/pic10.png)
-
-___
-
-### 實作流程(squash)
-
-#### 新增sub2分支
-
-```
-$ touch g1.html
-$ git add g1.html
-$ git commit -m “新增g1.html”
-
-$ touch g2.html
-$ git add g2.html
-$ git commit -m “新增g2.html”
-
-$ touch g3.html
-$ git add g3.html
-$ git commit -m “新增g3.html”
-
-$ git branch sub2
-```
-
-![](./images/pic11.png)
-
-___
-
-#### 切換至sub2分支
-
-```
-$ git switch sub2
-```
-
-![](./images/pic12.png)
-
-___
-
-#### sub2分支增加一個commit
-
-```
-$ touch h1.html
-$ git add h1.html
-$ git commit -m “新增h1.html”
-```
-
-![](./images/pic13.png)
-
-___
-
-#### sub2分支增加一個commit
-
-```
-$ touch h2.html
-$ git add h2.html
-$ git commit -m “新增h2.html”
-```
-
-![](./images/pic14.png)
-
-___
-
-#### 切換至master分支
-
-```
-$ git switch master
-```
-
-![](./images/pic15.png)
-
-___
-
-#### master分支增加一個commit
-
-```
-$ touch i1.html
-$ git add i1.html
-$ git commit -m “新增i1.html”
-```
-
-![](./images/pic16.png)
-
-___
-
-#### master 合併 sub2分支(squash)
-- 合併後2個來源的commit要結合為一個新的commit
-- 會跳出編輯視窗,修改新的commit的message
-
-
-```
-$ git merge sub2
-```
-
-![](./images/pic17.png)
-
-
-```
-$ git log --oneline
-
-----------
-aed5872 (HEAD -> master) Merge branch 'sub2' #這個為合併後建立的
-eb69cf3 新增i1.html
-e8c12ca (sub2) 新增h2.html
-b5f7dd4 新增h1.html
-a8e23d0 新增g3.html
-6c65a56 新增g2.html
-2e43837 新增g1.html
-```
-
-### 實作流程(rebase)
-
-#### 新增sub2分支
-
+```bash
+mkdir branch-demo
+cd branch-demo
+git init -b main
+printf 'Home page\n' > index.txt
+git add index.txt
+git commit -m "建立首頁"
 ```
-$ touch g1.html
-$ git add g1.html
-$ git commit -m “新增g1.html”
-
-$ touch g2.html
-$ git add g2.html
-$ git commit -m “新增g2.html”
-
-$ touch g3.html
-$ git add g3.html
-$ git commit -m “新增g3.html”
-
-$ git branch sub2
-```
 
-![](./images/pic11.png)
+預期：主要分支叫 main，裡面有 index.txt。
 
-___
+### 步驟二：建立並切換分支
 
-#### 切換至sub2分支
+操作位置：`branch-demo`。
 
+```bash
+git switch -c feature-login
+git branch
 ```
-$ git switch sub2
-```
-
-![](./images/pic12.png)
 
-___
+預期：
 
-#### sub2分支增加一個commit
-
-```
-$ touch h1.html
-$ git add h1.html
-$ git commit -m “新增h1.html”
+```text
+* feature-login
+  main
 ```
 
-![](./images/pic13.png)
+星號表示目前分支。`switch -c` 同時建立與切換；單獨使用 `git branch feature-login` 只會建立，不會切換。
 
-___
+### 步驟三：提交新功能
 
-#### sub2分支增加一個commit
+操作位置：`branch-demo` 的 feature-login 分支。
 
+```bash
+printf 'Login form\n' > login.txt
+git add login.txt
+git commit -m "新增會員登入頁"
+ls
 ```
-$ touch h2.html
-$ git add h2.html
-$ git commit -m “新增h2.html”
-```
 
-![](./images/pic14.png)
+預期：有 index.txt 與 login.txt。
 
-___
+先猜一猜：切換回 main 後，login.txt 還看得到嗎？
 
-#### 切換至master分支
+### 步驟四：回到主要版本
 
+```bash
+git switch main
+ls
 ```
-$ git switch master
-```
 
-![](./images/pic15.png)
+預期：只剩 index.txt。login.txt 已保存在 feature-login 的 commit 中，沒有遺失。
 
-___
+### 步驟五：合併與確認
 
-#### master分支增加一個commit
+操作位置：`branch-demo` 的 main 分支。
 
-```
-$ touch i1.html
-$ git add i1.html
-$ git commit -m “新增i1.html”
+```bash
+git merge --ff-only feature-login
+cat login.txt
+git log --oneline --graph --all
 ```
 
-![](./images/pic16.png)
+預期：login.txt 出現，內容是 `Login form`。合併方向是「把 feature-login 整合進目前所在的 main」。
 
-___
+這次 main 沒增加其他 commit，只要把 main 指標往前移，稱為 fast-forward。`--ff-only` 表示只接受這種合併；如果兩邊都繼續開發，Git 會拒絕這個選項，需要改用一般合併並檢查是否有衝突。
 
-#### 由sub2 rebase master
-- 將sub2重新建立基底
+### 步驟六：刪除已完成的分支
 
+```bash
+git branch -d feature-login
+git branch
+git status --short
 ```
-$ git switch sub2
-$ git rebase master
-------------------------
-Successfully rebased and updated refs/heads/sub2.
-
-$ git log --oneline     
-----------------------
-377f87c (HEAD -> sub2) 新增h2.html
-f3df131 新增h1.html
-0e1bf3a (master) 新增i1.html  #這裏是由master移進來的
-72bd8f4 新增g3.html
-3df4a30 新增g2.html
-34d9980 新增g1.html
-```
-
-#### 由master rebase sub2
-- 將master重新建立基底
-
-```
-$ git switch master
-$ git log --oneline
------------------------
-0e1bf3a (HEAD -> master) 新增i1.html
-72bd8f4 新增g3.html
-3df4a30 新增g2.html
-34d9980 新增g1.html
-
-$ git rebase sub2
--------------------------
-Successfully rebased and updated refs/heads/master
-
-$ git log --oneline
-377f87c (HEAD -> master, sub2) 新增h2.html
-f3df131 新增h1.html
-0e1bf3a 新增i1.html
-72bd8f4 新增g3.html
-3df4a30 新增g2.html
-34d9980 新增g1.html
-```
-
 
+預期：只剩 main，status 沒有輸出。刪除已合併的分支名稱，不會刪掉 main 裡已整合的檔案。
 
+## 3. 自己做：新增關於我們頁面
 
+接著使用 branch-demo，不提供完整答案，請自己組合指令：
 
+1. 從 main 建立並切換到 feature-about。
+2. 新增 about.txt，寫一段自我介紹並提交。
+3. 回到 main，確認尚未看到 about.txt。
+4. 把 feature-about 合併到 main。
+5. 確認檔案後刪除已合併的功能分支。
 
+完成標準：main 有 index.txt、login.txt、about.txt；工作區乾淨；只剩 main 分支。
 
+## 4. 常用指令速查
 
+以下是速查，不用按表格順序全部執行。
 
+| 目的 | 指令 |
+| --- | --- |
+| 看目前分支 | `git branch --show-current` |
+| 看本地分支 | `git branch` |
+| 建立並切換新分支 | `git switch -c 分支名稱` |
+| 切換已存在的分支 | `git switch 分支名稱` |
+| 合併到目前分支 | `git merge --no-edit 來源分支` |
+| 刪除已合併分支 | `git branch -d 分支名稱` |
 
+## 5. 進階概念：完成基礎練習後再讀
 
+| 方式 | 適合情況 | 歷史會怎樣？ |
+| --- | --- | --- |
+| 一般 merge | 兩邊都開發過，想保留原有歷史 | 非 fast-forward 時建立 merge commit，保留雙方歷史 |
+| `merge --no-ff` | 即使能 fast-forward，也想留下合併點 | 建立 merge commit |
+| `merge --squash` 後再 commit | 把某功能的變更整理成一筆提交 | 不建立 merge commit，也不把來源分支各筆 commit 接入目標歷史 |
+| rebase | 整理自己的開發歷史 | 可能重建 commit、改變識別碼；不要隨意改寫別人正在使用的分支 |
 
+squash 後，Git 不一定把原分支判定為「已合併」，`branch -d` 可能拒絕刪除。初學練習先用一般合併，理解歷史後再學整理。
 
+延伸：[worktree：同時在不同資料夾工作](../worktree)、[GitHub 共同開發與 Pull Request](../協作與PullRequest)、[rebase 進階筆記](../git_rebase)。
