@@ -2,7 +2,7 @@
 
 從第一筆 commit，到跟同學一起完成專案。這份教材以「先看圖解 → 跟著操作 → 自己完成任務」安排學習順序。
 
-**[進入 SVG 互動圖解教室](./docs/README.md)** · [教師課程安排](./課程/README.md) · [練習與測驗](./測驗/README.md)
+**[▶ 開啟互動圖解教室](https://roberthsu2003.github.io/git/)** · [教師課程安排](./課程/README.md) · [練習與測驗](./測驗/README.md)
 
 ## 開始之前
 
@@ -64,5 +64,3 @@
 | GitHub 卡關 | [常見錯誤訊息](./github常見的錯誤訊息/README.md) |
 | 工具設定 | [SSH](./ssh/README.md)、[憑證](./credential/README.md) |
 | 課堂使用 | [課程安排](./課程/README.md)、[測驗](./測驗/README.md)、[跨領域延伸主題](./課程/延伸主題.md) |
-
-互動教室包含 **15 章、66 個觀察步驟**；教材另附 nano 操作圖，共 **67 組 SVG（桌面與手機各一版）**。GitHub 顯示靜態圖，下載後可用瀏覽器開啟 `docs/index.html` 離線操作。
