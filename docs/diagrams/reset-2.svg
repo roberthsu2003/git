@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 496" width="960" height="496" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">reset --mixed：保留工作區，重設暫存區</title><desc id="diagram-desc">這裡示範既有受追蹤檔案；若晚期 commit 新增檔案，mixed 後可能變成未追蹤。 工作區：仍是 V3；最新修改仍在；與暫存區有差異。暫存區：回到 V1；與 C1 一致；修改需重新 add。main 與 HEAD：回到 C1（V1）；reset 預設是 mixed</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="496" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">10｜reset 的三種模式</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">reset --mixed：保留工作區，重設暫存區</tspan></text>
+<rect x="36" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">工作區</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">仍是 V3</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">最新修改仍在</tspan><tspan x="56" dy="27">與暫存區有差異</tspan></text>
+<rect x="338" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">暫存區</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">回到 V1</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">與 C1 一致</tspan><tspan x="358" dy="27">修改需重新 add</tspan></text>
+<rect x="640" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">main 與 HEAD</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">回到 C1（V1）</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">reset 預設是 mixed</tspan></text>
+<rect x="36" y="343" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="374" class="command"><tspan x="54" dy="0">git reset --mixed C1</tspan></text>
+<text x="36" y="441" class="note"><tspan x="36" dy="0">這裡示範既有受追蹤檔案；若晚期 commit 新增檔案，mixed 後可能變成未追蹤。</tspan></text>
+</svg>

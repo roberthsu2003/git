@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 496" width="960" height="496" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">AI 修改後，自己檢查差異</title><desc id="diagram-desc">本例發現 ready 被改壞；要先處理，不要直接 commit。 工作區：尚未 commit；Search: broken；這一輪修改不符合需求。暫存區與 HEAD：仍保留起點；Search: ready；沒有把錯誤修改提交</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="496" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">08｜AI 開發的 Git 節奏</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">AI 修改後，自己檢查差異</tspan></text>
+<rect x="36" y="144" width="435" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 459" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">工作區</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">尚未 commit</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">Search: broken</tspan><tspan x="56" dy="27">這一輪修改不符合需求</tspan></text>
+<rect x="489" y="144" width="435" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 501 146 H 912" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="509" y="182" class="card-title"><tspan x="509" dy="0">暫存區與 HEAD</tspan></text>
+<text x="509" y="212" class="tag"><tspan x="509" dy="0">仍保留起點</tspan></text>
+<text x="509" y="249" class="body"><tspan x="509" dy="0">Search: ready</tspan><tspan x="509" dy="27">沒有把錯誤修改提交</tspan></text>
+<rect x="36" y="343" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="374" class="command"><tspan x="54" dy="0">git status --short；git diff</tspan></text>
+<text x="36" y="441" class="note"><tspan x="36" dy="0">本例發現 ready 被改壞；要先處理，不要直接 commit。</tspan></text>
+</svg>

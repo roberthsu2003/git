@@ -1,0 +1,89 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GitHub 常見錯誤｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h1 id="整合github常遇的錯誤訊息">整合github常遇的錯誤訊息</h1>
+<ul><li><a href="#狀況1">push(推送)時出現的錯誤訊息(non-fast-forward error)</a></li><li><a href="#狀況2">push(推送) push時本地端和遠端出現檔案衝突</a></li><li><a href="#狀況3">pull(提取)出現檔案衝突</a></li><li><a href="#狀況4">pull成功完成後取消前一次的pull</a></li></ul>
+<span id="狀況1"></span>
+<h2 id="狀況1-push推送時出現的錯誤訊息">狀況1 push(推送)時出現的錯誤訊息</h2>
+<ul><li>問題是因為遠端 main 分支有新的提交，而你的本地 main 分支落後於遠端版本，導致 Git 拒絕推送 (non-fast-forward error)。</li></ul>
+<ul><li>因為在github上不會自動merge</li></ul>
+<div class="reading-code"><span>操作與輸出</span><pre><code>roberthsu2003@xuguotangdeMBP test % git push
+To https://github.com/roberthsu2003/__git_test__.git
+ ! [rejected]        main -&gt; main (non-fast-forward)
+error: failed to push some refs to &#39;https://github.com/roberthsu2003/__git_test__.git&#39;
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use &#39;git pull&#39; before pushing again.
+hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.</code></pre></div>
+<ul><li><strong>依command觀察</strong></li></ul>
+<blockquote>[!TIP]<br>→ 使用fetch命令取得remote分支的資訊</blockquote>
+<div class="reading-code"><span>bash</span><pre><code>git fetch origin &amp;&amp; git status</code></pre></div>
+<ul><li><strong>依圖型觀察:main和origin/main分叉</strong></li></ul>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic1.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<h4 id="解決方法1">解決方法1</h4>
+<blockquote>[!TIP]<br>→ 使用命令pull<br>&gt; 注意預設會在local自動merge,所以會要求您提供merge的敘述文字\<br>&gt; 預設敘述文字的<code>#</code>是註解,被排除為敘述文字</blockquote>
+<div class="reading-code"><span>bash</span><pre><code>git pull #先pull,要寫敘文字
+git push #再push #多了一個merge的commit</code></pre></div>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic2.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<h4 id="解決方法2">解決方法2</h4>
+<ul><li>rebase (下拉下來的commit,成為本地端commit的parent)</li></ul>
+<div class="reading-code"><span>bash</span><pre><code>git pull --rebase origin main</code></pre></div>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic3.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<blockquote>[!WARNING]<br>→ 如果rebase 過程中遇到衝突，Git 會停止並讓你手動解決。</blockquote>
+<p><strong>1️⃣有衝突的檔案，解決衝突後，執行：</strong></p>
+<div class="reading-code"><span>base</span><pre><code>git add &lt;修正過的檔案&gt;
+git rebase --continue</code></pre></div>
+<p><strong>2️⃣如果想要放棄 rebase，可以執行：</strong></p>
+<div class="reading-code"><span>bash</span><pre><code>git rebase --abort</code></pre></div>
+<hr>
+<span id="狀況2"></span>
+<h2 id="狀況2-push時本地端和遠端出現檔案衝突">狀況2 push時本地端和遠端出現檔案衝突</h2>
+<blockquote>[!TIP]<br>透過vscode可以快速發現<br>&gt; 2種方式</blockquote>
+<h3 id="第1種方式-正在編輯時發現">第1種方式-正在編輯時發現</h3>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic8.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<p><strong>→解決方法:</strong></p>
+<ol><li>回復至未編輯的狀態(discard changes in working directory)\</li><li>再git pull</li></ol>
+<div class="reading-code"><span>bash</span><pre><code>git restore &lt;檔案名稱&gt; #回復衝突檔案
+git pull #檔案沒衝突後,將雲端提取下來</code></pre></div>
+<h3 id="第2種方式-在原始檔控制內發現">第2種方式-在原始檔控制內發現</h3>
+<ul><li><strong>本地端還沒有建立commit時,在vscode就可以知道檔案是否衝突</strong></li></ul>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic4.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<p><strong>→解決方法2:</strong></p>
+<ol><li>回復至未編輯的狀態(discard changes in working directory)\</li><li>再git pull</li></ol>
+<div class="reading-code"><span>bash</span><pre><code>git restore &lt;檔案名稱&gt; #回復衝突檔案
+git pull #檔案沒衝突後,將雲端提取下來</code></pre></div>
+<hr>
+<span id="狀況3"></span>
+<h2 id="狀況3-pull提取出現檔案衝突">狀況3 pull(提取)出現檔案衝突</h2>
+<ul><li><strong>由於有分叉,所以先pull下來</strong></li></ul>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic5.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<p><strong>檔案衝突的訊息</strong></p>
+<ul><li><strong>會告知您那一個檔案衝突</strong></li></ul>
+<div class="reading-code"><span>bash</span><pre><code>roberthsu2003@xuguotangdeMBP test % git pull
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.</code></pre></div>
+<ul><li><strong>vscode衝突的畫面</strong></li></ul>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic6.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<h4 id="解法方法1-修改衝突">解法方法1-修改衝突</h4>
+<p><strong>修改衝突檔案使用vscode</strong></p>
+<ul><li><strong>1️⃣可以在編輯器4個選擇其中1個</strong></li></ul>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic9.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<ul><li><strong>2️⃣自已手動修改</strong></li><li>刪除衝突部分</li></ul>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic10.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<ul><li><strong>建立新的commit</strong></li></ul>
+<div class="reading-code"><span>bash</span><pre><code>git add .
+git commit -m &quot;修改衝突和合併變更&quot;</code></pre></div>
+<figure><picture><img src="../../github常遇的錯誤訊息/images/pic7.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<h4 id="解決方法2-取消pull">解決方法2-取消pull</h4>
+<p><strong>1.取消pull的動作</strong></p>
+<p>當 git pull 遇到衝突時，Git 其實是在執行 git fetch + git merge，如果你想取消這個合併，可以執行：</p>
+<div class="reading-code"><span>bash</span><pre><code>git merge --abort</code></pre></div>
+<p>這將會 <strong>取消merge</strong>，並讓你的分支回到 git pull 之前的狀態。</p>
+<p><strong>2.回復至前一個commit,放棄本次修改</strong></p>
+<div class="reading-code"><span>bash</span><pre><code>git reset --hard HEAD^</code></pre></div>
+<p><strong>3.重新pull</strong></p>
+<div class="reading-code"><span>bash</span><pre><code>git pull</code></pre></div>
+<hr>
+<span id="狀況4"></span>
+<h2 id="狀況4-pull成功完成後撤銷前一次的pull">狀況4 pull成功完成後撤銷前一次的pull</h2>
+<h4 id="解決方法">解決方法</h4>
+<p>如果 git pull 已經成功執行（即 merge 也完成了），但你想回到 pull 之前的狀態，你可以使用：</p>
+<div class="reading-code"><span>bash</span><pre><code>git reset --hard ORIG_HEAD</code></pre></div></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

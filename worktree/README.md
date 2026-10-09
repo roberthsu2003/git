@@ -1,4 +1,8 @@
-# worktree：同時在不同資料夾處理不同分支
+# worktree：多任務工作
+
+**一起開發 · 第 07 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#worktree/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 學完本章，你可以保留尚未完成的功能，在另一個資料夾修 bug，再把修正合併回主要分支。
 
@@ -54,6 +58,9 @@ git commit -m "建立首頁"
 
 ### 步驟二：開始會員功能，保留尚未提交的修改
 
+![會員功能還沒完成](../docs/diagrams/worktree-1.svg)
+
+
 操作位置：`worktree-demo`。
 
 ```bash
@@ -74,6 +81,9 @@ git status --short
 這表示 `login.txt` 有尚未加入暫存區的修改。**先保留它，不要 commit**，用它觀察 worktree 如何讓你接著處理另一件事。
 
 ### 步驟三：從 main 建立修正用的 worktree
+
+![兩個 worktree 各自保留檔案](../docs/diagrams/worktree-2.svg)
+
 
 操作位置：仍在 `worktree-demo`，目前分支是 `feature-login`。
 
@@ -109,6 +119,9 @@ git worktree list
 每個視窗的終端機也要各自確認位置：`pwd` 看資料夾，`git branch --show-current` 看分支。以下文字指令仍以原本的一個終端機依順序操作；不要在兩個終端機交錯複製 `cd`。
 
 ### 步驟四：在新資料夾修正並提交
+
+![修正 commit 不會改動另一邊](../docs/diagrams/worktree-3.svg)
+
 
 ```bash
 cd ../worktree-hotfix
@@ -151,6 +164,9 @@ Home titel
 
 ### 步驟六：完成會員功能，再把修正合併回 main
 
+![main 先收到首頁修正](../docs/diagrams/worktree-4.svg)
+
+
 操作位置：`worktree-demo`。先完成並提交手上的修改，讓後面的切換步驟容易觀察。
 
 ```bash
@@ -167,6 +183,9 @@ ls
 本例 main 尚未增加其他 commit，因此可以 fast-forward（把分支指標往前移到修正的 commit）；`--ff-only` 要求 Git 只能用這種方式合併。
 
 ### 步驟七：把會員功能也整合回 main
+
+![main 整合兩項成果](../docs/diagrams/worktree-5.svg)
+
 
 操作位置：仍在 `worktree-demo` 的 main 分支。
 
@@ -190,6 +209,9 @@ Login form: add password field
 兩個分支都從原本的 main 向前開發，這次一般合併會建立 merge commit。本例修改不同檔案，所以不會發生衝突；如果兩個分支修改同一檔案的同一段，仍可能需要手動解決衝突。
 
 ### 步驟八：移除不用的 worktree，再刪除分支
+
+![移除資料夾與刪分支是不同動作](../docs/diagrams/worktree-6.svg)
+
 
 操作位置：`worktree-demo` 的 main 分支。
 
@@ -249,3 +271,7 @@ git status --short
 答案提示：起點決定帶入哪些已提交內容；合併才會把另一個分支的成果整合進來；工作資料夾與分支是分開管理的。
 
 參考：[Git 官方 git-worktree 文件](https://git-scm.com/docs/git-worktree)。
+
+---
+
+[← 用 Fork 交作業](../Fork交作業/README.md)　｜　[AI 開發的 Git 節奏 →](../日常工作流程/README.md)

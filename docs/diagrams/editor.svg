@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 523" width="960" height="523" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">nano：編輯、儲存與離開</title><desc id="diagram-desc">nano 的 ^ 表示 Ctrl；編輯檔案還不是 Git commit，要另外 add 與 commit。 1. 輸入內容：鍵盤編輯文字；touch 建立空檔案；nano 開啟文字編輯器。2. 儲存檔案：Ctrl + O → Enter；按 Ctrl + O；確認檔名後按 Enter。3. 離開編輯器：Ctrl + X；儲存後按 Ctrl + X；回到終端機；用 cat 檢查內容</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="523" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">補充｜終端機文字編輯</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">nano：編輯、儲存與離開</tspan></text>
+<rect x="36" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">1. 輸入內容</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">鍵盤編輯文字</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">touch 建立空檔案</tspan><tspan x="56" dy="27">nano 開啟文字編輯器</tspan></text>
+<rect x="338" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">2. 儲存檔案</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">Ctrl + O → Enter</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">按 Ctrl + O</tspan><tspan x="358" dy="27">確認檔名後按 Enter</tspan></text>
+<rect x="640" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">3. 離開編輯器</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">Ctrl + X</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">儲存後按 Ctrl + X</tspan><tspan x="660" dy="27">回到終端機</tspan><tspan x="660" dy="27">用 cat 檢查內容</tspan></text>
+<rect x="36" y="370" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="401" class="command"><tspan x="54" dy="0">touch my_file.txt；nano my_file.txt</tspan></text>
+<text x="36" y="468" class="note"><tspan x="36" dy="0">nano 的 ^ 表示 Ctrl；編輯檔案還不是 Git commit，要另外 add 與 commit。</tspan></text>
+</svg>

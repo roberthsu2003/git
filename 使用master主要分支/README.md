@@ -1,12 +1,18 @@
-# 使用master主要分支
+# main、HEAD 與歷史
 
-當使用git初始化專案時,便會產生master主要分支, 分支是什麼？我們可以把分支想像為這是我們目前工作的分支,所以也可以說現在我們的工作分支是在master分支.
+**建立版本 · 第 02 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
-## 將master分支改為main
+圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 [Git 圖解教室](../docs/README.md)。
+
+初始化時的分支名稱取決於設定，也能用 `git init -b main` 明確指定。下面保留使用 master 的舊範例；master 與 main 都可以作為主要分支。
+
+## 設定未來新專案預設使用 main
 
 ```bash
 git config --global init.defaultBranch main
 ```
+
+這不會改名現有分支；若要替目前分支改名，可用 `git branch -m main`（先確認 main 名稱尚未使用）。
 
 ## 建立專案和查看master分支狀態
 - 開啟gitBash
@@ -113,7 +119,7 @@ Date:   Wed Dec 1 12:14:23 2021 +0800
 - HEAD代表目前所在的commit
 - master代表目前master所指向的commit
 
-![](./images/pic3.PNG)
+![Git 概念圖：branch-3](../docs/diagrams/history-2.svg)
 
 _______
 
@@ -124,8 +130,8 @@ _______
 - 當commit一個新的記錄點(commit)時,HEAD和master同時也會更新目前指向的記錄點.
 - 依此方法,HEAD和master會永遠在這一串記錄點(commit)的最上方.(以目前所學的是如此）
 
-![](./images/pic2.png)
+![Git 概念圖：branch-1](../docs/diagrams/history-1.svg)
 
+---
 
-
-
+[← 工作區與暫存區](../開始使用Git/README.md)　｜　[分支與合併 →](../分支/README.md)

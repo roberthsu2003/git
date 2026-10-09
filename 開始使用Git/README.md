@@ -1,8 +1,12 @@
-# 開始使用Git
+# 工作區與暫存區
+
+**建立版本 · 第 01 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+
+圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 [Git 圖解教室](../docs/README.md)。
 
 ## git是什麼?
 
-![](./images/pic1.png)
+![Git 概念圖：staging-6](../docs/diagrams/staging-6.svg)
 
 就是在專案開始到結束時, 建立非常多的記錄點(commit),在開發的過程中,我們可以在記錄點上遊走,說簡單點就是我們可以回到記錄點被建立當下的專案檔案的狀態。
 
@@ -52,7 +56,7 @@ drwxr-xr-x   9 roberthsu2003  staff  288 11 29 11:26 .git
 - 暫存區(要將檔案加入至記錄區時，必需先加入至暫存區)
 - 記錄區(記錄當時工作區的狀態)
 
-![](./images/pic3.png)
+![Git 概念圖：staging-1](../docs/diagrams/staging-1.svg)
 
 ---
 
@@ -105,7 +109,7 @@ Untracked files:
 
 代表說明index.txt是新建立的檔案尚未被追蹤
 
-![touch index.txt](./images/pic4.png)
+![Git 概念圖：staging-2](../docs/diagrams/staging-2.svg)
 
 ---
 
@@ -131,7 +135,7 @@ Changes to be committed:
 
 代表index.txt已經被追蹤，等待被加入記錄區
 
-![](./images/pic5.png)
+![Git 概念圖：staging-3](../docs/diagrams/staging-3.svg)
 
 ---
 
@@ -179,7 +183,7 @@ Changes not staged for commit:
 1. 暫存區內有記錄新增了一個檔
 2. 工作區內的index.txt已經被編輯，尚未加入至暫存區內
 
-![](./images/pic6.png)
+![Git 概念圖：staging-4](../docs/diagrams/staging-4.svg)
 
 ---
 
@@ -201,9 +205,9 @@ Changes to be committed:
 ```
 
 1. 暫存區內有記錄index.txt編輯的狀態
-2. 工作區內內目前沒有任何變化
+2. 工作區與暫存區的內容一致，沒有未暫存差異
 
-![](./images/pic7.png)
+![Git 概念圖：staging-5](../docs/diagrams/staging-5.svg)
 ---
 
 #### 將目前的暫存區建立記錄點並加入至記錄區內，並檢目前狀態和log
@@ -234,20 +238,19 @@ Date:   Mon Nov 29 13:07:32 2021 +0800
 
 1. 代表建立在記錄區內的第一個記錄點，識別碼前面的7個字元是「da39e43」,記錄點的註解是"建立新檔index.txt和編輯了內容"
 
-2. 目前工作區沒有任何改變，暫存區沒有任何暫存
+2. 目前工作區沒有任何改變，暫存區與 HEAD 的內容一致，沒有待提交差異
 
 3. 說明如下圖:
 
-![](./images/pic8.png)
+![Git 概念圖：staging-6](../docs/diagrams/staging-6.svg)
 
 
-![](./images/pic9.png)
+![Git 概念圖：branch-1](../docs/diagrams/history-1.svg)
 
 #### 在source tree出現的畫面
 
 ![](./images/pic10.png)
 
+---
 
-
-
-
+[← 開始前的準備](../環境安裝與設定/README.md)　｜　[main、HEAD 與歷史 →](../使用master主要分支/README.md)

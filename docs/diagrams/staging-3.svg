@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 489" width="960" height="489" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">第一次 add：保存空檔案版本</title><desc id="diagram-desc">add 把當下的檔案版本放入暫存區；檔案仍留在工作區。 工作區：版本 V1；index.txt：空檔案。暫存區：已暫存 A；index.txt：空檔案 V1。commit 紀錄：尚未 commit；還沒有 commit</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="489" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">01｜工作區與暫存區</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">第一次 add：保存空檔案版本</tspan></text>
+<rect x="36" y="144" width="284" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">工作區</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">版本 V1</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">index.txt：空檔案</tspan></text>
+<rect x="338" y="144" width="284" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">暫存區</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">已暫存 A</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">index.txt：空檔案 V1</tspan></text>
+<rect x="640" y="144" width="284" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">commit 紀錄</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">尚未 commit</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">還沒有 commit</tspan></text>
+<rect x="36" y="336" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="367" class="command"><tspan x="54" dy="0">git add index.txt</tspan></text>
+<text x="36" y="434" class="note"><tspan x="36" dy="0">add 把當下的檔案版本放入暫存區；檔案仍留在工作區。</tspan></text>
+</svg>

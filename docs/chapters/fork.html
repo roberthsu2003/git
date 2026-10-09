@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>用 Fork 交作業｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic is-current" href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#fork/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">一起開發 · 第 06 章</div><article class="reading-content"><h1 id="用-fork-交作業">用 Fork 交作業</h1>
+<p><strong>一起開發 · 第 06 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>你想修改老師的專案，但沒有直接寫入權限。Fork 讓你在自己帳號的副本中工作，再用 PR 提出修改。</p>
+<p>先完成 <a href="branch.html">分支練習</a> 與 <a href="github.html">GitHub 基本操作</a>，準備帳號與 Git 操作的登入方式。</p>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/fork-3.svg"/><img src="../diagrams/fork-3.svg" alt="跨 Fork 的 PR 選擇老師 main 當目標" loading="lazy"/></picture><figcaption>跨 Fork 的 PR 選擇老師 main 當目標</figcaption></figure>
+<p>使用另一個允許 Fork 的練習儲存庫，例如老師的 <code>class-homework</code>。本章是一條獨立流程，先確認老師提供的網址與主要分支名稱。</p>
+<ol><li>在老師的 GitHub 儲存庫按 Fork，建立到自己帳號的副本。</li><li>clone <strong>自己的 Fork</strong>。把 <code>YOUR_ACCOUNT</code>、<code>TEACHER_ACCOUNT</code> 換成實際帳號，確認老師的主要分支是 main。</li></ol>
+<div class="reading-code"><span>bash</span><pre><code>git clone https://github.com/YOUR_ACCOUNT/class-homework.git
+cd class-homework
+git remote add upstream https://github.com/TEACHER_ACCOUNT/class-homework.git
+git remote -v
+git switch main
+git fetch upstream
+git merge --ff-only upstream/main
+git switch -c homework-intro
+printf &#39;# 我的作業\n這是我的自我介紹。\n&#39; &gt; introduction.md
+git add introduction.md
+git diff --staged
+git commit -m &quot;新增自我介紹作業&quot;
+git push -u origin homework-intro</code></pre></div>
+<p>origin 是自己的 Fork，upstream 是老師的原專案。練習中的 main 只用來同步老師版本；若 <code>--ff-only</code> 拒絕，表示本地 main 已分岔，先檢查歷史，不要用 force 跳過。</p>
+<ol><li>在 GitHub 建立 PR，必要時選 compare across forks：<strong>base repository 選老師的專案、base 選 main；head repository 選自己的 Fork、compare 選 homework-intro</strong>。</li><li>老師要求修改時，繼續在 homework-intro 修改、commit、push。老師合併後，再同步老師的 main。</li></ol>
+<p>同步操作位置：自己電腦的 class-homework，先確認工作區乾淨。</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch main
+git fetch upstream
+git merge --ff-only upstream/main
+git push origin main</code></pre></div>
+<p>預期自己的本地 main 與 Fork 的 main 都收到老師已合併的內容。你只 push 自己的 origin，不需要老師專案的寫入權限。</p>
+<h2 id="換你自己做">換你自己做</h2>
+<p>Fork 老師指定的練習專案，用新的任務分支新增一份自我介紹，向老師的 main 提出 PR。老師合併後，同步自己的 main 與 Fork。</p>
+<p>完成標準：PR 的目標是老師專案、來源是自己的任務分支；能解釋 origin 與 upstream 指向誰，並在合併後更新自己的副本。</p>
+<hr>
+<p><a href="collaboration.html">← GitHub 共同開發</a>　｜　<a href="worktree.html">worktree：多任務工作 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

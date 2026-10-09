@@ -1,8 +1,12 @@
-# 回復被刪除的檔案或被編輯的內容
+# 還原檔案與取消暫存
+
+**復原與整理 · 第 09 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+
+圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 [Git 圖解教室](../docs/README.md)。
 
 > 在有些情景，我們可能會刪除一些檔案或編輯一些內容,如何回復到目前HEAD的原始狀態.￼
 
-![](./images/pic1.PNG)
+![Git 概念圖：restore-1](../docs/diagrams/restore-1.svg)
 
 1. 從工作區回復
 2. 從暫存區回復
@@ -176,7 +180,7 @@ ________________________________
 
 ## 從暫存區回復
 
-![](./images/pic2.png)
+![Git 概念圖：restore-2](../docs/diagrams/restore-2.svg)
 
 ### 新增d1.html,d2.html,d3.html,d3.html加入內容
 
@@ -275,7 +279,7 @@ $ git clean -fd 檔案名稱
 
 ## 從記錄區(commit)回復
 
-![](./images/pic3.png)
+![Git 概念圖：reset-3](../docs/diagrams/reset-3.svg)
 
 ### 新增e1.html,e2.html,e3.html,並建立記錄點(commit)
 
@@ -341,3 +345,6 @@ e1.html  e2.html  e3.html
 - 上面代表回到前一個記錄點(commit)
 - 刪除的檔案救回來了
 
+---
+
+[← AI 開發的 Git 節奏](../日常工作流程/README.md)　｜　[reset 的三種模式 →](../git_reset/README.md)

@@ -1,0 +1,173 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>開始前的準備｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h1 id="git環境安裝與設定">git環境安裝與設定</h1>
+<ul><li>安裝git</li><li>會使用基本命令做檔案的管理</li><li>會操作nano,Vim</li></ul>
+<h2 id="安裝git">安裝git</h2>
+<p><a href="https://git-scm.com">git官網git-scm.com</a></p>
+<h2 id="查詢目前git版本">查詢目前git版本</h2>
+<ul><li>windows使用git bash軟體</li><li>mac 做用terminal</li><li>linux 使用terminal</li></ul>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git --version
+git version 2.31.1</code></pre></div>
+<h2 id="查詢git安裝的位置">查詢git安裝的位置</h2>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ which git
+/mingw64/bin/git
+</code></pre></div>
+<h2 id="安裝視窗軟體github-desktopmacwindow">安裝視窗軟體gitHub Desktop(mac,window)</h2>
+<p><a href="https://desktop.github.com/">github desktop 官網</a></p>
+<h2 id="安裝視窗軟體sourcetreemacwindow">安裝視窗軟體SourceTree(mac,window)</h2>
+<p><a href="https://www.sourcetreeapp.com">sourceTree</a></p>
+<h2 id="安裝視窗軟體gitklinux">安裝視窗軟體gitk(linux)</h2>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ sudo apt-get install gitk</code></pre></div>
+<h2 id="安裝-vscode-">安裝 vscode </h2>
+<p><a href="https://code.visualstudio.com/">vscode 官網</a></p>
+<h2 id="使用者設定">使用者設定</h2>
+<h3 id="10-建立使用者姓名和使用者email必設">1.0 建立使用者姓名和使用者email(必設)</h3>
+<div class="reading-code"><span>bash</span><pre><code>$ git config --global user.name &quot;Robert&quot;
+$ git config --global user.email &quot;roberthsu2003@gmail.com&quot;</code></pre></div>
+<h3 id="說明-git-config-命令用於設置-git-的配置選項而這些選項可以在不同的範圍內設置">說明: <code>git config</code> 命令用於設置 Git 的配置選項，而這些選項可以在不同的範圍內設置。</h3>
+<p>主要有三個範圍：</p>
+<ul><li><code>--local</code></li><li><code>--global</code></li><li><code>--system</code></li></ul>
+<h4 id="以下是它們之間的差異">以下是它們之間的差異：</h4>
+<h4 id="--local">--local</h4>
+<ul><li><strong>範圍</strong>：僅適用於當前 Git 儲存庫。</li><li><strong>配置文件</strong>：設置會保存在儲存庫目錄中的 <code>.git/config</code> 文件中。</li><li><strong>用法</strong>：適用於特定儲存庫的配置，不會影響其他儲存庫。</li></ul>
+<div class="reading-code"><span>bash</span><pre><code>git config --local user.name &quot;本地儲存庫的名字&quot;
+git config --local user.email &quot;local@example.com&quot;</code></pre></div>
+<h4 id="例子">例子：</h4>
+<p>當你在某個專案中需要不同於全局配置的用戶名稱和電子郵件地址時，可以使用 <code>--local</code> 來設置。</p>
+<h4 id="--global">--global</h4>
+<ul><li><strong>範圍</strong>：適用於當前用戶的所有儲存庫。</li><li><strong>配置文件</strong>：設置會保存在用戶主目錄中的 <code>~/.gitconfig</code> 文件中。</li><li><strong>用法</strong>：適用於該用戶所有儲存庫的配置，除非在單個儲存庫中被覆蓋。</li></ul>
+<div class="reading-code"><span>bash</span><pre><code>git config --global user.name &quot;全局名字&quot;
+git config --global user.email &quot;global@example.com&quot;</code></pre></div>
+<h4 id="例子-1">例子：</h4>
+<p>當你想在所有儲存庫中使用相同的用戶名稱和電子郵件地址時，可以使用 <code>--global</code> 來設置。</p>
+<h4 id="--system">--system</h4>
+<ul><li><strong>範圍</strong>：適用於系統上所有用戶的所有儲存庫。</li><li><strong>配置文件</strong>：設置會保存在 Git 安裝目錄中的 <code>etc/gitconfig</code> 文件中。</li><li><strong>用法</strong>：需要管理員權限，適用於系統範圍的配置。</li></ul>
+<div class="reading-code"><span>bash</span><pre><code>git config --system core.editor &quot;vim&quot;</code></pre></div>
+<h4 id="例子-2">例子：</h4>
+<p>當你想為整個系統設置 Git 的默認編輯器時，可以使用 <code>--system</code> 來設置。</p>
+<h4 id="優先順序">優先順序</h4>
+<p>當同一配置項目在多個範圍內設置時，優先順序如下：</p>
+<ol><li><strong>--local</strong>（儲存庫級別）設定的值會覆蓋其他範圍的設定。</li><li><strong>--global</strong>（全局級別）設定的值會覆蓋系統級別的設定。</li><li><strong>--system</strong>（系統級別）設定的值是最基礎的，如果沒有其他設置，會使用系統級別的配置。</li></ol>
+<h4 id="例子-3">例子：</h4>
+<p>如果你在三個範圍內都設置了 <code>user.name</code>，例如：</p>
+<div class="reading-code"><span>bash</span><pre><code>git config --system user.name &quot;系統名字&quot;
+git config --global user.name &quot;全局名字&quot;
+git config --local user.name &quot;本地名字&quot;</code></pre></div>
+<p>那麼在特定儲存庫中使用 <code>git log</code> 查看提交記錄時，看到的 <code>user.name</code> 會是 &quot;本地名字&quot;。如果該儲存庫沒有設置本地配置，則會使用全局配置的 &quot;全局名字&quot;。如果全局配置也沒有設置，則使用系統配置的 &quot;系統名字&quot;。</p>
+<h3 id="3-git-pull和fetch-更改預設的方式為merge">3 git pull和fetch 更改預設的方式為merge</h3>
+<blockquote>[!IMPORTANT]<br>預設其實就是merge,但使用vscode工具時,在下載更新時,時常遇到此<strong>_提示訊息_</strong>,所以使用vscode最好加上這一行設定</blockquote>
+<div class="reading-code"><span>bash</span><pre><code>$ git config pull.rebase false</code></pre></div>
+<h4 id="31-檢查當前的-pullrebase-設定">3.1 檢查當前的 pull.rebase 設定</h4>
+<div class="reading-code"><span>base</span><pre><code>$ git config --get pull.rebase</code></pre></div>
+<h4 id="32-設定-git-config-pullrebase-false-的原因是告訴-git-在執行-git-pull-時不要使用-rebase-的方式來合併從遠端倉庫拉取的變更具體來說這個設定會讓-git-pull-使用默認的-merge-策略而不是-rebase-策略">3.2 設定 git config pull.rebase false 的原因是告訴 Git 在執行 git pull 時，不要使用 rebase 的方式來合併從遠端倉庫拉取的變更。具體來說，這個設定會讓 git pull 使用默認的 merge 策略而不是 rebase 策略。</h4>
+<h4 id="33-什麼是-git-pull">3.3 什麼是 <code>git pull</code>？</h4>
+<p>git pull 是一個常用的命令，用來從遠端倉庫拉取最新的更改並將它們合併到本地分支中。它實際上是 git fetch 和 git merge 的組合。</p>
+<h4 id="40-git-設定default-branch-name">4.0 git 設定default branch name</h4>
+<div class="reading-code"><span>操作與輸出</span><pre><code>git config --global init.defaultBranch main</code></pre></div>
+<ul><li>### 查看使用者環境設定</li></ul>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git config --list
+
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+http.sslbackend=openssl
+http.sslcainfo=C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
+core.autocrlf=true
+core.fscache=true
+core.symlinks=false
+pull.rebase=false
+credential.helper=manager-core
+credential.https://dev.azure.com.usehttppath=true
+init.defaultbranch=master
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+user.name=roberthsu2003@gmail.com
+user.email=roberthsu2003@gmail.com</code></pre></div>
+<h2 id="常用命令列">常用命令列</h2>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#使用者目錄(/home/pi)
+pi@raspberrypi:$ ~</code></pre></div>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#查看當前所在目錄(print working directory)
+pi@raspberrypi: ~ $ pwd
+/home/pi</code></pre></div>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#回到上層目錄
+$ cd ..
+$ pwd
+/home</code></pre></div>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#絕對路徑(/xxxx/xxxxx/xxxx)
+#相對路徑(./xxxx/xxxx/xxx)</code></pre></div>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#回到電腦根目錄
+$ cd /
+$ pwd
+/</code></pre></div>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#回到使用者目錄
+$ cd ~</code></pre></div>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#檢查目前目錄內容
+$ ls
+$ ls -l
+$ ls -al</code></pre></div>
+<h3 id="複製檔案或資料夾">複製檔案或資料夾</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#建立文字檔
+$ echo &quot;hello&quot; &gt; myfile.txt
+$ ls
+myfile.txt
+
+#複製文字檔
+$ cp myfile.txt myfile2.txt
+$ ls
+myfile.txt myfile2.txt
+
+#複製文字檔至別的目錄
+$ cp myfile.txt /tmp
+
+#複製整個目錄和內容
+$ cp -r mydirectory mydirectory2</code></pre></div>
+<h3 id="重新命名檔案名稱或資料夾名稱">重新命名檔案名稱或資料夾名稱</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ mv my_file.txt my_file.rtf</code></pre></div>
+<h3 id="檢視檔案內容">檢視檔案內容</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ cat myfile.txt
+$ more myfile.txt
+$ less myfile.txt</code></pre></div>
+<h3 id="建立編輯檔案">建立編輯檔案</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch my_file.txt
+$ nano my_file.txt</code></pre></div>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/editor.svg"/><img src="../diagrams/editor.svg" alt="nano 編輯、儲存與離開的操作圖" loading="lazy"/></picture><figcaption>nano 編輯、儲存與離開的操作圖</figcaption></figure>
+<h3 id="建立目錄">建立目錄</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ cd ~
+$ mkdir my_directory
+$ cd my_directory
+$ ls</code></pre></div>
+<h3 id="刪除檔案或目錄">刪除檔案或目錄</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code># 刪除檔案
+$ cd ~
+$ rm my_file.txt
+$ ls
+
+# 刪除同檔名但不同副檔名的檔案
+$ rm my_file.*
+
+# 刪除所有檔案
+$ rm *
+
+# 刪除目錄和內容
+$ rm -r mydir</code></pre></div>
+<h3 id="了解檔案權限">了解檔案權限</h3>
+<figure><picture><img src="../../環境安裝與設定/images/pic3.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<h3 id="改變檔案權限">改變檔案權限</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ chmod u+x file2.txt
+# u 代表user
+# g 代表group
+# o 代表other
+
+# + 代表增加權限
+# - 代表移除權限
+
+# x 代表可執行的權利
+</code></pre></div>
+<h3 id="vim基本操作">Vim基本操作</h3>
+<p>Vim 主要是使用模式的切換來進行輸入、移動游標、選取、複製及貼上等操作。在 Vim 主要常用的有幾個模式:Normal 模式以及 Insert 模式:</p>
+<figure><picture><img src="../../環境安裝與設定/images/pic1.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<ol><li>Normal模式，又稱命令模式，在這個模式下，無法輸入文字，僅能進行複製、貼上、存 檔或離開動作。</li><li>要開始輸入文字，需要先按下 i 、 a 或 o 這三個鍵其中一個進入 Insert 模式，便能 開始打字。其中， i 表示 insert ， a 表示 append ，而 o 則是表示會新增一行並開 始輸入。</li><li>在 Insert 模式下，按下 ESC 鍵或是 Ctrl + [ 組合鍵，可退回至 Normal 模式。</li><li>在 Normal 模式下，按下 :w 會進行存檔，按下 :q 會關閉這個檔案(但若未存檔會提</li></ol>
+<p>示先存檔再離開)，而 :wq 則是存檔完成後直接關閉這個檔案。</p>
+<ol><li>在一般模式下,按下shift + v,進入virtual line 模式(選取整行),可使用方向鍵,選取多行, 按下d可以刪除整行</li></ol></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

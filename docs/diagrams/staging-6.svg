@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 523" width="960" height="523" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">commit：記錄暫存區的版本</title><desc id="diagram-desc">工作區乾淨表示沒有待處理差異，不代表檔案或暫存區被清空。 工作區：沒有未暫存變更；index.txt：V2。暫存區：與 HEAD 相同；index.txt：V2；暫存區不是空的；只是沒有待提交差異。commit C1：已記錄 V2；index.txt：V2；main 指向 C1；HEAD 指向 main</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="523" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">01｜工作區與暫存區</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">commit：記錄暫存區的版本</tspan></text>
+<rect x="36" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">工作區</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">沒有未暫存變更</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">index.txt：V2</tspan></text>
+<rect x="338" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">暫存區</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">與 HEAD 相同</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">index.txt：V2</tspan><tspan x="358" dy="27">暫存區不是空的</tspan><tspan x="358" dy="27">只是沒有待提交差異</tspan></text>
+<rect x="640" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">commit C1</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">已記錄 V2</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">index.txt：V2</tspan><tspan x="660" dy="27">main 指向 C1</tspan><tspan x="660" dy="27">HEAD 指向 main</tspan></text>
+<rect x="36" y="370" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="401" class="command"><tspan x="54" dy="0">git commit -m &quot;新增語法介紹&quot;</tspan></text>
+<text x="36" y="468" class="note"><tspan x="36" dy="0">工作區乾淨表示沒有待處理差異，不代表檔案或暫存區被清空。</tspan></text>
+</svg>

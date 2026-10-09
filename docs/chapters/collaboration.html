@@ -1,0 +1,82 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GitHub 共同開發｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic is-current" href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#collaboration/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">一起開發 · 第 05 章</div><article class="reading-content"><h1 id="github-共同開發">GitHub 共同開發</h1>
+<p><strong>一起開發 · 第 05 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>本章附 SVG 圖解；可先讀 <a href="guide.html">互動版使用說明</a>，再用瀏覽器開啟 <code>docs/index.html#collaboration/1</code>，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。</p>
+<p>Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查與合併成果。先完成 <a href="branch.html">分支練習</a>，並閱讀 <a href="github.html">GitHub 基本操作</a> 準備帳號、clone 與登入方式，再做本章。</p>
+<h2 id="1-選一種合作方式">1. 選一種合作方式</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">方式</th><th scope="col">適合情況</th><th scope="col">操作流程</th></tr></thead><tbody><tr><td>GitHub 網頁編輯</td><td>文件、小幅文字修正</td><td>開新分支 → 網頁編輯並 commit → PR → 同學檢查 → 合併</td></tr><tr><td>同組共用一個儲存庫</td><td>小組作業，有寫入權限</td><td>clone → 個人任務分支 → commit → push → PR → 合併</td></tr><tr><td>Fork 到自己帳號</td><td>沒有原專案寫入權限，例如向老師交作業</td><td>Fork → clone 自己的副本 → 分支 → push → 向原專案送 PR</td></tr></tbody></table></div>
+<p><strong>PR（Pull Request）是提出合併請求，不是已經合併；push 也只是上傳 commit，不會自動把功能分支合併到 main。</strong></p>
+<p>我們使用 GitHub flow：小任務開分支，完成後送 PR，檢查後合併，再更新本地 main。這是本教材的小組合作約定；若要由 GitHub 強制執行，管理者需另行設定適用的分支保護或 ruleset。</p>
+<h2 id="2-最簡單只用-github-網頁">2. 最簡單：只用 GitHub 網頁</h2>
+<p>先由 A 同學建立名為 <code>class-team-demo</code> 的練習儲存庫，勾選新增 README，確認預設分支是 main。透過儲存庫 Settings 中的 Collaborators／存取管理邀請 B 同學，B 接受邀請；不同帳號類型可能顯示不同名稱。</p>
+<p>接著由 B 操作：</p>
+<ol><li>在分支選單從 main 建立 <code>docs-class-intro</code>，並確認目前選到這個分支。</li><li>開啟 README.md，按編輯按鈕，新增一段班級介紹。</li><li>選 Commit changes，訊息填「新增班級介紹」，提交到 docs-class-intro。</li><li>到 Pull requests → New pull request，選 <strong>base: main</strong>、<strong>compare: docs-class-intro</strong>，檢查差異後建立 PR。</li><li>A 打開 PR 的 Files changed，確認文字；需要修改時留下意見。B 在同一分支繼續修改與提交，PR 會更新。</li><li>A 確認後選 Merge pull request，再確認合併。若只有其他合併方式可選，先檢查儲存庫設定；本章練習使用一般 merge。</li><li>回到 main，確認新內容出現，再刪除已完成的分支。</li></ol>
+<p>先猜一猜：第 3 步提交完成時，main 的內容會改變嗎？答案是不會，直到 PR 合併後才會改變。</p>
+<h2 id="3-兩人實作本地開發再用-pr-整合">3. 兩人實作：本地開發，再用 PR 整合</h2>
+<h3 id="步驟一每人-clone-一份">步驟一：每人 clone 一份</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/collaboration-1.svg"/><img src="../diagrams/collaboration-1.svg" alt="每人一份本地專案與任務分支" loading="lazy"/></picture><figcaption>每人一份本地專案與任務分支</figcaption></figure>
+<p>沿用上一節的儲存庫與邀請。兩人各自在自己的電腦操作，使用終端機或 Git Bash。將網址中的 <code>OWNER</code> 換成 A 的 GitHub 帳號；不要原樣輸入。</p>
+<div class="reading-code"><span>bash</span><pre><code>git clone https://github.com/OWNER/class-team-demo.git
+cd class-team-demo
+git branch --show-current</code></pre></div>
+<p>預期目前分支是 main。clone 會自動把這個網址命名為 origin。</p>
+<p>若 push 需要驗證，使用已設定的 SSH，或 HTTPS 搭配 GitHub 登入／憑證工具或 personal access token；GitHub 帳號密碼不能作為 HTTPS Git 操作的密碼。設定方式見 <a href="ssh.html">SSH</a> 與 <a href="credentials.html">憑證</a>。</p>
+<h3 id="步驟二a-新增課程介紹">步驟二：A 新增課程介紹</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/collaboration-2.svg"/><img src="../diagrams/collaboration-2.svg" alt="commit 先保存在本地" loading="lazy"/></picture><figcaption>commit 先保存在本地</figcaption></figure>
+<p>操作位置：A 電腦的 class-team-demo。開始前確認工作區乾淨；若有修改，先處理自己的內容再切換。</p>
+<div class="reading-code"><span>bash</span><pre><code>git status --short
+git switch main
+git pull --ff-only origin main
+git switch -c docs-course
+printf &#39;# 課程介紹\n本課程練習 Git 與 GitHub。\n&#39; &gt; course.md
+cat course.md</code></pre></div>
+<p>最後一行讓你看新檔案內容。一般 <code>git diff</code> 不顯示未追蹤的新檔，所以先讀檔，再於下一步用 <code>git diff --staged</code> 檢查暫存內容。</p>
+<div class="reading-code"><span>bash</span><pre><code>git add course.md
+git diff --staged
+git commit -m &quot;新增課程介紹&quot;
+git push -u origin docs-course</code></pre></div>
+<p>預期 GitHub 上有 docs-course 分支。<code>-u</code> 設定追蹤關係；之後在這個分支通常可直接 <code>git push</code>。</p>
+<h3 id="步驟三b-新增小組成員">步驟三：B 新增小組成員</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/collaboration-3.svg"/><img src="../diagrams/collaboration-3.svg" alt="push 上傳任務分支，main 尚未合併" loading="lazy"/></picture><figcaption>push 上傳任務分支，main 尚未合併</figcaption></figure>
+<p>操作位置：B 電腦的 class-team-demo。B 不必等 A 完成，可以從自己的 main 開始。</p>
+<div class="reading-code"><span>bash</span><pre><code>git status --short
+git switch main
+git pull --ff-only origin main
+git switch -c docs-members
+printf &#39;# 小組成員\n- A 同學\n- B 同學\n&#39; &gt; members.md
+git add members.md
+git diff --staged
+git commit -m &quot;新增小組成員&quot;
+git push -u origin docs-members</code></pre></div>
+<p>預期有兩條任務分支，每人只處理自己的檔案。這次故意分開檔案，先練成功流程。</p>
+<h3 id="步驟四互相檢查-pr">步驟四：互相檢查 PR</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/collaboration-4.svg"/><img src="../diagrams/collaboration-4.svg" alt="PR 的目標與來源" loading="lazy"/></picture><figcaption>PR 的目標與來源</figcaption></figure>
+<p>操作位置：GitHub 網站。</p>
+<ol><li>A 建立 PR，base 選 main、compare 選 docs-course；B 用 docs-members 建立另一個 PR。</li><li>標題寫清楚新增什麼，描述寫「修改內容、如何確認、還有哪些未完成」。</li><li>B 看 A 的 Files changed，A 看 B 的 Files changed；確認內容與需求一致。</li><li>要修正時，在原任務分支修改、commit、push；不用為同一件事再開一個 PR。</li><li>有寫入權限的人依約定逐一合併兩個 PR，選一般 Merge pull request。若有檢查失敗或衝突，先處理後再合併。</li></ol>
+<p>互相檢查，不只按 Approve：實際閱讀新增內容；程式專案還要依專案說明執行與測試。</p>
+<h3 id="步驟五兩人都更新自己的-main">步驟五：兩人都更新自己的 main</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/collaboration-6.svg"/><img src="../diagrams/collaboration-6.svg" alt="合併後還要各自 pull" loading="lazy"/></picture><figcaption>合併後還要各自 pull</figcaption></figure>
+<p>先在 GitHub 確认兩個 PR 都已合併。兩人各自在自己的 class-team-demo 執行：</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch main
+git pull --ff-only origin main
+ls
+git status --short</code></pre></div>
+<p>預期都看得到 course.md 與 members.md，status 沒有輸出。GitHub 合併不會自動更新你的電腦。</p>
+<p>A 執行 <code>git branch -d docs-course</code>，B 執行 <code>git branch -d docs-members</code>。GitHub 可刪掉兩個遠端任務分支；本地再用 <code>git fetch --prune</code> 更新遠端追蹤紀錄。</p>
+<p>完成標準：main 上有兩人的成果；有兩份合併完成的 PR；兩人的本地 main 都已更新。</p>
+<h2 id="4-沒有寫入權限接著學-fork">4. 沒有寫入權限：接著學 Fork</h2>
+<p>本章的共用儲存庫方式需要寫入權限。向老師或其他人的專案提出修改時，可以先 Fork 到自己的帳號，再送 PR。</p>
+<p>操作方式已整理成獨立的 <a href="fork.html">第 06 章：用 Fork 交作業</a>，包含 origin／upstream、PR 方向與同步的完整練習。</p>
+<h2 id="5-同學改了-main我的任務還沒完成怎麼辦">5. 同學改了 main，我的任務還沒完成怎麼辦？</h2>
+<p>以下以仍在開發的 docs-members 為例；只在該分支尚未刪除時使用。先把自己的修改提交，確認工作區乾淨，再在 class-team-demo 操作：</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch docs-members
+git fetch origin
+git merge --no-edit origin/main</code></pre></div>
+<p>沒有衝突時，重新檢查功能，再 <code>git push</code>。如果出現衝突，Git 會列出檔案：</p>
+<ol><li>用 <code>git status</code> 找出有衝突的檔案，與同學確認要保留的內容。</li><li>編輯檔案，處理 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 之間的內容，移除標記。</li><li><code>git add 實際檔名</code>，再 <code>git commit -m &quot;整合 main 並解決衝突&quot;</code>。</li><li>執行專案檢查，再 push，PR 會更新。</li></ol>
+<p>如果決定暫停這次合併，在合併仍進行中時用 <code>git merge --abort</code>。不要在沒有弄清楚內容時叫 AI 全部選 ours 或 theirs。</p>
+<h2 id="6-小組約定與自己做">6. 小組約定與自己做</h2>
+<ul><li>一個任務一條分支，不讓兩人同時把不同任務 push 到同一條功能分支。</li><li>main 保留可使用的版本；日常修改走 PR。</li><li>開始任務前更新 main；送 PR 前閱讀差異與檢查結果。</li><li>第一輪分開檔案，熟悉後再練同一檔案的衝突處理。</li></ul>
+<p>換你們做：A 新增 schedule.md，B 新增 contact.md，各自開分支、送 PR、互相檢查、合併。完成後交換角色，說明 push、PR、merge、pull 各做了什麼。</p>
+<p>參考：<a href="https://docs.github.com/en/get-started/using-github/github-flow">GitHub flow</a>、<a href="https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request">建立 PR</a>、<a href="https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo">Fork 儲存庫</a>、<a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github">GitHub 驗證方式</a>。</p>
+<hr>
+<p><a href="ignore.html">← 忽略不需要追蹤的檔案</a>　｜　<a href="fork.html">用 Fork 交作業 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

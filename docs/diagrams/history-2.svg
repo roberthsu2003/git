@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 667" width="960" height="667" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">三次新增 b 檔案：分支跟著新提交往前</title><desc id="diagram-desc">C4 提交 b3.html；舊 commit 仍保留各自當時的版本。main 是可移動的分支名稱。 專案資料夾：C4 的版本；a1.html、a2.html、a3.html；b1.html、b2.html、b3.html</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="667" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">02｜main、HEAD 與歷史</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">三次新增 b 檔案：分支跟著新提交往前</tspan></text>
+<path d="M 120 175 L 350 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 350 175 L 580 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 580 175 L 810 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<circle cx="120" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="120" y="181" text-anchor="middle" class="commit">C1</text><text x="120" y="141" text-anchor="middle" class="ref">建立三個 a 檔案</text>
+<circle cx="350" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="350" y="181" text-anchor="middle" class="commit">C2</text><text x="350" y="141" text-anchor="middle" class="ref">新增 b1.html</text>
+<circle cx="580" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="580" y="181" text-anchor="middle" class="commit">C3</text><text x="580" y="141" text-anchor="middle" class="ref">新增 b2.html</text>
+<circle cx="810" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="810" y="181" text-anchor="middle" class="commit">C4</text><text x="810" y="141" text-anchor="middle" class="ref">HEAD → main</text>
+<text x="36" y="294" class="eyebrow"><tspan x="36" dy="0">圓點是 commit；線表示父子關係；名稱標示分支指向的位置。</tspan></text>
+<rect x="36" y="315" width="888" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 317 H 912" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="353" class="card-title"><tspan x="56" dy="0">專案資料夾</tspan></text>
+<text x="56" y="383" class="tag"><tspan x="56" dy="0">C4 的版本</tspan></text>
+<text x="56" y="420" class="body"><tspan x="56" dy="0">a1.html、a2.html、a3.html</tspan><tspan x="56" dy="27">b1.html、b2.html、b3.html</tspan></text>
+<rect x="36" y="514" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="545" class="command"><tspan x="54" dy="0">依序新增 b1.html、b2.html、b3.html，每次 add 與 commit</tspan></text>
+<text x="36" y="612" class="note"><tspan x="36" dy="0">C4 提交 b3.html；舊 commit 仍保留各自當時的版本。main 是可移動的分支名稱。</tspan></text>
+</svg>

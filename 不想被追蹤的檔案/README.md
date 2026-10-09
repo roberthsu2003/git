@@ -1,9 +1,13 @@
-# 不想被追蹤的檔案
+# 忽略不需要追蹤的檔案
+
+**建立版本 · 第 04 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+
+圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 [Git 圖解教室](../docs/README.md)。
 > 在專案中有一些檔案是不想被git管理的.例如一些編輯軟體的暫存檔或是一些token(密鎖)
 
 > 不想被管理的檔案,可以加人至.gitignore檔案清單中
 
-![](./images/pic1.png)
+![Git 概念圖：ignore-1](../docs/diagrams/ignore-1.svg)
 
 ## 情境1:一開使就確認檔案不被管理
 
@@ -189,7 +193,6 @@ Changes not staged for commit:
 
 - h.cer和hfolder目錄將不再被追蹤
 
+---
 
-
-
-
+[← 分支與合併](../分支/README.md)　｜　[GitHub 共同開發與 Fork →](../協作與PullRequest/README.md)

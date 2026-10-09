@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 496" width="960" height="496" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">老師合併後，同步自己的 main</title><desc id="diagram-desc">從老師拿更新，再把自己的 main 上傳到 Fork；不是 push 到老師的 upstream。 老師的 GitHub：main 已合併；包含 introduction.md。自己的 GitHub：origin/main 已同步；包含 introduction.md。自己的電腦：本地 main 已同步；包含 introduction.md；之後從 main 開新任務</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="496" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">06｜用 Fork 交作業</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">老師合併後，同步自己的 main</tspan></text>
+<rect x="36" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">老師的 GitHub</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">main 已合併</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">包含 introduction.md</tspan></text>
+<rect x="338" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">自己的 GitHub</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">origin/main 已同步</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">包含 introduction.md</tspan></text>
+<rect x="640" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">自己的電腦</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">本地 main 已同步</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">包含 introduction.md</tspan><tspan x="660" dy="27">之後從 main 開新任務</tspan></text>
+<rect x="36" y="343" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="374" class="command"><tspan x="54" dy="0">git fetch upstream；git merge --ff-only upstream/main；git push origin main</tspan></text>
+<text x="36" y="441" class="note"><tspan x="36" dy="0">從老師拿更新，再把自己的 main 上傳到 Fork；不是 push 到老師的 upstream。</tspan></text>
+</svg>

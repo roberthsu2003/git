@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 496" width="960" height="496" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">reset --soft：保留工作區與暫存區</title><desc id="diagram-desc">soft 適合重新組織自己的提交；不要把共享分支當作本地實驗。 工作區：仍是 V3；保留最新檔案內容。暫存區：仍是 V3；與 C1 比較有待提交差異。main 與 HEAD：回到 C1（V1）；只移動分支指標；舊 commit 不會立即刪除</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="496" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">10｜reset 的三種模式</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">reset --soft：保留工作區與暫存區</tspan></text>
+<rect x="36" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">工作區</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">仍是 V3</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">保留最新檔案內容</tspan></text>
+<rect x="338" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">暫存區</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">仍是 V3</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">與 C1 比較有待提交差異</tspan></text>
+<rect x="640" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">main 與 HEAD</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">回到 C1（V1）</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">只移動分支指標</tspan><tspan x="660" dy="27">舊 commit 不會立即刪除</tspan></text>
+<rect x="36" y="343" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="374" class="command"><tspan x="54" dy="0">git reset --soft C1</tspan></text>
+<text x="36" y="441" class="note"><tspan x="36" dy="0">soft 適合重新組織自己的提交；不要把共享分支當作本地實驗。</tspan></text>
+</svg>

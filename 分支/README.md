@@ -1,4 +1,8 @@
-# 分支：先試做功能，再合併回主要版本
+# 分支與合併
+
+**建立版本 · 第 03 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#branch/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 你想新增會員功能，但又想保留目前可以使用的版本。分支可以記錄不同的開發路線；完成後，再把成果合併回主要分支。
 
@@ -22,6 +26,9 @@
 
 ### 步驟一：建立起點
 
+![main 的首頁起點](../docs/diagrams/branch-1.svg)
+
+
 操作位置：你選的練習位置。
 
 ```bash
@@ -36,6 +43,9 @@ git commit -m "建立首頁"
 預期：主要分支叫 main，裡面有 index.txt。
 
 ### 步驟二：建立並切換分支
+
+![新分支先指向相同 commit](../docs/diagrams/branch-2.svg)
+
 
 操作位置：`branch-demo`。
 
@@ -55,6 +65,9 @@ git branch
 
 ### 步驟三：提交新功能
 
+![只有 feature-login 往前](../docs/diagrams/branch-3.svg)
+
+
 操作位置：`branch-demo` 的 feature-login 分支。
 
 ```bash
@@ -70,6 +83,9 @@ ls
 
 ### 步驟四：回到主要版本
 
+![切回 main 時的檔案](../docs/diagrams/branch-4.svg)
+
+
 ```bash
 git switch main
 ls
@@ -78,6 +94,9 @@ ls
 預期：只剩 index.txt。login.txt 已保存在 feature-login 的 commit 中，沒有遺失。
 
 ### 步驟五：合併與確認
+
+![fast-forward 把 main 移到功能 commit](../docs/diagrams/branch-5.svg)
+
 
 操作位置：`branch-demo` 的 main 分支。
 
@@ -92,6 +111,9 @@ git log --oneline --graph --all
 這次 main 沒增加其他 commit，只要把 main 指標往前移，稱為 fast-forward。`--ff-only` 表示只接受這種合併；如果兩邊都繼續開發，Git 會拒絕這個選項，需要改用一般合併並檢查是否有衝突。
 
 ### 步驟六：刪除已完成的分支
+
+![刪分支名稱後成果仍保留](../docs/diagrams/branch-6.svg)
+
 
 ```bash
 git branch -d feature-login
@@ -138,3 +160,7 @@ git status --short
 squash 後，Git 不一定把原分支判定為「已合併」，`branch -d` 可能拒絕刪除。初學練習先用一般合併，理解歷史後再學整理。
 
 延伸：[worktree：同時在不同資料夾工作](../worktree)、[GitHub 共同開發與 Pull Request](../協作與PullRequest)、[rebase 進階筆記](../git_rebase)。
+
+---
+
+[← main、HEAD 與歷史](../使用master主要分支/README.md)　｜　[忽略不需要追蹤的檔案 →](../不想被追蹤的檔案/README.md)

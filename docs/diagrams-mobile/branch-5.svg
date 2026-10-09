@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 393" width="440" height="393" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">fast-forward：main 移到 C2</title><desc id="diagram-desc">main 沒有分岔，因此只移動指標，不新增 merge commit。 branch-demo/：目前分支 main；index.txt：Home page；login.txt：Login form</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="393" rx="16" fill="#fafbf7"/>
+<circle cx="48" cy="46" r="20" fill="#fff" stroke="#748f61" stroke-width="2"/><text x="48" y="52" text-anchor="middle" class="commit">C1</text>
+<text x="84" y="38" class="ref"><tspan x="84" dy="0">起點</tspan></text>
+<text x="84" y="89" class="eyebrow"><tspan x="84" dy="0">起點／圖中未列出父 commit</tspan></text>
+<circle cx="48" cy="140" r="20" fill="#fff" stroke="#748f61" stroke-width="2"/><text x="48" y="146" text-anchor="middle" class="commit">C2</text>
+<text x="84" y="132" class="ref"><tspan x="84" dy="0">HEAD → main、feature-login</tspan></text>
+<text x="84" y="183" class="eyebrow"><tspan x="84" dy="0">父 commit：C1</tspan></text>
+<rect x="16" y="200" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 202 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="238" class="card-title"><tspan x="36" dy="0">branch-demo/</tspan></text>
+<text x="36" y="268" class="tag"><tspan x="36" dy="0">目前分支 main</tspan></text>
+<text x="36" y="305" class="body"><tspan x="36" dy="0">index.txt：Home page</tspan><tspan x="36" dy="27">login.txt：Login form</tspan></text>
+</svg>

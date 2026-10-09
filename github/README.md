@@ -2,6 +2,10 @@
 # GitHub基本使用方法
 
 本章是指令查詢，不是要從頭連續執行的練習。想跟同學一起完成作業，請接著閱讀 [GitHub 簡單共同開發與 PR](../協作與PullRequest)；使用 AI 修改程式時，參考 [Git 策略](../日常工作流程)。
+
+![push 上傳任務分支，不會自動合併 main](../docs/diagrams/collaboration-3.svg)
+
+先看懂本地與 GitHub 的差別，再操作下面指令。完整互動流程見 [SVG 圖解教室](../docs/README.md)。
 ## 0. 申請一個Github個人帳號
 
 ## 1. 編輯git的config

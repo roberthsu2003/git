@@ -1,0 +1,136 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>rebase｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h2 id="git-rebase">git rebase</h2>
+<h3 id="重新修改多個commit-">重新修改多個commit </h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#修改目前的前3個commit
+
+$ git rebase -i HEAD~3</code></pre></div>
+<h3 id="重新修改多個commit的message">重新修改多個commit的message</h3>
+<ol><li>#### 增加3個commit</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ echo &#39;f4.html&#39; &gt;&gt; f4.html
+$ git add f4.html
+$ git commit -m &quot;add f4.html&quot;
+[main (root-commit) ef76d6a] add f4.html
+ 1 file changed, 1 insertion(+)
+ create mode 100644 f4.html
+ 
+$ echo &#39;ht.html&#39; &gt; f5.html
+$ git add f5.html
+$ git commit -m &quot;add f5.html&quot;
+[main c75f677] add f5.html
+ 1 file changed, 1 insertion(+)
+ create mode 100644 f5.html
+ 
+$ echo &#39;h6.html&#39; &gt; f6.html
+$ git add f6.html
+$ git commit -m &quot;ad h6.html&quot;
+[main 560225d] ad h6.html
+ 1 file changed, 1 insertion(+)
+ create mode 100644 f6.html
+ $ git log --oneline
+560225d (HEAD -&gt; main) ad h6.html
+c75f677 add f5.html
+ef76d6a add f4.html</code></pre></div>
+<ol><li>#### 一次修改3個commit message</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git rebase -i HEAD~3   #修改前3個
+----------------------------------------												 
+#將pick改為reword改為reword(修改commit message)
+#執行後,會分別出現2次新的commit message修改對話框
+
+reword 807884e 新增f4.html
+reword d0a9f5a 新增f5.html
+reword 0c8d81f 新增f6.html
+
+# Rebase 0abe09e..ac95c93 onto 0abe09e (3 commands)
+#
+# Commands:
+# p, pick &lt;commit&gt; = use commit
+# r, reword &lt;commit&gt; = use commit, but edit the commit message</code></pre></div>
+<h3 id="將3個commit擠壓成為1個">將3個commit,擠壓成為1個</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git rebase -i HEAD~3   #修改前3個
+------------------------------------
+#將第2個和第3個改為squash(向前擠壓)
+#第1個保持pick
+#會開啟一個對話框,可以修改新的commit message
+
+pick 144a0e8 新增f4.html修改
+squash 949e35b 新增f5.html修改
+squash b86cfdf 新增f6.html修改</code></pre></div>
+<h3 id="將1個commit拆解為2個">將1個commit,拆解為2個</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log --oneline
+e341558 (HEAD -&gt; main) add h7.html
+b92cb0f add f5.html-modify add h6.html modify #將要拆解中間這個
+ef76d6a add f4.html</code></pre></div>
+<ol><li>#### 開始拆解</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git rebase -i HEAD~2
+
+#將要拆解的改為edit
+pick b92cb0f add f5.html-modify add h6.html modify
+pick e341558 add h7.html</code></pre></div>
+<ol><li>#### 拆解說明</li><li>git commit --amend </li><li>git rebase --continue # 拆解完成要執行這個指令</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>Stopped at b92cb0f...  add f5.html-modify add h6.html modify
+You can amend the commit now, with
+
+  git commit --amend 
+
+Once you are satisfied with your changes, run
+
+  git rebase --continue
+</code></pre></div>
+<ol><li>#### 先使用git status開查stage 和 working directory內的狀態</li><li>無任何東西</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git status
+interactive rebase in progress; onto ef76d6a #現在正在rebase中
+Last command done (1 command done):
+   edit b92cb0f add f5.html-modify add h6.html modify
+Next command to do (1 remaining command):
+   pick e341558 add h7.html
+  (use &quot;git rebase --edit-todo&quot; to view and edit)
+You are currently editing a commit while rebasing branch &#39;main&#39; on &#39;ef76d6a&#39;.
+  (use &quot;git commit --amend&quot; to amend the current commit)
+  (use &quot;git rebase --continue&quot; once you are satisfied with your changes)
+
+nothing to commit, working tree clean
+</code></pre></div>
+<ol><li>#### 將目前的commit內容,分解至working directory</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git reset HEAD^
+$ git status
+interactive rebase in progress; onto ef76d6a
+Last command done (1 command done):
+   edit b92cb0f add f5.html-modify add h6.html modify
+Next command to do (1 remaining command):
+   pick e341558 add h7.html
+  (use &quot;git rebase --edit-todo&quot; to view and edit)
+You are currently editing a commit while rebasing branch &#39;main&#39; on &#39;ef76d6a&#39;.
+  (use &quot;git commit --amend&quot; to amend the current commit)
+  (use &quot;git rebase --continue&quot; once you are satisfied with your changes)
+
+Untracked files:  # 已經被拆解至working directory
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+	f5.html
+	f6.html
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre></div>
+<ol><li>#### 建立2個新增的commit</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code> $ git add f5.html
+ $ git commit -m &quot;add f5.html&quot;
+ $ git add f6.html\
+ $ git commit -m &quot;add f6.html&quot;</code></pre></div>
+<ol><li>#### 結束rebase,和檢查commit</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git rebase --continue
+$ git log --oneline
+
+#已經被拆解為2個了
+cfb65c5 (HEAD -&gt; main) add h7.html
+859de98 add f6.html
+09b96cf add f5.html
+ef76d6a add f4.html</code></pre></div>
+<h3 id="rebase的fixup-和-squash是相似的也是向前組合commit但不會要求更改commit的message">rebase的fixup 和 squash是相似的,也是向前組合commit,但不會要求更改commit的message</h3>
+<ol><li>#### 執行rebase</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git rebase -i HEAD~3
+
+#將後面2個組合至第1個
+pick 09b96cf add f5.html
+fixup 859de98 add f6.html
+fixup cfb65c5 add h7.html</code></pre></div>
+<ol><li>#### 檢查commit內容</li></ol>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log --oneline
+b500edb (HEAD -&gt; main) add f5.html
+ef76d6a add f4.html</code></pre></div></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

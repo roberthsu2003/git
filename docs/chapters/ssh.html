@@ -1,0 +1,101 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SSH 設定｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h1 id="設定ssh-key-連線">設定SSH KEY 連線</h1>
+<h2 id="mac">Mac</h2>
+<h3 id="此方法可以建立不同github帳號和不同的repo的ssh-key">此方法可以建立不同github帳號和不同的repo的ssh key</h3>
+<h3 id="原則為先建立公開和私有ssh金鑰並先處理ssh-key再clone-repo會比較簡單">原則為先建立公開和私有SSH金鑰,並先處理SSH Key,再clone repo會比較簡單</h3>
+<h3 id="步驟1建立ssh金鑰">步驟1:建立SSH金鑰</h3>
+<ol><li><strong>打開Terminal</strong></li><li><strong>進入~/.ssh的資料夾</strong></li></ol>
+<div class="reading-code"><span>bash</span><pre><code>cd ~/.ssh</code></pre></div>
+<p>3.<strong>為每一個帳號和Repo建立不同的SSH Key</strong></p>
+<ul><li>以下範例一次建立2個SSH Key</li></ul>
+<div class="reading-code"><span>bash</span><pre><code>ssh-keygen -t rsa -b 4096 -C &quot;your-email-for-account1@example.com&quot; -f id_rsa_account1
+ssh-keygen -t rsa -b 4096 -C &quot;your-email-for-account2@example.com&quot; -f id_rsa_account2</code></pre></div>
+<blockquote>your-email-for-account1@example.com:必需是<strong>github的帳號email</strong><br><br>id_rsa_account1:<strong>建立SSH Key的名稱</strong></blockquote>
+<p>輸入後會出現下面幾行,如下所示:</p>
+<ul><li>會自動將金鑰建立於/Users/you/.ssh/id_rsa</li><li>取用這個鈕鑰有需要使用驗証碼(passphrase)嗎?(一般我直接按enter)</li><li>完成後,將產生私有金鑰id_rsa和公有金鑰id_rsa.pub</li><li>公有金鑰必需要放至github的repo內</li></ul>
+<div class="reading-code"><span>操作與輸出</span><pre><code>Generating public/private rsa key pair.
+Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]
+Enter passphrase (empty for no passphrase): [Type a passphrase]
+Enter same passphrase again: [Type passphrase again]</code></pre></div>
+<h3 id="步驟2-將ssh-keys加入至ssh-agent">步驟2. 將SSH keys加入至SSH Agent</h3>
+<ol><li><strong>啟動SSH agent:</strong></li></ol>
+<div class="reading-code"><span>bash</span><pre><code>eval &quot;$(ssh-agent -s)&quot;</code></pre></div>
+<ol><li><strong>加入剛產生的SSH Key(沒有.pub的key)進入agent</strong></li></ol>
+<div class="reading-code"><span>bash</span><pre><code>ssh-add ~/.ssh/id_rsa_account1
+ssh-add ~/.ssh/id_rsa_account2</code></pre></div>
+<ol><li><strong>檢查加入至SSH Agent的SSH Key</strong></li></ol>
+<div class="reading-code"><span>bash</span><pre><code>ssh-add -L</code></pre></div>
+<h3 id="步驟3-將public-key增加至repo內">步驟3. 將Public key增加至repo內</h3>
+<ol><li><strong>顯示並複制顯示的public key至剪貼簿</strong></li></ol>
+<div class="reading-code"><span>bash</span><pre><code>cat ~/.ssh/id_rsa_account1.pub</code></pre></div>
+<ol><li><strong>至Github Repo內的Setting -&gt; Deploy Keys</strong></li><li><strong>新增SSH key title(自訂一個名稱),貼上public key,並允許read/write</strong></li></ol>
+<figure><picture><img src="../../ssh/images/image1.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<h3 id="步驟4-建立ssh的configuration檔案">步驟4. 建立ssh的Configuration檔案</h3>
+<ol><li><strong>打開或建立SSH的config檔案</strong></li></ol>
+<div class="reading-code"><span>bash</span><pre><code>vim ~/.ssh/config</code></pre></div>
+<ol><li><strong>加入下列的設定內容至config檔內</strong></li></ol>
+<div class="reading-code"><span>config</span><pre><code>	# Host  -是小名,ssh指令將知道這個小名,(小名將被設定至git remote url內)
+	# HostName和User  -組合後就成為git@github.com
+	# IdentityFile  -告知對應的ssh key
+	# AddKeysToAgent yes -自動將此ssh key加入至key agent
+	# UseKeyChain yes  -如果ssh key使用時,需要使用密碼時,自動使用鑰匙圈內的密碼.由於我們建立ssh key時,並沒有使用密碼可以不設定。樹莓派並沒有鑰匙圈的功能,一定不可以使用,不然會出錯
+	
+Host github-personal
+    HostName github.com
+    User git
+    AddKeysToAgent yes
+    UseKeyChain yes
+    IdentityFile ~/.ssh/id_rsa_account1
+
+# Work account
+Host github-work
+    HostName github.com
+    User git
+    AddKeysToAgent yes
+    UseKeyChain yes
+    IdentityFile ~/.ssh/id_rsa_account2
+    
+# *的意思是所有使用上面的Host全部會自動套用下面的內容
+Host *
+    AddKeysToAgent yes
+    UseKeyChain yes</code></pre></div>
+<ol><li><strong>測試</strong></li><li><strong>直接使用githbu的位置</strong></li></ol>
+<div class="reading-code"><span>bash</span><pre><code>ssh -T git@github.com</code></pre></div>
+<ul><li><strong>使用小名的名稱</strong></li></ul>
+<div class="reading-code"><span>bash</span><pre><code>ssh -T github-personal
+ssh -T github-work</code></pre></div>
+<h3 id="步驟5-使用小名的方式clone-repo自本機">步驟5. 使用小名的方式,clone repo自本機</h3>
+<ul><li><strong>請使用小名方式clone</strong></li><li><strong>小名已經定義在config內了</strong></li></ul>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#使用小名的方式clone
+git clone github-personal:roberthsu2003/__2024_09_04_tvdi__.git</code></pre></div>
+<blockquote>注意:小名為github-personal:</blockquote>
+<div class="reading-code"><span>操作與輸出</span><pre><code>#使用github官方的方式clone
+git clone git@github.com:roberthsu2003/__2024_09_04_tvdi__.git</code></pre></div>
+<blockquote>注意:官方的位置設定在git@github.com:</blockquote>
+<h3 id="步驟6-更改每個repo內的local-username和useremail">步驟6. 更改每個repo內的local user.name和user.email</h3>
+<ul><li>全域的要設定--global</li></ul>
+<div class="reading-code"><span>bash</span><pre><code>git config user.name &quot;Your Name&quot;
+git config user.email &quot;your-email-for-account1@example.com&quot;</code></pre></div>
+<h2 id="raspberry-樹莓派">Raspberry-樹莓派</h2>
+<ul><li>設定方法和Mac是一樣的,只要注意樹莓派並沒有鑰匙圈的功能,config檔內的設定不可以有<code>UseKeyChain yes</code></li></ul>
+<div class="reading-code"><span>config</span><pre><code>	# Host  -是小名,ssh指令將知道這個小名,(小名將被設定至git remote url內)
+	# HostName和User  -組合後就成為git@github.com
+	# IdentityFile  -告知對應的ssh key
+	# AddKeysToAgent yes -自動將此ssh key加入至key agent
+	# UseKeyChain yes  -如果ssh key使用時,需要使用密碼時,自動使用鑰匙圈內的密碼.由於我們建立ssh key時,並沒有使用密碼可以不設定。樹莓派並沒有鑰匙圈的功能,一定不可以使用,不然會出錯
+	
+Host github-personal
+    HostName github.com
+    User git
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_rsa_account1
+
+# Work account
+Host github-work
+    HostName github.com
+    User git
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_rsa_account2
+    
+# *的意思是所有使用上面的Host全部會自動套用下面的內容
+Host *
+    AddKeysToAgent yes</code></pre></div></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

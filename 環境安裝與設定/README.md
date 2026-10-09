@@ -260,7 +260,7 @@ $ less myfile.txt
 $ touch my_file.txt
 $ nano my_file.txt
 ```
-![](images/pic2.png)
+![nano 編輯、儲存與離開的操作圖](../docs/diagrams/editor.svg)
 
 ### 建立目錄
 

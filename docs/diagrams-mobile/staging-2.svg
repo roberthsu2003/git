@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 568" width="440" height="568" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">建立檔案：Git 尚未追蹤</title><desc id="diagram-desc">建立檔案不等於 Git 已保存它；新檔案要先 git add。 工作區：未追蹤 ??；index.txt：空檔案。暫存區：尚未 add；沒有 index.txt。commit 紀錄：尚未 commit；還沒有 commit</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="568" rx="16" fill="#fafbf7"/>
+<rect x="16" y="18" width="408" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="56" class="card-title"><tspan x="36" dy="0">工作區</tspan></text>
+<text x="36" y="86" class="tag"><tspan x="36" dy="0">未追蹤 ??</tspan></text>
+<text x="36" y="123" class="body"><tspan x="36" dy="0">index.txt：空檔案</tspan></text>
+<rect x="16" y="200" width="408" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 202 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="238" class="card-title"><tspan x="36" dy="0">暫存區</tspan></text>
+<text x="36" y="268" class="tag"><tspan x="36" dy="0">尚未 add</tspan></text>
+<text x="36" y="305" class="body"><tspan x="36" dy="0">沒有 index.txt</tspan></text>
+<rect x="16" y="382" width="408" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 384 H 412" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="420" class="card-title"><tspan x="36" dy="0">commit 紀錄</tspan></text>
+<text x="36" y="450" class="tag"><tspan x="36" dy="0">尚未 commit</tspan></text>
+<text x="36" y="487" class="body"><tspan x="36" dy="0">還沒有 commit</tspan></text>
+</svg>

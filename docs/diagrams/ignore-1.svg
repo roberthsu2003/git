@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 523" width="960" height="523" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">新檔案與既有檔案，結果不同</title><desc id="diagram-desc">把不含秘密的 .env.example 加入教材，真實金鑰不要提交。 新的 .env：尚未追蹤；符合忽略規則；一般 add 不會加入；仍存在於電腦。已追蹤的 .env：仍被追蹤；只改 .gitignore 不夠；rm --cached 取消追蹤；再 commit 記錄變更。舊 commit：歷史仍有內容；ignore 不清除舊版本；已洩漏秘密需另行處理</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="523" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">04｜忽略不需要追蹤的檔案</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">新檔案與既有檔案，結果不同</tspan></text>
+<rect x="36" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">新的 .env</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">尚未追蹤</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">符合忽略規則</tspan><tspan x="56" dy="27">一般 add 不會加入</tspan><tspan x="56" dy="27">仍存在於電腦</tspan></text>
+<rect x="338" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">已追蹤的 .env</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">仍被追蹤</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">只改 .gitignore 不夠</tspan><tspan x="358" dy="27">rm --cached 取消追蹤</tspan><tspan x="358" dy="27">再 commit 記錄變更</tspan></text>
+<rect x="640" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">舊 commit</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">歷史仍有內容</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">ignore 不清除舊版本</tspan><tspan x="660" dy="27">已洩漏秘密需另行處理</tspan></text>
+<rect x="36" y="370" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="401" class="command"><tspan x="54" dy="0">.gitignore 加入 .env；已追蹤時另需 git rm --cached .env</tspan></text>
+<text x="36" y="468" class="note"><tspan x="36" dy="0">把不含秘密的 .env.example 加入教材，真實金鑰不要提交。</tspan></text>
+</svg>

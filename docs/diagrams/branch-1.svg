@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 667" width="960" height="667" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">起點：main 有首頁</title><desc id="diagram-desc">分支名稱指向 commit；HEAD 表示目前使用的分支。 branch-demo/：目前分支 main；index.txt：Home page；沒有 login.txt</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="667" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">03｜分支與合併</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">起點：main 有首頁</tspan></text>
+<circle cx="180" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="180" y="181" text-anchor="middle" class="commit">C1</text><text x="180" y="141" text-anchor="middle" class="ref">HEAD → main</text>
+<text x="36" y="294" class="eyebrow"><tspan x="36" dy="0">圓點是 commit；線表示父子關係；名稱標示分支指向的位置。</tspan></text>
+<rect x="36" y="315" width="888" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 317 H 912" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="353" class="card-title"><tspan x="56" dy="0">branch-demo/</tspan></text>
+<text x="56" y="383" class="tag"><tspan x="56" dy="0">目前分支 main</tspan></text>
+<text x="56" y="420" class="body"><tspan x="56" dy="0">index.txt：Home page</tspan><tspan x="56" dy="27">沒有 login.txt</tspan></text>
+<rect x="36" y="514" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="545" class="command"><tspan x="54" dy="0">git init -b main；建立首頁並 commit</tspan></text>
+<text x="36" y="612" class="note"><tspan x="36" dy="0">分支名稱指向 commit；HEAD 表示目前使用的分支。</tspan></text>
+</svg>

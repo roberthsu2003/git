@@ -1,0 +1,268 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>還原檔案與取消暫存｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic is-current" href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#restore/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">復原與整理 · 第 09 章</div><article class="reading-content"><h1 id="還原檔案與取消暫存">還原檔案與取消暫存</h1>
+<p><strong>復原與整理 · 第 09 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 <a href="guide.html">Git 圖解教室</a>。</p>
+<blockquote>在有些情景，我們可能會刪除一些檔案或編輯一些內容,如何回復到目前HEAD的原始狀態.￼</blockquote>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/restore-1.svg"/><img src="../diagrams/restore-1.svg" alt="Git 概念圖：restore-1" loading="lazy"/></picture><figcaption>Git 概念圖：restore-1</figcaption></figure>
+<ol><li>從工作區回復</li><li>從暫存區回復</li></ol>
+<h2 id="從工作區回復">從工作區回復</h2>
+<ul><li>使用git restore</li></ul>
+<h3 id="新增c1htmlc2htmlc3htmlc3html加入內容">新增c1.html,c2.html,c3.html,c3.html加入內容</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch c1.html
+$ touch c2.html
+$ touch c3.html
+$ vim c3.html
+____________________________
+我是原始狀態
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+
+
+# 建立新的commit
+
+$ git add —all
+$ git commit -m “新增c1.html,c2.html,c3.html,c3.html加入內容”
+$ git log —oneline       #用簡短方式顯示log
+
+______________________________
+bfe5b85 (HEAD -&gt; master) 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+
+$ ls -al          #檢示目前的檔案
+____________________________________
+
+total 13
+drwxr-xr-x 1 User 197121  0 Dec  2 10:25 ./
+drwxr-xr-x 1 User 197121  0 Dec  1 11:46 ../
+drwxr-xr-x 1 User 197121  0 Dec  2 10:27 .git/
+-rw-r--r-- 1 User 197121  0 Dec  1 12:11 a1.html
+-rw-r--r-- 1 User 197121  0 Dec  1 12:11 a2.html
+-rw-r--r-- 1 User 197121  0 Dec  1 12:11 a3.html
+-rw-r--r-- 1 User 197121  0 Dec  1 13:48 b1.html
+-rw-r--r-- 1 User 197121  0 Dec  1 13:48 b2.html
+-rw-r--r-- 1 User 197121  0 Dec  1 13:49 b3.html
+-rw-r--r-- 1 User 197121  0 Dec  2 10:11 c1.html
+-rw-r--r-- 1 User 197121  0 Dec  2 10:11 c2.html
+-rw-r--r-- 1 User 197121 19 Dec  2 10:12 c3.html</code></pre></div>
+<ul><li>以上表示我們最新狀態HEAD是在bfe5b85</li><li>以上新增c1.html,c2.html,c3.html</li></ul>
+<h3 id="刪除c1htmlc2html和修改c3html">刪除c1.html,c2.html和修改c3.html</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ rm c1.html
+$ rm c2.html
+$ vim c3.html
+
+________________________________________
+
+我是原始狀態
+這是新編輯的內容
+~
+~
+~
+~
+~
+~
+~
+~
+~
+
+
+________________________________________
+
+$ git status
+
+___________________________________________
+
+On branch master
+Changes not staged for commit:
+  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+        deleted:    c1.html
+        deleted:    c2.html
+        modified:   c3.html
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+
+____________________________________________________
+</code></pre></div>
+<p>以上代表：</p>
+<ul><li>deleted:    c1.html</li><li>deleted:    c2.html</li><li>modified:   c3.html</li></ul>
+<h3 id="回復至原來工作區的狀態">回復至原來工作區的狀態</h3>
+<blockquote>使用git restore file file  檔案回復</blockquote>
+<blockquote>使用git restore . 全部回復</blockquote>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git restore c1.html c2.html
+$ git restore .
+$ git status
+
+________________________
+On branch master
+nothing to commit, working tree clean
+_____________________________________
+
+$ vim c3.html
+________________________________
+我是原始狀態
+~
+~
+~
+
+________________________________
+
+$ ls -al
+
+________________________________
+total 13
+drwxr-xr-x 1 User 197121  0 Dec  2 11:04 ./
+drwxr-xr-x 1 User 197121  0 Dec  1 11:46 ../
+drwxr-xr-x 1 User 197121  0 Dec  2 11:00 .git/
+-rw-r--r-- 1 User 197121  0 Dec  1 12:11 a1.html
+-rw-r--r-- 1 User 197121  0 Dec  1 12:11 a2.html
+-rw-r--r-- 1 User 197121  0 Dec  1 12:11 a3.html
+-rw-r--r-- 1 User 197121  0 Dec  1 13:48 b1.html
+-rw-r--r-- 1 User 197121  0 Dec  1 13:48 b2.html
+-rw-r--r-- 1 User 197121  0 Dec  1 13:49 b3.html
+-rw-r--r-- 1 User 197121  0 Dec  2 11:00 c1.html
+-rw-r--r-- 1 User 197121  0 Dec  2 11:00 c2.html
+-rw-r--r-- 1 User 197121 20 Dec  2 11:00 c3.html
+________________________________</code></pre></div>
+<p>以上表示全部回復</p>
+<h2 id="從暫存區回復">從暫存區回復</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/restore-2.svg"/><img src="../diagrams/restore-2.svg" alt="Git 概念圖：restore-2" loading="lazy"/></picture><figcaption>Git 概念圖：restore-2</figcaption></figure>
+<h3 id="新增d1htmld2htmld3htmld3html加入內容">新增d1.html,d2.html,d3.html,d3.html加入內容</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch d1.html
+$ touch d2.html
+$ vim d3.html         #d3自己加入內容￼
+$ git add .
+$ git commit -m “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+$ ls d*.html -al
+
+___________________
+-rw-r--r-- 1 User 197121  0 Dec  4 11:13 d1.html
+-rw-r--r-- 1 User 197121  0 Dec  4 11:13 d2.html
+-rw-r--r-- 1 User 197121 22 Dec  4 11:14 d3.html
+
+$ git status
+On branch master
+nothing to commit, working tree clean</code></pre></div>
+<h3 id="刪除d1htmld2html編輯d3html加入暫存區">刪除d1.html,d2.html,編輯d3.html,加入暫存區</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ rm d1.html
+$ rm d2.html
+$ vim d3.html    # 修改內容
+$ git add d1.html d2.html d3.html
+$ git status
+________________________________
+
+-On branch master
+Changes to be committed:
+  (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)
+        deleted:    d1.html
+        deleted:    d2.html
+        modified:   d3.html
+
+$ ls d*.html -al
+________________________________
+-rw-r--r-- 1 User 197121 44 Dec  4 11:32 d3.html
+</code></pre></div>
+<ul><li>以上代表被放入至stage</li><li>只剩 d3.html</li></ul>
+<h3 id="回復至工作區">回復至工作區</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git restore --staged d1.html d2.html d3.html
+
+____________________________
+On branch master
+Changes not staged for commit:
+  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+        deleted:    d1.html
+        deleted:    d2.html
+        modified:   d3.html
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+</code></pre></div>
+<ul><li>代表回復至工作區</li></ul>
+<h3 id="回復到head原始狀態">回復到HEAD原始狀態</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git restore .
+$ git status
+____________________________
+On branch master
+nothing to commit, working tree clean
+
+$ ls d*.* -al
+______________________________
+-rw-r--r-- 1 User 197121  0 Dec  4 11:47 d1.html
+-rw-r--r-- 1 User 197121  0 Dec  4 11:47 d2.html
+-rw-r--r-- 1 User 197121 23 Dec  4 11:47 d3.html
+</code></pre></div>
+<ul><li>代表回復到HEAD原始狀態</li><li>檔案回復了</li></ul>
+<h3 id="如果在working-area內的是untracked-file必需使用git-clean">如果在working area內的是untracked file,必需使用git clean</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git clean -fd 檔案名稱</code></pre></div>
+<h2 id="從記錄區commit回復">從記錄區(commit)回復</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/reset-3.svg"/><img src="../diagrams/reset-3.svg" alt="Git 概念圖：reset-3" loading="lazy"/></picture><figcaption>Git 概念圖：reset-3</figcaption></figure>
+<h3 id="新增e1htmle2htmle3html並建立記錄點commit">新增e1.html,e2.html,e3.html,並建立記錄點(commit)</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch e1.html
+$ touch e2.html
+$ touch e3.html
+$ git add .
+$ git commit  -m “新增e1.html,e2.html,e3.html”   
+$ git status
+_______________________
+On branch master
+nothing to commit, working tree clean
+</code></pre></div>
+<h3 id="刪除e1htmle2htmle3html並建立記錄點commit">刪除e1.html,e2.html,e3.html,並建立記錄點(commit)</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ rm e1.html e2.html e3.html
+$ git commit -a -m “刪除e1.html,e2.html,e3.html”    #已經追蹤的檔案可以直接使用 -a 加入暫存庫
+
+$ git log --oneline
+_____________________________________
+d4e1b24 (HEAD -&gt; master) 刪除e1.html,e2.html,e3.html
+c1a6019 新增e1.html,e2.html,e3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+</code></pre></div>
+<ul><li>以上代表HEAD識別碼是d4e1b24</li><li>前一個識別碼是c1a6019</li></ul>
+<h3 id="使用git-reset-回到前一個comitheadmaster都改為指向c1a6019">使用git reset 回到前一個comit（HEAD,master都改為指向c1a6019)</h3>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git reset c1a6019 --hard    #--hard將在後面章節講解
+_____________________________________________
+HEAD is now at c1a6019 新增e1.html,e2.html,e3.html
+
+$ git log --oneline 
+_________________________
+
+c1a6019 (HEAD -&gt; master) 新增e1.html,e2.html,e3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+
+$ ls e*.html
+___________________________
+e1.html  e2.html  e3.html
+</code></pre></div>
+<ul><li>上面代表回到前一個記錄點(commit)</li><li>刪除的檔案救回來了</li></ul>
+<hr>
+<p><a href="ai.html">← AI 開發的 Git 節奏</a>　｜　<a href="reset.html">reset 的三種模式 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

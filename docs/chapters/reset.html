@@ -1,0 +1,177 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>reset 的三種模式｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic is-current" href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#reset/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">復原與整理 · 第 10 章</div><article class="reading-content"><h1 id="reset-的三種模式">reset 的三種模式</h1>
+<p><strong>復原與整理 · 第 10 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 <a href="guide.html">Git 圖解教室</a>。</p>
+<blockquote>注意  小心會修改工作目錄內的檔案和內容<br>回到前面記錄點(commit)<br>有3種模式 --hard,--soft,--mixed</blockquote>
+<h2 id="預設模式mixed">預設模式(—mixed)</h2>
+<blockquote>回到指定的commit,先前commit拆解的檔案,進入尚未commit的工作區</blockquote>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/reset-2.svg"/><img src="../diagrams/reset-2.svg" alt="Git 概念圖：reset-2" loading="lazy"/></picture><figcaption>Git 概念圖：reset-2</figcaption></figure>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch i1.html
+$ git add i1.html
+$ git commit -m “增加i1.html”
+
+$ touch i2.html
+$ git add i2.html
+$ git commit -m “增加i2.html”
+
+$ git log --oneline
+______________________________________
+
+fa7a416 (HEAD -&gt; master) 增加i2.html
+f6679ed 增加i1.html
+3c24296 修改.gitignore
+cca5666 增加h.cer檔案和hfloder目錄
+cd28b1e 增加.gitignore
+d2600eb 新增f1.html,f2.html 新增f3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+
+
+$ git reset 3c24296      #回到3c24296
+
+$ git status
+________________________________________
+On branch master
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+        i1.html
+        i2.html
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)
+
+$ git log --oneline
+_____________________________________
+3c24296 (HEAD -&gt; master) 修改.gitignore
+cca5666 增加h.cer檔案和hfloder目錄
+cd28b1e 增加.gitignore
+d2600eb 新增f1.html,f2.html 新增f3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+</code></pre></div>
+<ul><li>HEAD回到3c24296</li><li>先前commit拆解的檔案回到尚未commit的工作區域</li></ul>
+<h2 id="回復到原來的commit">回復到原來的commit</h2>
+<blockquote>commit 實際是沒被拆解！只要記的先前的commit識別碼.就可以回復</blockquote>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git reset fa7a416  #復原到最先的commit
+$ git log --oneline
+_______________________________
+fa7a416 (HEAD -&gt; master) 增加i2.html
+f6679ed 增加i1.html
+3c24296 修改.gitignore
+cca5666 增加h.cer檔案和hfloder目錄
+cd28b1e 增加.gitignore
+d2600eb 新增f1.html,f2.html 新增f3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案</code></pre></div>
+<ul><li>回復到原先的commit</li></ul>
+<h2 id="soft模式--soft">soft模式(--soft)</h2>
+<blockquote>回到指定的commit,先前commit拆解的檔案,進入尚未commit的staged區</blockquote>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/reset-1.svg"/><img src="../diagrams/reset-1.svg" alt="Git 概念圖：reset-1" loading="lazy"/></picture><figcaption>Git 概念圖：reset-1</figcaption></figure>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log --oneline
+_____________________________
+fa7a416 (HEAD -&gt; master) 增加i2.html
+f6679ed 增加i1.html
+3c24296 修改.gitignore
+cca5666 增加h.cer檔案和hfloder目錄
+cd28b1e 增加.gitignore
+d2600eb 新增f1.html,f2.html 新增f3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+
+$ git reset --soft 3c24296
+$ git status
+____________________________________
+On branch master
+Changes to be committed:
+  (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)
+        new file:   i1.html
+        new file:   i2.html
+        
+$ git log --oneline
+_______________________________________
+3c24296 (HEAD -&gt; master) 修改.gitignore
+cca5666 增加h.cer檔案和hfloder目錄
+cd28b1e 增加.gitignore
+d2600eb 新增f1.html,f2.html 新增f3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案
+</code></pre></div>
+<ul><li>回到commit 3c24296</li><li>被拆解的commit檔案,進入staged內</li></ul>
+<h2 id="回復到原來的commit-1">回復到原來的commit</h2>
+<blockquote>commit 實際是沒被拆解！只要記的先前的commit識別碼.就可以回復</blockquote>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git reset fa7a416  #復原到最先的commit
+$ git log --oneline
+_______________________________
+fa7a416 (HEAD -&gt; master) 增加i2.html
+f6679ed 增加i1.html
+3c24296 修改.gitignore
+cca5666 增加h.cer檔案和hfloder目錄
+cd28b1e 增加.gitignore
+d2600eb 新增f1.html,f2.html 新增f3.html
+059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
+bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
+63d60eb 建立b3.html
+58718cc 建立b2.html
+6421101 建立b1.html
+454c953 建立3個a檔案</code></pre></div>
+<ul><li>回復到原先的commit</li></ul>
+<h2 id="hard-模式--hard">hard 模式（--hard）</h2>
+<p>以下與 soft、mixed 分別比較，從已提交至 fa7a416、工作區乾淨的起點開始。回到較早的 3c24296 時，分支與暫存區都會改成目標版本，工作區的受追蹤檔案也會被覆蓋。</p>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/reset-3.svg"/><img src="../diagrams/reset-3.svg" alt="hard 同時重設分支、暫存區與工作區" loading="lazy"/></picture><figcaption>hard 同時重設分支、暫存區與工作區</figcaption></figure>
+<p>先保留需要的修改，再在自己的練習專案操作；本圖用 C1／V1 簡化表示目標 commit。</p>
+<div class="reading-code"><span>bash</span><pre><code>git reset --hard 3c24296
+git status
+git log --oneline</code></pre></div>
+<p>預期：HEAD 與目前分支回到 3c24296；status 顯示工作區乾淨。這個舊範例在目標版本還沒有 i1.html、i2.html，因此兩個已追蹤檔案會被移除。</p>
+<p>不指定目標的 <code>git reset --hard</code> 是回到目前 HEAD 的版本，不會自行選擇更早的 commit。hard 也不是刪除所有未追蹤檔案的指令。</p>
+<h2 id="git-reflog">git reflog</h2>
+<blockquote>可以查詢到所有commit的動作記錄！就可以查到先前被拆解的commit識別碼</blockquote>
+<div class="reading-code"><span>操作與輸出</span><pre><code>$ git reflog
+__________________________________
+fa7a416 (HEAD -&gt; master) HEAD@{0}: reset: moving to fa7a416
+3c24296 HEAD@{1}: reset: moving to 3c24296
+fa7a416 (HEAD -&gt; master) HEAD@{2}: reset: moving to fa7a416
+3c24296 HEAD@{3}: reset: moving to 3c24296
+fa7a416 (HEAD -&gt; master) HEAD@{4}: reset: moving to fa7a416
+3c24296 HEAD@{5}: reset: moving to 3c24296
+fa7a416 (HEAD -&gt; master) HEAD@{6}: commit: 增加i2.html
+f6679ed HEAD@{7}: commit: 增加i1.html
+3c24296 HEAD@{8}: commit: 修改.gitignore
+cca5666 HEAD@{9}: commit: 增加h.cer檔案和hfloder目錄
+cd28b1e HEAD@{10}: commit: 增加.gitignore
+d2600eb HEAD@{11}: commit (amend): 新增f1.html,f2.html
+aa7edbe HEAD@{12}: commit (amend): 新增f1.html,f2.html
+fcf905a HEAD@{13}: commit: 新增f1.html
+059c439 HEAD@{14}: reset: moving to 059c439
+59b62a4 HEAD@{15}: commit: 新增H1.html
+0a7a99e HEAD@{16}: commit (amend): 重新修改commit說明
+c1a6019 HEAD@{17}: reset: moving to c1a6019
+d4e1b24 HEAD@{18}: reset: moving to d4e1b24
+c1a6019 HEAD@{19}: reset: moving to c1a6019
+d4e1b24 HEAD@{20}: commit: 刪除e1.html,e2.html,e3.html
+c1a6019 HEAD@{21}: reset: moving to c1a6019
+6633812 HEAD@{22}: reset: moving to 6633812
+c1a6019 HEAD@{23}: commit: 新增e1.html,e2.html,e3.html
+059c439 HEAD@{24}: reset: moving to 059c439
+6633812 HEAD@{25}: reset: moving to 6633812
+</code></pre></div>
+<hr>
+<p><a href="restore.html">← 還原檔案與取消暫存</a>　｜　<a href="amend.html">整理最後一筆提交 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

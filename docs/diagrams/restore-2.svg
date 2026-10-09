@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 489" width="960" height="489" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">已暫存：先取消暫存，再決定是否還原</title><desc id="diagram-desc">若確定也要丟棄工作區修改，再執行 git restore file.txt。 工作區：修改仍保留；檔案內容沒有回到舊版。暫存區：回到 HEAD 版本；取消待提交差異。HEAD：不移動；已提交版本未改動</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="489" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">09｜還原檔案與取消暫存</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">已暫存：先取消暫存，再決定是否還原</tspan></text>
+<rect x="36" y="144" width="284" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">工作區</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">修改仍保留</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">檔案內容沒有回到舊版</tspan></text>
+<rect x="338" y="144" width="284" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">暫存區</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">回到 HEAD 版本</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">取消待提交差異</tspan></text>
+<rect x="640" y="144" width="284" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">HEAD</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">不移動</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">已提交版本未改動</tspan></text>
+<rect x="36" y="336" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="367" class="command"><tspan x="54" dy="0">git restore --staged file.txt</tspan></text>
+<text x="36" y="434" class="note"><tspan x="36" dy="0">若確定也要丟棄工作區修改，再執行 git restore file.txt。</tspan></text>
+</svg>

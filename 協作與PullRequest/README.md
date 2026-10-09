@@ -1,6 +1,10 @@
-# GitHub 簡單共同開發：兩個人完成一份班級介紹
+# GitHub 共同開發
 
-Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查與合併成果。先完成 [分支練習](../分支)，再做本章。
+**一起開發 · 第 05 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#collaboration/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
+
+Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查與合併成果。先完成 [分支練習](../分支)，並閱讀 [GitHub 基本操作](../github/README.md) 準備帳號、clone 與登入方式，再做本章。
 
 ## 1. 選一種合作方式
 
@@ -34,6 +38,9 @@ Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查�
 
 ### 步驟一：每人 clone 一份
 
+![每人一份本地專案與任務分支](../docs/diagrams/collaboration-1.svg)
+
+
 沿用上一節的儲存庫與邀請。兩人各自在自己的電腦操作，使用終端機或 Git Bash。將網址中的 `OWNER` 換成 A 的 GitHub 帳號；不要原樣輸入。
 
 ```bash
@@ -47,6 +54,9 @@ git branch --show-current
 若 push 需要驗證，使用已設定的 SSH，或 HTTPS 搭配 GitHub 登入／憑證工具或 personal access token；GitHub 帳號密碼不能作為 HTTPS Git 操作的密碼。設定方式見 [SSH](../ssh) 與 [憑證](../credential)。
 
 ### 步驟二：A 新增課程介紹
+
+![commit 先保存在本地](../docs/diagrams/collaboration-2.svg)
+
 
 操作位置：A 電腦的 class-team-demo。開始前確認工作區乾淨；若有修改，先處理自己的內容再切換。
 
@@ -72,6 +82,9 @@ git push -u origin docs-course
 
 ### 步驟三：B 新增小組成員
 
+![push 上傳任務分支，main 尚未合併](../docs/diagrams/collaboration-3.svg)
+
+
 操作位置：B 電腦的 class-team-demo。B 不必等 A 完成，可以從自己的 main 開始。
 
 ```bash
@@ -90,6 +103,9 @@ git push -u origin docs-members
 
 ### 步驟四：互相檢查 PR
 
+![PR 的目標與來源](../docs/diagrams/collaboration-4.svg)
+
+
 操作位置：GitHub 網站。
 
 1. A 建立 PR，base 選 main、compare 選 docs-course；B 用 docs-members 建立另一個 PR。
@@ -101,6 +117,9 @@ git push -u origin docs-members
 互相檢查，不只按 Approve：實際閱讀新增內容；程式專案還要依專案說明執行與測試。
 
 ### 步驟五：兩人都更新自己的 main
+
+![合併後還要各自 pull](../docs/diagrams/collaboration-6.svg)
+
 
 先在 GitHub 確认兩個 PR 都已合併。兩人各自在自己的 class-team-demo 執行：
 
@@ -117,44 +136,11 @@ A 執行 `git branch -d docs-course`，B 執行 `git branch -d docs-members`。G
 
 完成標準：main 上有兩人的成果；有兩份合併完成的 PR；兩人的本地 main 都已更新。
 
-## 4. 沒有寫入權限：用 Fork 交作業
+## 4. 沒有寫入權限：接著學 Fork
 
-使用另一個允許 Fork 的練習儲存庫，例如老師的 `class-homework`。以下是一條獨立流程，不接續上一節全部執行。
+本章的共用儲存庫方式需要寫入權限。向老師或其他人的專案提出修改時，可以先 Fork 到自己的帳號，再送 PR。
 
-1. 在老師的 GitHub 儲存庫按 Fork，建立到自己帳號的副本。
-2. clone **自己的 Fork**。把 `YOUR_ACCOUNT`、`TEACHER_ACCOUNT` 換成實際帳號，確認老師的主要分支是 main。
-
-```bash
-git clone https://github.com/YOUR_ACCOUNT/class-homework.git
-cd class-homework
-git remote add upstream https://github.com/TEACHER_ACCOUNT/class-homework.git
-git remote -v
-git switch main
-git fetch upstream
-git merge --ff-only upstream/main
-git switch -c homework-intro
-printf '# 我的作業\n這是我的自我介紹。\n' > introduction.md
-git add introduction.md
-git diff --staged
-git commit -m "新增自我介紹作業"
-git push -u origin homework-intro
-```
-
-origin 是自己的 Fork，upstream 是老師的原專案。練習中的 main 只用來同步老師版本；若 `--ff-only` 拒絕，表示本地 main 已分岔，先檢查歷史，不要用 force 跳過。
-
-3. 在 GitHub 建立 PR，必要時選 compare across forks：**base repository 選老師的專案、base 選 main；head repository 選自己的 Fork、compare 選 homework-intro**。
-4. 老師要求修改時，繼續在 homework-intro 修改、commit、push。老師合併後，再同步老師的 main。
-
-同步操作位置：自己電腦的 class-homework，先確認工作區乾淨。
-
-```bash
-git switch main
-git fetch upstream
-git merge --ff-only upstream/main
-git push origin main
-```
-
-預期自己的本地 main 與 Fork 的 main 都收到老師已合併的內容。你只 push 自己的 origin，不需要老師專案的寫入權限。
+操作方式已整理成獨立的 [第 06 章：用 Fork 交作業](../Fork交作業/README.md)，包含 origin／upstream、PR 方向與同步的完整練習。
 
 ## 5. 同學改了 main，我的任務還沒完成怎麼辦？
 
@@ -185,3 +171,7 @@ git merge --no-edit origin/main
 換你們做：A 新增 schedule.md，B 新增 contact.md，各自開分支、送 PR、互相檢查、合併。完成後交換角色，說明 push、PR、merge、pull 各做了什麼。
 
 參考：[GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow)、[建立 PR](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request)、[Fork 儲存庫](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)、[GitHub 驗證方式](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)。
+
+---
+
+[← 忽略不需要追蹤的檔案](../不想被追蹤的檔案/README.md)　｜　[用 Fork 交作業 →](../Fork交作業/README.md)

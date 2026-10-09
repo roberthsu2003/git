@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 496" width="960" height="496" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">PR：提出合併並互相檢查</title><desc id="diagram-desc">有問題就回原任務分支修改、commit、push，同一份 PR 會更新。 A 的 PR：等待檢查；新增 course.md；B 閱讀 Files changed。GitHub main：尚未合併；main 暫時沒有新檔；PR 只是合併請求。B 的 PR：等待檢查；新增 members.md；A 閱讀 Files changed</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="496" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">05｜GitHub 共同開發</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">PR：提出合併並互相檢查</tspan></text>
+<rect x="36" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">A 的 PR</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">等待檢查</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">新增 course.md</tspan><tspan x="56" dy="27">B 閱讀 Files changed</tspan></text>
+<rect x="338" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">GitHub main</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">尚未合併</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">main 暫時沒有新檔</tspan><tspan x="358" dy="27">PR 只是合併請求</tspan></text>
+<rect x="640" y="144" width="284" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">B 的 PR</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">等待檢查</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">新增 members.md</tspan><tspan x="660" dy="27">A 閱讀 Files changed</tspan></text>
+<rect x="36" y="343" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="374" class="command"><tspan x="54" dy="0">GitHub：base main ← compare 任務分支</tspan></text>
+<text x="36" y="441" class="note"><tspan x="36" dy="0">有問題就回原任務分支修改、commit、push，同一份 PR 會更新。</tspan></text>
+</svg>

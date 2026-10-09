@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git 學習筆記｜互動圖解教室</title>
+<meta name="description" content="從建立版本到 GitHub 合作，用逐步 SVG 圖解與實作學會 Git。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%23bd4e2b%27/%3E%3Ctext x=%2716%27 y=%2723%27 text-anchor=%27middle%27 font-size=%2721%27 fill=%27white%27%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+<script src="lessons.js" defer></script><script src="course.js" defer></script><script src="render-svg.js" defer></script><script src="player.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#lesson-title">跳到章節內容</a>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+<a class="brand" href="#staging/1"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>INTERACTIVE CLASSROOM</small></span></a>
+<div class="sidebar-intro"><span class="overline">學習路線</span><p>從第一筆提交，<br>到一起完成一個專案。</p></div>
+<nav aria-label="課程章節" id="topics"></nav>
+<div class="sidebar-footer"><span class="status-dot"></span>11 個章節 · 44 個觀察步驟<a href="chapters/guide.html">圖解使用說明 ↗</a></div>
+</aside>
+<div class="workspace">
+<header class="topbar"><a class="mobile-brand" href="#staging/1">g. <span>Git 學習筆記</span></a><div class="breadcrumb"><span>互動圖解教室</span><span aria-hidden="true">/</span><strong id="breadcrumb-stage"></strong></div><button id="menu-toggle" type="button" aria-controls="sidebar" aria-expanded="false">課程目錄 ☰</button><span class="offline-badge"><i aria-hidden="true"></i>離線也能學</span></header>
+<main id="main-content">
+<section class="course-heading" aria-label="課程介紹"><div><span class="overline">LEARN BY SEEING, THEN DOING</span><h1>讓每一步修改，<br>都有跡可循。</h1><p>先看懂版本怎麼變，再回到終端機親手練習。</p></div><div class="course-summary"><span>學習方式</span><strong>觀察 → 預測 → 實作</strong><p>一個概念，一次弄懂。</p></div></section>
+<section class="lesson" aria-labelledby="lesson-title">
+<div class="lesson-head"><div class="chapter-number" id="chapter-number" aria-hidden="true"></div><div class="chapter-copy"><div class="chapter-meta"><span id="stage-label"></span><span id="level-label"></span></div><h2 id="lesson-title" tabindex="-1"></h2><p id="intro"></p></div><a id="chapter-link" class="text-link" href="chapters/overview.html">實作講義 ↗</a></div>
+<div class="learning-goal"><span class="goal-icon" aria-hidden="true">◎</span><p><strong>這章要學會</strong><span id="goal"></span></p></div>
+<div class="step-heading"><span class="overline" id="step-label"></span><h3 id="frame-title"></h3></div>
+<div id="steps" aria-label="選擇步驟"></div>
+<div class="diagram-frame"><div class="figure-label"><span class="status-dot"></span>目前的版本狀態<span>SVG 圖解</span></div><div id="diagram"></div></div>
+<div class="command-box"><span>這一步的操作</span><code id="command"></code></div>
+<div class="observation"><span aria-hidden="true">↳</span><p id="observation"></p></div>
+<p id="state-description" class="sr-only" aria-live="polite"></p>
+<details id="question"><summary><span class="question-badge">想一想</span><span id="question-label"></span><span class="answer-toggle" aria-hidden="true">＋</span></summary><p id="answer"></p></details>
+<div class="player-bottom"><div class="secondary-actions"><button id="restart" type="button">↺ 重播</button><button id="download" type="button">↓ 下載 SVG</button></div><div class="controls"><button id="prev" type="button">← 上一步</button><span id="progress" aria-live="polite"></span><button id="next" type="button">下一步 →</button></div></div>
+</section>
+<section class="practice-card" aria-labelledby="practice-title"><div><span class="overline">YOUR TURN</span><h3 id="practice-title">換你親手做一次</h3><p id="practice"></p></div><a id="practice-link" href="chapters/overview.html">開啟本章練習 ↗</a></section>
+<div class="chapter-navigation"><button id="previous-chapter" type="button"><span>上一章</span><strong id="previous-chapter-label"></strong></button><button id="next-chapter" type="button"><span>接著學</span><strong id="next-chapter-label"></strong></button></div>
+<footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="chapters/overview.html">教材總覽 ↗</a><p>圖解為教學模擬，不會執行 Git 指令。可用左右方向鍵切換步驟。</p></footer>
+</main>
+</div></div>
+<noscript><p>互動版需要 JavaScript，請閱讀各章 README 中的靜態 SVG 圖解。</p></noscript>
+</body></html>
