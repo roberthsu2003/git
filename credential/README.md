@@ -1,122 +1,43 @@
-## 0. 有關於GitHub Token 說明
+# HTTPS 憑證與 personal access token
 
-### 0.1 [GitHub Access Tokens explained](https://devopsjournal.io/blog/2022/01/03/GitHub-Tokens)
+本章是設定查詢，不是要把每一種 helper 全部設定一次。SSH 使用者可先閱讀 [SSH 章節](../ssh/README.md)。提交作者設定與 GitHub 登入是兩回事。
 
-## Personal Access Token(PATs)
+## 1. 優先使用登入與安全儲存工具
 
-設置 Git 的憑證幫助程序可以簡化身份驗證過程，特別是在使用 GitHub 時。這樣你不必每次推送或拉取時都輸入用戶名和密碼。以下是手動設置 Git 憑證幫助程序的步驟：
-
-## 1. 設置憑證幫助程序
-
-
-Git 提供了幾種不同的憑證幫助程序，你可以根據操作系統選擇最合適的。
-
-### 1.1 `credential.helper cache`
-
-
-這種方式適用於所有操作系統，但只會在短時間內緩存憑證（默認15分鐘）。
-
-```other
-git config --global credential.helper cache
-```
-
-
-你可以設置緩存的時間（單位是秒），例如緩存1小時：
-
-```other
-git config --global credential.helper 'cache --timeout=3600'
-```
-
-
-### 1.2 `credential.helper store`
-
-
-這種方式會將憑證以純文本形式存儲在磁盤上，適用於所有操作系統。它比 `cache` 更加持久，但安全性較低。
-
-```other
-git config --global credential.helper store
-```
-
-
-第一次輸入憑證後，它們會被保存到 `~/.git-credentials` 文件中。
-
-### 1.3 `credential.helper osxkeychain`（適用於 macOS）
-
-
-這種方式會將憑證存儲在 macOS 的鑰匙串中，安全性較高。
-
-```other
-git config --global credential.helper osxkeychain
-```
-
-
-如果你還沒有安裝 `osxkeychain` 助手，可以使用以下命令安裝：
-
-```other
-git credential-osxkeychain
-```
-
-
-### 1.4 `credential.helper wincred`（適用於 Windows）
-
-
-這種方式會將憑證存儲在 Windows 憑證存儲區中。
-
-```other
-git config --global credential.helper wincred
-```
-
-
-如果你還沒有安裝 `wincred` 助手，可以下載安裝 Git for Windows，這個助理工具會自動包含在內。
-
-## 2. 配置 GitHub 憑證
-
-
-設置好憑證幫助程序後，你需要配置 GitHub 憑證。
-
-### 2.1 使用 Personal Access Token (PAT)
-
-
-從2021年8月13日開始，GitHub 停止接受帳戶密碼進行身份驗證，推薦使用 Personal Access Token (PAT)。
-
-### 2.2 創建 Personal Access Token
-
-1. 登錄你的 GitHub 賬戶。
-2. 前往 [Settings](https://github.com/settings/profile)。
-3. 在左側欄中選擇 [Developer settings](https://github.com/settings/developers)。
-4. 選擇 [Personal access tokens](https://github.com/settings/tokens)。
-5. 點擊 `Generate new token` 按鈕。
-6. 設置名稱和過期時間，並選擇所需的權限（例如，repo, workflow 等）。
-7. 生成並複製 token。
-
-### 2.3 使用 Personal Access Token
-
-
-首次推送或拉取時，Git 會提示輸入用戶名和密碼：
-
-
-- 用戶名：你的 GitHub 用戶名。
-- 密碼：剛剛生成的 Personal Access Token。
-
-這樣，憑證會被憑證幫助程序存儲，未來不需要再次輸入。
-
-## 3. 檢查配置
-
-
-你可以檢查你的憑證幫助程序配置是否正確：
-
-```other
-git config --list
-```
-
-## 4. 手動編輯git config
+HTTPS 可搭配 GitHub CLI 或 Git Credential Manager（GCM），使用瀏覽器登入，並依環境管理憑證。在 Windows 上，Git for Windows 安裝時通常提供 GCM 選項；macOS／Linux 的安裝方式依發行版本不同，請查 [GitHub 官方憑證指南](https://docs.github.com/en/get-started/git-basics/caching-your-github-credentials-in-git)。不要用猜測的 helper 名稱覆蓋已有設定。
 
 ```bash
-git config --global --edit
+git config --show-origin --get-all credential.helper
 ```
 
+這只顯示 helper 設定，不顯示 token。若未設定，指令可能沒有輸出並回傳非零狀態，不代表 Git 壞掉。
 
-## 總結
+| helper | 特性 |
+| --- | --- |
+| GCM | 需安裝；支援登入流程與依平台的安全儲存方式 |
+| osxkeychain | macOS Keychain；需對應 helper 已安裝 |
+| cache | 短時間保留記憶體憑證，使用 Unix domain socket，不適用所有系統 |
+| store | 明文存到磁碟，不適合保存課堂帳密或 token |
 
+`git credential-osxkeychain` 是呼叫 helper，不是安裝指令。wincred 與 GCM 也不是同一工具。請依實際安裝文件操作。
 
-通過設置憑證幫助程序，你可以簡化使用 GitHub 的身份驗證過程。根據你的操作系統選擇合適的憑證幫助程序，並使用 Personal Access Token 進行身份驗證，確保你的工作流程更加順暢和安全。
+若 Unix 環境確定要使用短時間 cache，查詢用設定是 `git config --global credential.helper 'cache --timeout=3600'`；預設 cache 時間是 900 秒。`git credential-cache exit` 清除的是這個 cache 的記憶體，不會登出 Keychain、GCM 或 SSH。
+
+## 2. 必要時建立 PAT
+
+GitHub 不接受帳號密碼作為 HTTPS Git 密碼。若環境需要手動 token，從帳號 Settings → Developer settings → Personal access tokens 建立；介面位置可能調整，參考 [官方 PAT 指南](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)。
+
+優先考慮 fine-grained token，選對資源擁有者、需要的儲存庫與有效期限；推送一般內容需相應的 Contents 寫入權限，修改 workflow 等操作可能需要額外權限。組織也可能要求批准或 SSO，不能只看 token 是否成功產生。classic token 的 scope 與 fine-grained 權限不同，不要直接照抄 repo、workflow 等舊教學組合。
+
+只有 Git 在 HTTPS 驗證時要求 username/password，才在 password 欄輸入 token；有登入工具時不一定出現這個提示。終端機密碼欄通常不回顯，這是正常現象。
+
+不要把 token 放進遠端 URL、shell 指令、截圖或教材；不要 commit。遺失或洩漏時到 GitHub 撤銷並重新建立，不只是刪掉本機檔案。
+
+## 3. 驗證失敗怎麼查？
+
+1. `git remote -v` 確認是 HTTPS、帳號與專案路徑正確。
+2. 確認登入工具使用的帳號具有該專案權限。
+3. token 是否到期、撤銷、選錯儲存庫，或欠缺組織批准／SSO。
+4. 依實際 helper 的方法移除錯誤憑證，再重新登入；不要刪除所有帳號的資料。
+
+GitHub CLI 已安裝時，可用 `gh auth status` 查該工具的登入狀態；這不代表其他 helper 或 SSH 一定使用同一帳號。設定成功後在自己的練習儲存庫推送一條任務分支，不需要為了測試改動共享 main。

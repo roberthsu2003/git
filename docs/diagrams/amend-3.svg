@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 694" width="960" height="694" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">已分享的提交不要 amend</title><desc id="diagram-desc">改寫已分享歷史會讓同學的接續提交分岔；最後一筆已分享時，優先新增修正 commit。 你的改寫：C2’ 識別碼不同；同學的 C3 接在 C2 後；C2’ 與 C3 已分岔。正確做法：新增修正；保留 C2；再提交修正 commit；不用改寫歷史</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="694" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">11｜整理最後一筆提交</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">已分享的提交不要 amend</tspan></text>
+<path d="M 120 175 L 350 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 120 175 L 580 150" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 350 175 L 580 245" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<circle cx="120" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="120" y="181" text-anchor="middle" class="commit">P</text><text x="120" y="141" text-anchor="middle" class="ref">共同起點</text>
+<circle cx="350" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="350" y="181" text-anchor="middle" class="commit">C2</text><text x="350" y="141" text-anchor="middle" class="ref">你已分享的版本</text>
+<circle cx="580" cy="150" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="580" y="156" text-anchor="middle" class="commit">C2’</text><text x="580" y="116" text-anchor="middle" class="ref">你改寫的版本</text>
+<circle cx="580" cy="245" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="580" y="251" text-anchor="middle" class="commit">C3</text><text x="580" y="211" text-anchor="middle" class="ref">同學接續的版本</text>
+<text x="36" y="294" class="eyebrow"><tspan x="36" dy="0">圓點是 commit；線表示父子關係；名稱標示分支指向的位置。</tspan></text>
+<rect x="36" y="315" width="435" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 317 H 459" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="353" class="card-title"><tspan x="56" dy="0">你的改寫</tspan></text>
+<text x="56" y="383" class="tag"><tspan x="56" dy="0">C2’ 識別碼不同</tspan></text>
+<text x="56" y="420" class="body"><tspan x="56" dy="0">同學的 C3 接在 C2 後</tspan><tspan x="56" dy="27">C2’ 與 C3 已分岔</tspan></text>
+<rect x="489" y="315" width="435" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 501 317 H 912" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="509" y="353" class="card-title"><tspan x="509" dy="0">正確做法</tspan></text>
+<text x="509" y="383" class="tag"><tspan x="509" dy="0">新增修正</tspan></text>
+<text x="509" y="420" class="body"><tspan x="509" dy="0">保留 C2</tspan><tspan x="509" dy="27">再提交修正 commit</tspan><tspan x="509" dy="27">不用改寫歷史</tspan></text>
+<rect x="36" y="541" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="572" class="command"><tspan x="54" dy="0">已 push 的 C2：改用新增修正 commit</tspan></text>
+<text x="36" y="639" class="note"><tspan x="36" dy="0">改寫已分享歷史會讓同學的接續提交分岔；最後一筆已分享時，優先新增修正 commit。</tspan></text>
+</svg>

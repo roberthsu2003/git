@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 589" width="440" height="589" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">卡關：中止、繼續與不改共享歷史</title><desc id="diagram-desc">已共享的分支改寫需團隊約定；before-rebase 保留用來比較，刪除被拒絕是正常的。 abort：取消本次操作；仍在整理中可用；不要直接 reset 猜狀態。skip：略過一筆提交；不能當解衝突方法；先讀 status 再決定。共享分支：用 merge 不改寫；初學協作先 merge；改寫需團隊約定</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="589" rx="16" fill="#fafbf7"/>
+<rect x="16" y="18" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="56" class="card-title"><tspan x="36" dy="0">abort</tspan></text>
+<text x="36" y="86" class="tag"><tspan x="36" dy="0">取消本次操作</tspan></text>
+<text x="36" y="123" class="body"><tspan x="36" dy="0">仍在整理中可用</tspan><tspan x="36" dy="27">不要直接 reset 猜狀態</tspan></text>
+<rect x="16" y="207" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 209 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="245" class="card-title"><tspan x="36" dy="0">skip</tspan></text>
+<text x="36" y="275" class="tag"><tspan x="36" dy="0">略過一筆提交</tspan></text>
+<text x="36" y="312" class="body"><tspan x="36" dy="0">不能當解衝突方法</tspan><tspan x="36" dy="27">先讀 status 再決定</tspan></text>
+<rect x="16" y="396" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 398 H 412" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="434" class="card-title"><tspan x="36" dy="0">共享分支</tspan></text>
+<text x="36" y="464" class="tag"><tspan x="36" dy="0">用 merge 不改寫</tspan></text>
+<text x="36" y="501" class="body"><tspan x="36" dy="0">初學協作先 merge</tspan><tspan x="36" dy="27">改寫需團隊約定</tspan></text>
+</svg>

@@ -5,7 +5,7 @@ require(path.join(root,'docs/lessons.js'));require(path.join(root,'docs/course.j
 const entries=[
  ['overview','README.md','教材總覽'],['setup','環境安裝與設定/README.md','開始前的準備'],
  ...globalThis.GIT_LESSONS.map(l=>[l.id,l.href.replace(/^\.\.\//,'').split('#')[0],l.name]),
- ['github','github/README.md','GitHub 基本操作'],['ssh','ssh/README.md','SSH 設定'],['credentials','credential/README.md','憑證設定'],['rebase','git_rebase/README.md','rebase'],['tag','tag/README.md','標記版本'],['checkout','檢查先前修改的檔案/README.md','查看過去版本'],['errors','github常遇的錯誤訊息/README.md','GitHub 常見錯誤'],['course','課程/README.md','教師課程安排'],['extras','課程/延伸主題.md','延伸主題'],['quiz','測驗/README.md','練習與測驗'],['guide','docs/README.md','圖解使用說明']
+ ['github','github/README.md','GitHub 基本操作'],['ssh','ssh/README.md','SSH 設定'],['credentials','credential/README.md','憑證設定'],['rebase','git_rebase/README.md','rebase'],['tag','tag/README.md','標記版本'],['checkout','檢查先前修改的檔案/README.md','查看過去版本'],['errors','github常見的錯誤訊息/README.md','GitHub 常見錯誤'],['course','課程/README.md','教師課程安排'],['extras','課程/延伸主題.md','延伸主題'],['quiz','測驗/README.md','練習與測驗'],['guide','docs/README.md','圖解使用說明']
 ];
 const routes=new Map(entries.map(([id,file])=>[path.resolve(root,file),id+'.html']));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

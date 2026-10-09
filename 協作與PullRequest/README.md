@@ -4,7 +4,7 @@
 
 本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#collaboration/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
-Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查與合併成果。先完成 [分支練習](../分支)，並閱讀 [GitHub 基本操作](../github/README.md) 準備帳號、clone 與登入方式，再做本章。
+Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查與合併成果。先完成 [分支練習](../分支/README.md)，並閱讀 [GitHub 基本操作](../github/README.md) 準備帳號、clone 與登入方式，再做本章。
 
 ## 1. 選一種合作方式
 
@@ -20,7 +20,7 @@ Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查�
 
 ## 2. 最簡單：只用 GitHub 網頁
 
-先由 A 同學建立名為 `class-team-demo` 的練習儲存庫，勾選新增 README，確認預設分支是 main。透過儲存庫 Settings 中的 Collaborators／存取管理邀請 B 同學，B 接受邀請；不同帳號類型可能顯示不同名稱。
+先由 A 同學建立名為 `class-team-demo` 的練習儲存庫，勾選新增 README，確認預設分支是 main。透過儲存庫 Settings > Collaborators 邀請 B 同學，B 接受邀請（依帳號方案介面文字略有差異）；不同帳號類型可能顯示不同名稱。
 
 接著由 B 操作：
 
@@ -51,7 +51,7 @@ git branch --show-current
 
 預期目前分支是 main。clone 會自動把這個網址命名為 origin。
 
-若 push 需要驗證，使用已設定的 SSH，或 HTTPS 搭配 GitHub 登入／憑證工具或 personal access token；GitHub 帳號密碼不能作為 HTTPS Git 操作的密碼。設定方式見 [SSH](../ssh) 與 [憑證](../credential)。
+若 push 需要驗證，使用已設定的 SSH，或 HTTPS 搭配 GitHub 登入／憑證工具或 personal access token；GitHub 帳號密碼不能作為 HTTPS Git 操作的密碼。設定方式見 [SSH](../ssh/README.md) 與 [憑證](../credential/README.md)。
 
 ### 步驟二：A 新增課程介紹
 
@@ -121,7 +121,7 @@ git push -u origin docs-members
 ![合併後還要各自 pull](../docs/diagrams/collaboration-6.svg)
 
 
-先在 GitHub 確认兩個 PR 都已合併。兩人各自在自己的 class-team-demo 執行：
+先在 GitHub 確認兩個 PR 都已合併。兩人各自在自己的 class-team-demo 執行：
 
 ```bash
 git switch main

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 523" width="960" height="523" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">規則：萬用字元、目錄與例外</title><desc id="diagram-desc">父目錄整個被排除時，不能只用一條檔案例外把裡面救回，要同時處理父目錄規則。 *.log：各層符合的檔案；debug.log 被忽略；子目錄的 log 也忽略。cache/ 與 /build/：目錄規則；cache/ 忽略各層同名目錄；/build/ 只忽略同層目錄。!keep.log：例外放後面；取消前面的忽略；順序有影響；父目錄被排除要同時處理</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="523" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">04｜忽略不需要追蹤的檔案</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">規則：萬用字元、目錄與例外</tspan></text>
+<rect x="36" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">*.log</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">各層符合的檔案</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">debug.log 被忽略</tspan><tspan x="56" dy="27">子目錄的 log 也忽略</tspan></text>
+<rect x="338" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">cache/ 與 /build/</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">目錄規則</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">cache/ 忽略各層同名目錄</tspan><tspan x="358" dy="27">/build/ 只忽略同層目錄</tspan></text>
+<rect x="640" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">!keep.log</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">例外放後面</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">取消前面的忽略</tspan><tspan x="660" dy="27">順序有影響</tspan><tspan x="660" dy="27">父目錄被排除要同時處理</tspan></text>
+<rect x="36" y="370" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="401" class="command"><tspan x="54" dy="0">*.log；cache/；/build/；!keep.log</tspan></text>
+<text x="36" y="468" class="note"><tspan x="36" dy="0">父目錄整個被排除時，不能只用一條檔案例外把裡面救回，要同時處理父目錄規則。</tspan></text>
+</svg>

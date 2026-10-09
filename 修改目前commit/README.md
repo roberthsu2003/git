@@ -2,122 +2,74 @@
 
 **復原與整理 · 第 11 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
-圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 [Git 圖解教室](../docs/README.md)。
-### - *重要*,修改尚未上傳至github上的commit(本機的commit)
-### - *重要*,github pull 下來的commit,切勿修改(會影響開發團隊的其它開發人員)
-- 使用時機,在上傳至github是,只想保持1個commit的上傳(不想太多的commit上傳至github)
-- 修改目前的commit是一個常見的動作. amend 會建立新的替代 commit，分支改指向新 commit；原 commit 不會立即刪除
-### 修改目前commit
-- 修改目前的commit
 
-```
-$ git commit --amend
-```	
+`git commit --amend` 用新的提交取代目前分支最後一筆提交，可以修正訊息或納入漏掉的檔案。新提交通常有新的識別碼；舊提交不會立即消失，但分支改指向新版本。
 
+![amend 建立相同父提交的替代版本](../docs/diagrams/amend-1.svg)
 
+本章只練習尚未 push、尚未分享的提交。共享分支優先追加修正提交，避免讓同學的歷史分岔。
 
+## 1. 照做：準備兩筆提交
 
-### 使用 --amend
+已設定提交身分，使用終端機或 Git Bash，在尚無 amend-demo 的練習位置開始。
 
-![Git 概念圖：amend-1](../docs/diagrams/amend-1.svg)
-
-####  新增h1.html,建立commit
-
-```
-$ touch f1.html
-$ git add f1.html
-$ git commit -m “新增h1.html”
-$ git log
-_____________________________
-commit fcf905a8ad0740a9f04793b42b503660339c5ea8 (HEAD -> master)
-Author: Robert Hsu <roberthsu2003@gmail.com>
-Date:   Mon Dec 6 14:18:33 2021 +0800
-
-    新增f1.html
-
+```bash
+mkdir amend-demo
+cd amend-demo
+git init -b main
+printf '# 練習\n' > README.md
+git add README.md
+git commit -m "建立練習起點"
+touch f1.html
+git add f1.html
+git commit -m "新增 f1，訊息待修正"
+git log --oneline -2
 ```
 
-- 上面建立新fcf905a的commit
+記下最新識別碼，稍後比較。
 
-#### 新增h2.html,修改commit
+## 2. 只改最後一筆訊息
 
-```
-$ touch f2.html
-$ git add f2.html
-$ git commit --amend -m “新增f1.html,f2.html”
-$ git log -p             # -p是查閱commit儲存的工作狀態
-___________________________
+確認暫存區沒有要一起加入的變更，再執行：
 
-commit aa7edbe6960c90de5623c5b3557f36c017caa187 (HEAD -> master)
-Author: Robert Hsu <roberthsu2003@gmail.com>
-Date:   Mon Dec 6 14:18:33 2021 +0800
-
-    新增f1.html,f2.html
+```bash
+git diff --staged
+git commit --amend -m "新增 f1.html"
+git log --oneline -2
 ```
 
-- 原本的 fcf905a 不再是分支的最新 commit，但不會立即從 Git 刪除
-- 建立新的aa7edb的commit
-- commit描述已經更改
-- commit儲存的工作狀態是原本的commit和新的工作狀態的組合
+預期仍只有兩筆提交，最新訊息已改，識別碼與之前不同。amend 會納入當時的暫存內容；若要在已有 staged 修改時只改訊息，可另外學習 `git commit --amend --only -m "新訊息"`。
 
-#### 新增h3.html,修改commit 沒有-m
-- 進入編輯comit message 的畫沒
+## 3. 把漏掉的檔案一起納入
 
-```
-$ touch f3.html
-$ git add f3.html
-$ git commit --amend      #沒有-m是修改原本的描述(vim)
-
-_______________________________
-新增f1.html,f2.html
-新增f3.html
-
-# Please enter the commit message for your changes. Lines starting
-# with '#' will be ignored, and an empty message aborts the commit.
-#
-# Date:      Mon Dec 6 14:18:33 2021 +0800
-#
-# On branch master
-# Changes to be committed:
-#       new file:   f1.html
-#       new file:   f2.html
-#       new file:   f3.html
-#
-~
-~
-~
-~
-~
-~
-~
-~
-
-_____________________________________
-
-$ git log -p
-
-_____________________________________
-commit d2600ebcd971b337171a4f68e477ed36bc58c3a6 (HEAD -> master)
-Author: Robert Hsu <roberthsu2003@gmail.com>
-Date:   Mon Dec 6 14:18:33 2021 +0800
-
-    新增f1.html,f2.html
-    新增f3.html
-
-diff --git a/f1.html b/f1.html
-new file mode 100644
-index 0000000..e69de29
-diff --git a/f2.html b/f2.html
-new file mode 100644
-index 0000000..e69de29
-diff --git a/f3.html b/f3.html
-new file mode 100644
-index 0000000..e69de29
+```bash
+touch f2.html
+git add f2.html
+git diff --staged
+git commit --amend -m "新增 f1.html 與 f2.html"
+git log --oneline -2
+git show --stat HEAD
+git status --short
 ```
 
-- 如果沒有使用-m,將會修改先前的描述
-- commit儲存的工作狀態是原本的commit和新的工作狀態的組合
+預期最後一筆同時新增 f1.html 與 f2.html，總數仍是兩筆，status 沒有輸出。若要保留原訊息，使用 `git commit --amend --no-edit`；只寫 `--amend` 通常會開啟編輯器，不會自動替你改好訊息。
+
+## 4. 選 amend 還是新增 commit？
+
+| 情況 | 建議 |
+| --- | --- |
+| 自己尚未分享的最後一筆有錯字或漏檔 | amend，提交前檢查暫存內容 |
+| 新的獨立功能或修正 | 新增 commit，讓每筆用途清楚 |
+| 最後一筆已分享給別人 | 優先新增修正 commit |
+| 更早的提交要整理 | 完成基礎後閱讀 [rebase](../git_rebase/README.md) |
+
+想一想：最後一筆識別碼變了，前一筆為什麼仍相同？因為替代提交沿用相同父提交，沒有重新建立前一筆。
+
+自己做：開一個新分支，在上面提交一份檔案，修正訊息，再補入漏掉的另一份檔案。完成標準：最後一筆包含兩份檔案，你能說明 amend 與一般 commit 的差別。
+
+參考：[git commit 官方文件](https://git-scm.com/docs/git-commit)。
+
 
 ---
 
-[← reset 的三種模式](../git_reset/README.md)　｜　[延伸：rebase →](../git_rebase/README.md)
+[← reset 的三種模式](../git_reset/README.md)　｜　[回教材總覽 →](../README.md)

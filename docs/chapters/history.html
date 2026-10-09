@@ -1,93 +1,45 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>main、HEAD 與歷史｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic is-current" href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#history/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">建立版本 · 第 02 章</div><article class="reading-content"><h1 id="mainhead-與歷史">main、HEAD 與歷史</h1>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>main、HEAD 與歷史｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic is-current" href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#history/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">建立版本 · 第 02 章</div><article class="reading-content"><h1 id="mainhead-與歷史">main、HEAD 與歷史</h1>
 <p><strong>建立版本 · 第 02 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
-<p>圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 <a href="guide.html">Git 圖解教室</a>。</p>
-<p>初始化時的分支名稱取決於設定，也能用 <code>git init -b main</code> 明確指定。下面保留使用 master 的舊範例；master 與 main 都可以作為主要分支。</p>
-<h2 id="設定未來新專案預設使用-main">設定未來新專案預設使用 main</h2>
-<div class="reading-code"><span>bash</span><pre><code>git config --global init.defaultBranch main</code></pre></div>
-<p>這不會改名現有分支；若要替目前分支改名，可用 <code>git branch -m main</code>（先確認 main 名稱尚未使用）。</p>
-<h2 id="建立專案和查看master分支狀態">建立專案和查看master分支狀態</h2>
-<ul><li>開啟gitBash</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ cd ~/Documents        #進入文件夾
-$ mkdir gitTogether1    #建立gitTogether1資料夾
-$ cd gitTogether1       #進入gitTogether1資料夾
-$ git init              #初始化git
-$ git status
-
-_________________________
-On branch master
-
-No commits yet
-
-nothing to commit (create/copy files and use &quot;git add&quot; to track)</code></pre></div>
-<p>上方的On branch master,代表目前的工作分支是在master上. </p>
-<h2 id="建立三個檔案產生一個紀錄點commit">建立三個檔案，產生一個紀錄點(commit)</h2>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch a1.html
-$ touch a2.html
-$ touch a3.html
-$ git add —all
-$ git commit -m “建立3個a檔案“
-$ git log                   #git log 是觀察commit的歷史資料
-
-________________________________________________________________
-commit 454c9536865cfbc883084f3da2c4ec025cc09c85 (HEAD -&gt; master)
-Author: Robert Hsu &lt;roberthsu2003@gmail.com&gt;
-Date:   Wed Dec 1 12:14:23 2021 +0800
-
-    建立3個a檔案</code></pre></div>
-<p>上方的（HEAD -&gt; master)代表目前的工作分支是在master分支</p>
-<h2 id="查看目前分支">查看目前分支</h2>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git branch
-
-_________________
-* master</code></pre></div>
-<p>上方代表目前專案只有一個分支,「*」是代表目前的工作分支</p>
-<p>下方是source tree的顯示 ￼</p>
-<figure><picture><img src="../../使用master主要分支/images/pic1.png" alt="教材操作圖" loading="lazy"/></picture></figure>
-<hr>
-<h2 id="建立三個紀錄點commit">建立三個紀錄點(commit)</h2>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch b1.html
-$ git add b1.html
-$ git commit -m “建立b1.html”
-
-$ touch b2.html
-$ git add b2.html
-$ git commit -m “建立b2.html”
-
-$ touch b3.html
-$ git add b3.html
-$ git commit -m “建立b3.html”
-
-$ git log
-____________________________________________________________
-
-commit 63d60eb52ca806973f428b93e734cbea34cd3376 (HEAD -&gt; master)
-Author: Robert Hsu &lt;roberthsu2003@gmail.com&gt;
-Date:   Wed Dec 1 12:48:40 2021 +0800
-
-    建立b3.html
-
-commit 58718cc8bdddb84634d94935a1ce7317fee9356b
-Author: Robert Hsu &lt;roberthsu2003@gmail.com&gt;
-Date:   Wed Dec 1 12:47:58 2021 +0800
-
-    建立b2.html
-
-commit 64211012f1fab196ddf1f55a214c70de8321a270
-Author: Robert Hsu &lt;roberthsu2003@gmail.com&gt;
-Date:   Wed Dec 1 12:47:12 2021 +0800
-
-    建立b1.html
-
-commit 454c9536865cfbc883084f3da2c4ec025cc09c85
-Author: Robert Hsu &lt;roberthsu2003@gmail.com&gt;
-Date:   Wed Dec 1 12:14:23 2021 +0800
-
-    建立3個a檔案</code></pre></div>
-<ul><li>有4個commit,最新的是在最上面</li><li>HEAD代表目前所在的commit</li><li>master代表目前master所指向的commit</li></ul>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/history-2.svg"/><img src="../diagrams/history-2.svg" alt="Git 概念圖：branch-3" loading="lazy"/></picture><figcaption>Git 概念圖：branch-3</figcaption></figure>
-<hr>
-<h2 id="結論">結論</h2>
-<ul><li>HEAD 代表目前我們所在的commit</li><li>HEAD-&gt;master 代表我們所在的commit是master分支</li><li>當commit一個新的記錄點(commit)時,HEAD和master同時也會更新目前指向的記錄點.</li><li>依此方法,HEAD和master會永遠在這一串記錄點(commit)的最上方.(以目前所學的是如此）</li></ul>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/history-1.svg"/><img src="../diagrams/history-1.svg" alt="Git 概念圖：branch-1" loading="lazy"/></picture><figcaption>Git 概念圖：branch-1</figcaption></figure>
+<p>本章練習統一使用 main。main 與 master 都是分支名稱，不代表不同的 Git 功能；舊專案若看到 master，可理解為當時的主要分支名稱。</p>
+<h2 id="1-看懂-commitmainhead">1. 看懂 commit、main、HEAD</h2>
+<p>commit 保存當時的專案快照、作者、訊息與父提交等資訊。分支是指向 commit 的可移動名稱；一般提交時，目前分支會移到新 commit，HEAD 則指向目前分支。HEAD 也能直接指向 commit，稱為 detached HEAD，詳見 <a href="checkout.html">查看過去版本</a>。</p>
+<h2 id="2-照做建立四筆版本">2. 照做：建立四筆版本</h2>
+<p>已完成環境設定，使用終端機或 Git Bash，在尚無 history-demo 的練習位置開始。</p>
+<h3 id="第一筆三個-a-檔案">第一筆：三個 a 檔案</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/history-1.svg"/><img src="../diagrams/history-1.svg" alt="第一筆提交與 main、HEAD" loading="lazy"/></picture><figcaption>第一筆提交與 main、HEAD</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>mkdir history-demo
+cd history-demo
+git init -b main
+touch a1.html a2.html a3.html
+git add a1.html a2.html a3.html
+git commit -m &quot;建立三個 a 檔案&quot;</code></pre></div>
+<p>空檔案也能提交；但 Git 不直接記錄空資料夾。</p>
+<h3 id="接著每次新增一個-b-檔案">接著：每次新增一個 b 檔案</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/history-2.svg"/><img src="../diagrams/history-2.svg" alt="main 隨四次提交往前" loading="lazy"/></picture><figcaption>main 隨四次提交往前</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>touch b1.html
+git add b1.html
+git commit -m &quot;新增 b1.html&quot;
+touch b2.html
+git add b2.html
+git commit -m &quot;新增 b2.html&quot;
+touch b3.html
+git add b3.html
+git commit -m &quot;新增 b3.html&quot;
+git log --oneline --graph --decorate
+git rev-list --count HEAD</code></pre></div>
+<p>預期有四筆提交，最新一筆旁邊是 <code>HEAD -&gt; main</code>，計數是 4。圖中的 C1～C4 是教學代號；終端機顯示的是你自己的 commit 識別碼。這裡 log 預設由新到舊顯示，不代表任何情況下 HEAD 都必須在圖最上方。</p>
+<h3 id="比較目前與過去版本">比較目前與過去版本</h3>
+<div class="reading-code"><span>bash</span><pre><code>git show --stat HEAD
+git ls-tree --name-only HEAD~3
+git diff --name-status HEAD~3 HEAD</code></pre></div>
+<p><code>HEAD~3</code> 沿第一父提交回溯三次，在這條直線歷史中就是第一筆。第一筆只有三個 a 檔案；差異列出後來新增的三個 b 檔案。這些查詢不會切換分支或改動工作區。</p>
+<h2 id="3-分支名稱設定">3. 分支名稱設定</h2>
+<p>下面是查詢用指令，請依需要選用：</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">目的</th><th scope="col">指令</th></tr></thead><tbody><tr><td>新建儲存庫時直接使用 main</td><td><code>git init -b main</code></td></tr><tr><td>設定日後 init 的預設名稱</td><td><code>git config --global init.defaultBranch main</code></td></tr><tr><td>將目前分支改名（main 尚不存在時）</td><td><code>git branch -m main</code></td></tr><tr><td>查看目前分支</td><td><code>git branch --show-current</code></td></tr></tbody></table></div>
+<p>全域設定不會替已有儲存庫改名；已連結遠端的專案改名，還需要團隊協調遠端預設分支與追蹤設定。</p>
+<h2 id="4-自己做">4. 自己做</h2>
+<p>再新增 c1.html 並提交。完成標準：共有五筆提交，main 與 HEAD 仍指向最新版本；能用 <code>git show HEAD~1</code> 找到前一筆提交。</p>
+<p>以下是舊版 SourceTree 截圖，若畫面顯示 master，可把它理解成當時的主要分支名稱。</p>
+<figure><picture><img src="../../使用main主要分支/images/pic1.png" alt="SourceTree 歷史畫面（舊版介面）" loading="lazy"/></picture><figcaption>SourceTree 歷史畫面（舊版介面）</figcaption></figure>
 <hr>
 <p><a href="staging.html">← 工作區與暫存區</a>　｜　<a href="branch.html">分支與合併 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

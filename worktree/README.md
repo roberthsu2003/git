@@ -150,9 +150,13 @@ cat login.txt
 cat index.txt
 ```
 
-預期看到：
+預期看到（依序對應上面四個指令）：
 
 ```text
+# branch --show-current → feature-login
+# status --short →  M login.txt
+# cat login.txt → 兩行 Login form...
+# cat index.txt → Home titel
 feature-login
  M login.txt
 Login form: still working

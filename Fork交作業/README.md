@@ -9,7 +9,7 @@
 ![跨 Fork 的 PR 選擇老師 main 當目標](../docs/diagrams/fork-3.svg)
 
 
-使用另一個允許 Fork 的練習儲存庫，例如老師的 `class-homework`。本章是一條獨立流程，先確認老師提供的網址與主要分支名稱。
+使用另一個允許 Fork 的練習儲存庫，例如老師的 `class-homework`。本章是一條獨立流程，先確認老師提供的網址與主要分支名稱。此處用 HTTPS 示範；已設 SSH 者可換用對應 SSH 網址，origin／upstream 概念不變。
 
 1. 在老師的 GitHub 儲存庫按 Fork，建立到自己帳號的副本。
 2. clone **自己的 Fork**。把 `YOUR_ACCOUNT`、`TEACHER_ACCOUNT` 換成實際帳號，確認老師的主要分支是 main。

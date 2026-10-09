@@ -1,328 +1,108 @@
-# git環境安裝與設定
+# 環境安裝與設定
 
-- 安裝git
-- 會使用基本命令做檔案的管理
-- 會操作nano,Vim
+完成本章，你應能開啟終端機、確認操作位置、建立檔案，並設定 Git 提交身分。
 
-## 安裝git
-[git官網git-scm.com](https://git-scm.com)
+## 1. 安裝與確認
 
-## 查詢目前git版本
-- windows使用git bash軟體
-- mac 做用terminal
-- linux 使用terminal
-
-```
-$ git --version
-git version 2.31.1
-```
-
-
-## 查詢git安裝的位置
-
-```
-$ which git
-/mingw64/bin/git
-
-```
-
-## 安裝視窗軟體gitHub Desktop(mac,window)
-[github desktop 官網](https://desktop.github.com/)
-
-## 安裝視窗軟體SourceTree(mac,window)
-
-[sourceTree](https://www.sourcetreeapp.com)
-
-## 安裝視窗軟體gitk(linux)
-
-```
-$ sudo apt-get install gitk
-```
-
-## 安裝 vscode 
-[vscode 官網](https://code.visualstudio.com/)
-
-## 使用者設定
-
-### 1.0 建立使用者姓名和使用者email(必設)
+從 [Git 官方安裝頁](https://git-scm.com/install/) 依作業系統安裝受維護版本。Windows 請使用 Git for Windows 附的 Git Bash；macOS／Linux 使用終端機。教材的檔案操作指令以這些 shell 為準，PowerShell 與 cmd 的語法可能不同。
 
 ```bash
-$ git config --global user.name "Robert"
-$ git config --global user.email "roberthsu2003@gmail.com"
+git --version
 ```
 
-### 說明: `git config` 命令用於設置 Git 的配置選項，而這些選項可以在不同的範圍內設置。
+本教材使用 `switch`、`restore` 與 `init -b`，Git 至少需要 2.28，建議安裝目前受維護版本。版本輸出與安裝路徑依電腦不同，不需與截圖一致。
 
-主要有三個範圍：
-- `--local`
-- `--global`
-- `--system`
+可以使用 VS Code 或其他文字編輯器；Git GUI 也能提交與合併。本教材以指令教學，GUI 可輔助看圖，不需要同時安裝所有工具。
 
-#### 以下是它們之間的差異：
+## 2. 設定提交身分
 
-#### --local
-
-- **範圍**：僅適用於當前 Git 儲存庫。
-- **配置文件**：設置會保存在儲存庫目錄中的 `.git/config` 文件中。
-- **用法**：適用於特定儲存庫的配置，不會影響其他儲存庫。
+下面姓名與信箱請換成自己的資料，不要原樣輸入：
 
 ```bash
-git config --local user.name "本地儲存庫的名字"
-git config --local user.email "local@example.com"
-```
-
-#### 例子：
-當你在某個專案中需要不同於全局配置的用戶名稱和電子郵件地址時，可以使用 `--local` 來設置。
-
-#### --global
-- **範圍**：適用於當前用戶的所有儲存庫。
-- **配置文件**：設置會保存在用戶主目錄中的 `~/.gitconfig` 文件中。
-- **用法**：適用於該用戶所有儲存庫的配置，除非在單個儲存庫中被覆蓋。
-
-```bash
-git config --global user.name "全局名字"
-git config --global user.email "global@example.com"
-```
-
-#### 例子：
-當你想在所有儲存庫中使用相同的用戶名稱和電子郵件地址時，可以使用 `--global` 來設置。
-
-#### --system
-
-- **範圍**：適用於系統上所有用戶的所有儲存庫。
-- **配置文件**：設置會保存在 Git 安裝目錄中的 `etc/gitconfig` 文件中。
-- **用法**：需要管理員權限，適用於系統範圍的配置。
-
-```bash
-git config --system core.editor "vim"
-```
-
-#### 例子：
-當你想為整個系統設置 Git 的默認編輯器時，可以使用 `--system` 來設置。
-
-#### 優先順序
-
-當同一配置項目在多個範圍內設置時，優先順序如下：
-
-1. **--local**（儲存庫級別）設定的值會覆蓋其他範圍的設定。
-2. **--global**（全局級別）設定的值會覆蓋系統級別的設定。
-3. **--system**（系統級別）設定的值是最基礎的，如果沒有其他設置，會使用系統級別的配置。
-
-#### 例子：
-
-如果你在三個範圍內都設置了 `user.name`，例如：
-
-```bash
-git config --system user.name "系統名字"
-git config --global user.name "全局名字"
-git config --local user.name "本地名字"
-```
-
-那麼在特定儲存庫中使用 `git log` 查看提交記錄時，看到的 `user.name` 會是 "本地名字"。如果該儲存庫沒有設置本地配置，則會使用全局配置的 "全局名字"。如果全局配置也沒有設置，則使用系統配置的 "系統名字"。
-
-
-
-### 3 git pull和fetch 更改預設的方式為merge
-> [!IMPORTANT]
-> 預設其實就是merge,但使用vscode工具時,在下載更新時,時常遇到此**_提示訊息_**,所以使用vscode最好加上這一行設定
-
-```bash
-$ git config pull.rebase false
-```
-
-#### 3.1 檢查當前的 pull.rebase 設定
-
-```base
-$ git config --get pull.rebase
-```
-
-#### 3.2 設定 git config pull.rebase false 的原因是告訴 Git 在執行 git pull 時，不要使用 rebase 的方式來合併從遠端倉庫拉取的變更。具體來說，這個設定會讓 git pull 使用默認的 merge 策略而不是 rebase 策略。
-
-#### 3.3 什麼是 `git pull`？
-git pull 是一個常用的命令，用來從遠端倉庫拉取最新的更改並將它們合併到本地分支中。它實際上是 git fetch 和 git merge 的組合。
-
-#### 4.0 git 設定default branch name
-
-```
+git config --global user.name "你的名字"
+git config --global user.email "你的電子郵件"
 git config --global init.defaultBranch main
+git config --global --get user.name
+git config --global --get user.email
 ```
 
-- ### 查看使用者環境設定
+這是寫進 commit 的作者身分，**不是 GitHub 登入帳密**。公開儲存庫的提交資訊可能公開；需要隱藏信箱時，可使用 GitHub 帳號設定提供的 noreply 地址，詳見 [官方信箱設定](https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address)。改設定只影響後續提交，不會改掉 log 裡已有的作者。
 
-```
-$ git config --list
+| 範圍 | 指令範例 | 作用 |
+| --- | --- | --- |
+| global | `git config --global user.name "名字"` | 目前使用者的預設設定 |
+| local | `git config user.name "專案用名字"` | 目前儲存庫，需在儲存庫內執行 |
+| system | `git config --system ...` | 整台電腦，通常需要管理權限 |
 
-diff.astextplain.textconv=astextplain
-filter.lfs.clean=git-lfs clean -- %f
-filter.lfs.smudge=git-lfs smudge -- %f
-filter.lfs.process=git-lfs filter-process
-filter.lfs.required=true
-http.sslbackend=openssl
-http.sslcainfo=C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
-core.autocrlf=true
-core.fscache=true
-core.symlinks=false
-pull.rebase=false
-credential.helper=manager-core
-credential.https://dev.azure.com.usehttppath=true
-init.defaultbranch=master
-filter.lfs.clean=git-lfs clean -- %f
-filter.lfs.smudge=git-lfs smudge -- %f
-filter.lfs.process=git-lfs filter-process
-filter.lfs.required=true
-user.name=roberthsu2003@gmail.com
-user.email=roberthsu2003@gmail.com
+常用範圍的優先順序是 local 高於 global 高於 system；命令列等其他來源也可能覆蓋設定。global 通常在 ~/.gitconfig，也可能使用 XDG 位置。查設定來源可用：
+
+```bash
+git config --show-origin --list
 ```
 
-## 常用命令列
+不要公開貼出整份設定，可能含私人路徑或其他敏感設定。
 
-```
-#使用者目錄(/home/pi)
-pi@raspberrypi:$ ~
-```
+## 3. 終端機最小練習
 
-```
-#查看當前所在目錄(print working directory)
-pi@raspberrypi: ~ $ pwd
-/home/pi
-```
+在自己選的練習位置開始，確認 terminal-demo 尚未存在：
 
-```
-#回到上層目錄
-$ cd ..
-$ pwd
-/home
+```bash
+pwd
+mkdir terminal-demo
+cd terminal-demo
+printf 'Hello Git\n' > index.txt
+ls
+cat index.txt
+mkdir empty-folder
+rmdir empty-folder
+cd ..
 ```
 
-```
-#絕對路徑(/xxxx/xxxxx/xxxx)
-#相對路徑(./xxxx/xxxx/xxx)
-```
+完成標準：能說出目前位置，找到 terminal-demo/index.txt，內容是 Hello Git。
 
-```
-#回到電腦根目錄
-$ cd /
-$ pwd
-/
-```
+| 指令 | 用途與注意 |
+| --- | --- |
+| `pwd` | 看目前位置 |
+| `cd 路徑` | 切換資料夾；有空白的路徑加雙引號 |
+| `cd ..` | 上一層 |
+| `cd ~` | 回家目錄；單獨輸入 ~ 不是切換指令 |
+| `ls -a` | 包含隱藏項目，例如 .git |
+| `touch 檔名` | 不存在時建立空檔，存在時更新時間 |
+| `printf '內容\n' > 檔名` | 寫入並覆蓋原內容 |
+| `printf '內容\n' >> 檔名` | 接在原內容後面 |
+| `rm 明確檔名` | 刪除檔案，通常不進資源回收筒 |
+| `rmdir 目錄` | 移除空目錄 |
 
-```
-#回到使用者目錄
-$ cd ~
-```
+教材不需要用 rm 的萬用字元清空專案。若練習要建立的檔名已存在，先用 pwd、ls、cat 確認位置與內容，不要直接覆蓋自己的作品。
 
+## 4. 提交訊息編輯器
 
-```
-#檢查目前目錄內容
-$ ls
-$ ls -l
-$ ls -al
-```
+初學可用 `git commit -m "訊息"`。沒有 -m 時，Git 可能開啟編輯器。
 
-### 複製檔案或資料夾
-```
-#建立文字檔
-$ echo "hello" > myfile.txt
-$ ls
-myfile.txt
+使用 VS Code 且 `code` 指令已可用時，可設定 `git config --global core.editor "code --wait"`。未安裝 code 指令時，先由 VS Code 的設定方式處理，不要照抄後誤以為 Git 壞掉。
 
-#複製文字檔
-$ cp myfile.txt myfile2.txt
-$ ls
-myfile.txt myfile2.txt
+### nano
 
-#複製文字檔至別的目錄
-$ cp myfile.txt /tmp
+編輯後 Ctrl+O 儲存、Enter 確認檔名，Ctrl+X 離開；按鍵名稱以底部提示為準。
 
-#複製整個目錄和內容
-$ cp -r mydirectory mydirectory2
-```
+![nano 編輯、儲存與離開](../docs/diagrams/editor.svg)
 
+### Vim
 
+Normal 模式可以移動與執行編輯命令；按 i 進 Insert 輸入文字，Esc 回 Normal。輸入 `:wq` 儲存離開，`:q!` 放棄本次編輯離開。Shift+V 是 Visual line（整行選取）模式。**離開編輯器不等於取消 Git 操作**；純新建 commit 時 `:q!` 不存檔通常會因空訊息而中止提交，但 `--amend`／merge 等已有訊息時，`:q!` 仍可能沿用原訊息完成操作，不想繼續時要再用 `git status` 確認結果。
 
-### 重新命名檔案名稱或資料夾名稱
+以下為舊版安裝／設定截圖，只供辨認介面，請依目前安裝程式與上面的指令確認。
 
-```
-$ mv my_file.txt my_file.rtf
-```
+![安裝示意（舊版介面）](./images/pic1.png)
 
-### 檢視檔案內容
+![設定示意（舊版介面）](./images/pic3.png)
 
-```
-$ cat myfile.txt
-$ more myfile.txt
-$ less myfile.txt
-```
+## 5. pull 策略先不用全域硬改
 
-### 建立編輯檔案
+`git pull` 先 fetch，再依選項與設定整合，不是一律 merge。教材一般更新 main 時明確用 `git pull --ff-only origin main`；分岔時先看歷史，再選 merge 或 rebase。不要為配合某個編輯器，把自己所有專案的 pull 策略改掉。
 
-```
-$ touch my_file.txt
-$ nano my_file.txt
-```
-![nano 編輯、儲存與離開的操作圖](../docs/diagrams/editor.svg)
+若 chmod 出現在後面的 SSH 設定，它是 Unix 權限操作，不是 Git 的設定，也不是 Git 的存取權限設定；Windows 的檔案權限與 Unix 模式不同。
 
-### 建立目錄
+參考：[git config](https://git-scm.com/docs/git-config)、[git pull](https://git-scm.com/docs/git-pull)。
 
-```
-$ cd ~
-$ mkdir my_directory
-$ cd my_directory
-$ ls
-```
-
-### 刪除檔案或目錄
-
-```
-# 刪除檔案
-$ cd ~
-$ rm my_file.txt
-$ ls
-
-# 刪除同檔名但不同副檔名的檔案
-$ rm my_file.*
-
-# 刪除所有檔案
-$ rm *
-
-# 刪除目錄和內容
-$ rm -r mydir
-```
-
-### 了解檔案權限
-
-![](./images/pic3.png)
-
-### 改變檔案權限
-
-```
-$ chmod u+x file2.txt
-# u 代表user
-# g 代表group
-# o 代表other
-
-# + 代表增加權限
-# - 代表移除權限
-
-# x 代表可執行的權利
-
-```
-
-### Vim基本操作
-
-Vim 主要是使用模式的切換來進行輸入、移動游標、選取、複製及貼上等操作。在 Vim 主要常用的有幾個模式:Normal 模式以及 Insert 模式:
-
-![](./images/pic1.png)
-
-1. Normal模式，又稱命令模式，在這個模式下，無法輸入文字，僅能進行複製、貼上、存 檔或離開動作。
-2. 要開始輸入文字，需要先按下 i 、 a 或 o 這三個鍵其中一個進入 Insert 模式，便能 開始打字。其中， i 表示 insert ， a 表示 append ，而 o 則是表示會新增一行並開 始輸入。
-3. 在 Insert 模式下，按下 ESC 鍵或是 Ctrl + [ 組合鍵，可退回至 Normal 模式。
-4. 在 Normal 模式下，按下 :w 會進行存檔，按下 :q 會關閉這個檔案(但若未存檔會提
-示先存檔再離開)，而 :wq 則是存檔完成後直接關閉這個檔案。
-
-5. 在一般模式下,按下shift + v,進入virtual line 模式(選取整行),可使用方向鍵,選取多行, 按下d可以刪除整行
-
-
-
-
-
+[開始第一章 →](../開始使用Git/README.md)

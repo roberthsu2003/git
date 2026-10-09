@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 523" width="960" height="523" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">fetch：只下載，不整合工作區</title><desc id="diagram-desc">fetch 不會動你的檔案；想看差異再用 log 或 diff 比較本地與 origin/main。 GitHub main：別人已 push C3；遠端已有新版本。origin/main：更新到 C3；本機紀錄已更新；工作區還沒變。本地 main：仍在 C2；檔案不受影響；要整合再選 merge 或 rebase</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="523" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">12｜同步三角：push、fetch、pull</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">fetch：只下載，不整合工作區</tspan></text>
+<rect x="36" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 308" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">GitHub main</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">別人已 push C3</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">遠端已有新版本</tspan></text>
+<rect x="338" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 350 146 H 610" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="358" y="182" class="card-title"><tspan x="358" dy="0">origin/main</tspan></text>
+<text x="358" y="212" class="tag"><tspan x="358" dy="0">更新到 C3</tspan></text>
+<text x="358" y="249" class="body"><tspan x="358" dy="0">本機紀錄已更新</tspan><tspan x="358" dy="27">工作區還沒變</tspan></text>
+<rect x="640" y="144" width="284" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 652 146 H 912" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="660" y="182" class="card-title"><tspan x="660" dy="0">本地 main</tspan></text>
+<text x="660" y="212" class="tag"><tspan x="660" dy="0">仍在 C2</tspan></text>
+<text x="660" y="249" class="body"><tspan x="660" dy="0">檔案不受影響</tspan><tspan x="660" dy="27">要整合再選 merge 或 reba</tspan><tspan x="660" dy="27">se</tspan></text>
+<rect x="36" y="370" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="401" class="command"><tspan x="54" dy="0">git fetch origin</tspan></text>
+<text x="36" y="468" class="note"><tspan x="36" dy="0">fetch 不會動你的檔案；想看差異再用 log 或 diff 比較本地與 origin/main。</tspan></text>
+</svg>

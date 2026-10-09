@@ -2,348 +2,107 @@
 
 **復原與整理 · 第 09 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
-圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 [Git 圖解教室](../docs/README.md)。
 
-> 在有些情景，我們可能會刪除一些檔案或編輯一些內容,如何回復到目前HEAD的原始狀態.￼
+先判斷修改在哪裡，再選操作。`restore` 針對檔案與暫存區；已提交的錯誤通常用新的修正 commit 或 revert 處理。
 
-![Git 概念圖：restore-1](../docs/diagrams/restore-1.svg)
+## 1. 復原來源與影響範圍
 
-1. 從工作區回復
-2. 從暫存區回復
+| 指令（查詢用） | 來源 | 改變哪裡？ |
+| --- | --- | --- |
+| `git restore -- file.txt` | 暫存區 | 工作區；丟棄此檔案未暫存修改 |
+| `git restore --staged -- file.txt` | HEAD | 暫存區；工作區修改保留 |
+| `git restore --source=HEAD --staged --worktree -- file.txt` | HEAD | 暫存區與工作區；兩者修改都會丟棄 |
+| `git restore --source=HEAD~1 -- file.txt` | 前一筆提交 | 工作區；還要 add、commit 才記錄復原 |
 
-## 從工作區回復
+沒有 `--staged` 時，restore 的預設來源是**暫存區**，不是一律 HEAD。指定 `.` 會涵蓋目前目錄及下層；初學先寫明檔名，確認內容可以丟棄後再操作。
 
-- 使用git restore
+## 2. 照做：還原未暫存修改與刪檔
 
-### 新增c1.html,c2.html,c3.html,c3.html加入內容
+使用終端機或 Git Bash，已設定提交身分，在尚無 restore-demo 的練習位置開始。以下丟棄操作只針對練習資料。
 
-```
-$ touch c1.html
-$ touch c2.html
-$ touch c3.html
-$ vim c3.html
-____________________________
-我是原始狀態
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-
-
-# 建立新的commit
-
-$ git add —all
-$ git commit -m “新增c1.html,c2.html,c3.html,c3.html加入內容”
-$ git log —oneline       #用簡短方式顯示log
-
-______________________________
-bfe5b85 (HEAD -> master) 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-
-$ ls -al          #檢示目前的檔案
-____________________________________
-
-total 13
-drwxr-xr-x 1 User 197121  0 Dec  2 10:25 ./
-drwxr-xr-x 1 User 197121  0 Dec  1 11:46 ../
-drwxr-xr-x 1 User 197121  0 Dec  2 10:27 .git/
--rw-r--r-- 1 User 197121  0 Dec  1 12:11 a1.html
--rw-r--r-- 1 User 197121  0 Dec  1 12:11 a2.html
--rw-r--r-- 1 User 197121  0 Dec  1 12:11 a3.html
--rw-r--r-- 1 User 197121  0 Dec  1 13:48 b1.html
--rw-r--r-- 1 User 197121  0 Dec  1 13:48 b2.html
--rw-r--r-- 1 User 197121  0 Dec  1 13:49 b3.html
--rw-r--r-- 1 User 197121  0 Dec  2 10:11 c1.html
--rw-r--r-- 1 User 197121  0 Dec  2 10:11 c2.html
--rw-r--r-- 1 User 197121 19 Dec  2 10:12 c3.html
+```bash
+mkdir restore-demo
+cd restore-demo
+git init -b main
+printf 'Version 1\n' > note.txt
+git add note.txt
+git commit -m "建立筆記起點"
+printf 'Wrong draft\n' > note.txt
+git diff
+git restore -- note.txt
+cat note.txt
+rm note.txt
+git status --short
+git restore -- note.txt
+cat note.txt
 ```
 
-- 以上表示我們最新狀態HEAD是在bfe5b85
-- 以上新增c1.html,c2.html,c3.html
+預期兩次 cat 都顯示 Version 1。未暫存刪除時 status 是前方有空格的 `D note.txt`（` M` 表未暫存修改、`M ` 表已暫存），restore 從暫存區取回檔案，不會建立 commit。
 
-### 刪除c1.html,c2.html和修改c3.html
+## 3. 照做：取消暫存不等於丟棄修改
 
-```
-$ rm c1.html
-$ rm c2.html
-$ vim c3.html
+![取消暫存保留工作區](../docs/diagrams/restore-1.svg)
 
-________________________________________
+接續 restore-demo：
 
-我是原始狀態
-這是新編輯的內容
-~
-~
-~
-~
-~
-~
-~
-~
-~
-
-
-________________________________________
-
-$ git status
-
-___________________________________________
-
-On branch master
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-        deleted:    c1.html
-        deleted:    c2.html
-        modified:   c3.html
-
-no changes added to commit (use "git add" and/or "git commit -a")
-
-____________________________________________________
-
+```bash
+printf 'Version 2\n' > note.txt
+git add note.txt
+git restore --staged -- note.txt
+git status --short
+cat note.txt
 ```
 
-以上代表：
-- deleted:    c1.html
-- deleted:    c2.html
-- modified:   c3.html
+預期 ` M note.txt`，工作區仍是 Version 2。若確認這份練習修改不要了，再做：
 
+![從暫存區還原工作區](../docs/diagrams/restore-2.svg)
 
-
-### 回復至原來工作區的狀態
-
-> 使用git restore file file  檔案回復
-
-> 使用git restore . 全部回復
-
-
-```
-$ git restore c1.html c2.html
-$ git restore .
-$ git status
-
-________________________
-On branch master
-nothing to commit, working tree clean
-_____________________________________
-
-$ vim c3.html
-________________________________
-我是原始狀態
-~
-~
-~
-
-________________________________
-
-$ ls -al
-
-________________________________
-total 13
-drwxr-xr-x 1 User 197121  0 Dec  2 11:04 ./
-drwxr-xr-x 1 User 197121  0 Dec  1 11:46 ../
-drwxr-xr-x 1 User 197121  0 Dec  2 11:00 .git/
--rw-r--r-- 1 User 197121  0 Dec  1 12:11 a1.html
--rw-r--r-- 1 User 197121  0 Dec  1 12:11 a2.html
--rw-r--r-- 1 User 197121  0 Dec  1 12:11 a3.html
--rw-r--r-- 1 User 197121  0 Dec  1 13:48 b1.html
--rw-r--r-- 1 User 197121  0 Dec  1 13:48 b2.html
--rw-r--r-- 1 User 197121  0 Dec  1 13:49 b3.html
--rw-r--r-- 1 User 197121  0 Dec  2 11:00 c1.html
--rw-r--r-- 1 User 197121  0 Dec  2 11:00 c2.html
--rw-r--r-- 1 User 197121 20 Dec  2 11:00 c3.html
-________________________________
+```bash
+git restore -- note.txt
+cat note.txt
+git status --short
 ```
 
-以上表示全部回復
+回到 Version 1，status 沒有輸出。反過來說，若 Version 2 已 add 而尚未取消暫存，單獨 restore 會取回暫存的 Version 2。
 
+## 4. 照做：已提交的刪除，用 revert 撤銷
 
-## 從暫存區回復
-
-![Git 概念圖：restore-2](../docs/diagrams/restore-2.svg)
-
-### 新增d1.html,d2.html,d3.html,d3.html加入內容
-
-```
-$ touch d1.html
-$ touch d2.html
-$ vim d3.html         #d3自己加入內容￼
-$ git add .
-$ git commit -m “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-$ ls d*.html -al
-
-___________________
--rw-r--r-- 1 User 197121  0 Dec  4 11:13 d1.html
--rw-r--r-- 1 User 197121  0 Dec  4 11:13 d2.html
--rw-r--r-- 1 User 197121 22 Dec  4 11:14 d3.html
-
-$ git status
-On branch master
-nothing to commit, working tree clean
+```bash
+git rm note.txt
+git commit -m "示範誤刪筆記"
+git revert --no-edit HEAD
+cat note.txt
+git log --oneline -3
 ```
 
+預期檔案回來，歷史仍保留刪除提交，並新增 Revert。這裡撤銷的是一筆一般提交；merge commit 要判斷主線，不套用同一寫法。revert 也可能遇到衝突。
 
-### 刪除d1.html,d2.html,編輯d3.html,加入暫存區
+如果只要取回某個舊檔案，而不撤銷整筆提交，先用 `git log --oneline -- 檔名` 找版本，再用 `git restore --source=實際識別碼 -- 檔名`，檢查後 add、commit。這是查詢範例，識別碼與路徑請換成實際值。
 
-```
-$ rm d1.html
-$ rm d2.html
-$ vim d3.html    # 修改內容
-$ git add d1.html d2.html d3.html
-$ git status
-________________________________
+## 5. 未追蹤檔案與清理
 
--On branch master
-Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
-        deleted:    d1.html
-        deleted:    d2.html
-        modified:   d3.html
+Git 沒保存過的新檔案，不能用 restore 復原；不需要的檔案可手動刪除。大量清理時先預覽：
 
-$ ls d*.html -al
-________________________________
--rw-r--r-- 1 User 197121 44 Dec  4 11:32 d3.html
-
+```bash
+printf 'temporary\n' > scratch.txt
+git clean -nd -- scratch.txt
 ```
 
-- 以上代表被放入至stage
-- 只剩 d3.html
+只有確認列出的 scratch.txt 可以刪除，再在這個練習中執行：
 
-### 回復至工作區
-
-```
-$ git restore --staged d1.html d2.html d3.html
-
-____________________________
-On branch master
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-        deleted:    d1.html
-        deleted:    d2.html
-        modified:   d3.html
-
-no changes added to commit (use "git add" and/or "git commit -a")
-
+```bash
+git clean -fd -- scratch.txt
+git status --short
 ```
 
-- 代表回復至工作區
+clean 不會把檔案搬進資源回收筒；預設不刪被忽略的檔案。不要為了清空畫面隨意加 `-x`。
 
-### 回復到HEAD原始狀態
+## 6. 自己做
 
-```
-$ git restore .
-$ git status
-____________________________
-On branch master
-nothing to commit, working tree clean
+新增已提交的 practice.txt，依序製造未暫存修改、已暫存修改、已提交的刪除；分別使用 restore、restore --staged 取消暫存與 revert。每次先說出來源與影響區域。完成時工作區乾淨，檔案存在，歷史保留復原紀錄。
 
-$ ls d*.* -al
-______________________________
--rw-r--r-- 1 User 197121  0 Dec  4 11:47 d1.html
--rw-r--r-- 1 User 197121  0 Dec  4 11:47 d2.html
--rw-r--r-- 1 User 197121 23 Dec  4 11:47 d3.html
+參考：[git restore](https://git-scm.com/docs/git-restore)、[git revert](https://git-scm.com/docs/git-revert)、[git clean](https://git-scm.com/docs/git-clean)。
 
-```
-
-- 代表回復到HEAD原始狀態
-- 檔案回復了
-
-
-### 如果在working area內的是untracked file,必需使用git clean
-
-```
-$ git clean -fd 檔案名稱
-```
-
-
-## 從記錄區(commit)回復
-
-![Git 概念圖：reset-3](../docs/diagrams/reset-3.svg)
-
-### 新增e1.html,e2.html,e3.html,並建立記錄點(commit)
-
-```
-$ touch e1.html
-$ touch e2.html
-$ touch e3.html
-$ git add .
-$ git commit  -m “新增e1.html,e2.html,e3.html”   
-$ git status
-_______________________
-On branch master
-nothing to commit, working tree clean
-
-```
-
-### 刪除e1.html,e2.html,e3.html,並建立記錄點(commit)
-
-```
-$ rm e1.html e2.html e3.html
-$ git commit -a -m “刪除e1.html,e2.html,e3.html”    #已經追蹤的檔案可以直接使用 -a 加入暫存庫
-
-$ git log --oneline
-_____________________________________
-d4e1b24 (HEAD -> master) 刪除e1.html,e2.html,e3.html
-c1a6019 新增e1.html,e2.html,e3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-
-```
-
-- 以上代表HEAD識別碼是d4e1b24
-- 前一個識別碼是c1a6019
-
-### 使用git reset 回到前一個comit（HEAD,master都改為指向c1a6019)
-
-```
-$ git reset c1a6019 --hard    #--hard將在後面章節講解
-_____________________________________________
-HEAD is now at c1a6019 新增e1.html,e2.html,e3.html
-
-$ git log --oneline 
-_________________________
-
-c1a6019 (HEAD -> master) 新增e1.html,e2.html,e3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-
-$ ls e*.html
-___________________________
-e1.html  e2.html  e3.html
-
-```
-
-- 上面代表回到前一個記錄點(commit)
-- 刪除的檔案救回來了
 
 ---
 

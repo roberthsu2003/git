@@ -1,109 +1,41 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>查看過去版本｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h2 id="檢查先前修改的檔案">檢查先前修改的檔案</h2>
-<ul><li>建立3個commit</li><li>每個commit增加一個檔案</li><li>git log</li><li>git checkout</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch a.txt
-$ git add a.txt
-$ git commit -m &quot;增加a.txt&quot;
-
-$ touch b.txt
-$ git add b.txt
-$ git commit -m &quot;增加b.txt&quot;
-
-$ touch c.txt
-$ git add c.txt
-$ git commit -m &quot;增加c.txt&quot;
-
-$ ls
-a.txt  b.txt  c.txt</code></pre></div>
-<h3 id="1-使用git-log檢查目前的log">1. 使用git log檢查目前的log</h3>
-<ul><li>#### git log -&gt; 完整的comit說明</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log
-commit 3e0a0bc2a0d21de36143410463b7f5f11f9f57d8 (HEAD -&gt; main)
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Tue May 14 13:11:32 2024 +0800
-
-    增加c.txt
-
-commit 17ce0507430c6e02b38a133d414ae316447c493a
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Tue May 14 13:10:24 2024 +0800
-
-    增加b.txt
-
-commit 674017c76513fce78f1a64b2e8c398ecafdac878
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Tue May 14 13:08:34 2024 +0800
-
-    增加a.txt
-</code></pre></div>
-<ul><li>#### git log --oneline -&gt; 簡易的commit說明</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log --oneline
-3e0a0bc (HEAD -&gt; main) 增加c.txt
-17ce050 增加b.txt
-674017c 增加a.txt</code></pre></div>
-<ul><li>#### git checkout [commit hash] -&gt; 切換HEAD至此commit</li><li>#### git log --all -&gt; 檢查所有的commit</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git checkout 674017c  #切換至前面2個
-
-Note: switching to &#39;674017c&#39;.
-
-$ ls
-a.txt
-
-$ git log --all    #注意HEAD已經被改變了
-commit 3e0a0bc2a0d21de36143410463b7f5f11f9f57d8 (main)
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Tue May 14 13:11:32 2024 +0800
-
-    增加c.txt
-
-commit 17ce0507430c6e02b38a133d414ae316447c493a
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Tue May 14 13:10:24 2024 +0800
-
-    增加b.txt
-
-commit 674017c76513fce78f1a64b2e8c398ecafdac878 (HEAD)
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Tue May 14 13:08:34 2024 +0800
-
-    增加a.txt
-</code></pre></div>
-<ul><li>#### git log --all --graph -&gt;檢查所有的commit和圖形化顯示關係</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log --all --graph
-
-* commit 3e0a0bc2a0d21de36143410463b7f5f11f9f57d8 (main)
-| Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-| Date:   Tue May 14 13:11:32 2024 +0800
-| 
-|     增加c.txt
-| 
-* commit 17ce0507430c6e02b38a133d414ae316447c493a
-| Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-| Date:   Tue May 14 13:10:24 2024 +0800
-| 
-|     增加b.txt
-| 
-* commit 674017c76513fce78f1a64b2e8c398ecafdac878 (HEAD)
-  Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-  Date:   Tue May 14 13:08:34 2024 +0800
-  
-      增加a.txt</code></pre></div>
-<ul><li>#### git switch [branch名稱]</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git switch main
-Previous HEAD position was 674017c 增加a.txt
-Switched to branch &#39;main&#39;
-
-$ git log --oneline
-3e0a0bc (HEAD -&gt; main) 增加c.txt
-17ce050 增加b.txt
-674017c 增加a.txt</code></pre></div>
-<ul><li>#### git log --oneline [filename] -&gt; 檢查該檔案有多少commit</li></ul>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log --oneline a.txt
-674017c 增加a.txt   #目前只有一個</code></pre></div>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git log a.txt #目前只有一個,完整的commit
-
-commit 674017c76513fce78f1a64b2e8c398ecafdac878
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Tue May 14 13:08:34 2024 +0800
-
-    增加a.txt
-</code></pre></div></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>查看過去版本｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic is-current" href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#checkout/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">延伸圖解 · 第 14 章</div><article class="reading-content"><h1 id="查看過去版本">查看過去版本</h1>
+<p><strong>延伸圖解 · 第 14 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>本章附 SVG 圖解；可先讀 <a href="guide.html">互動版使用說明</a>，再用瀏覽器開啟 <code>docs/index.html#checkout/1</code>，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。</p>
+<p>先用 log、show 查詢；只有真的要在整個舊版本操作時才切換。以下是獨立練習，已設定提交身分，使用終端機或 Git Bash，在尚無 history-view-demo 的位置開始。</p>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/checkout-1.svg"/><img src="../diagrams/checkout-1.svg" alt="detach 暫時指向舊版本" loading="lazy"/></picture><figcaption>detach 暫時指向舊版本</figcaption></figure>
+<h2 id="1-建立三筆提交">1. 建立三筆提交</h2>
+<div class="reading-code"><span>bash</span><pre><code>mkdir history-view-demo
+cd history-view-demo
+git init -b main
+printf &#39;A\n&#39; &gt; a.txt
+git add a.txt
+git commit -m &quot;新增 a.txt&quot;
+printf &#39;B\n&#39; &gt; b.txt
+git add b.txt
+git commit -m &quot;新增 b.txt&quot;
+printf &#39;C\n&#39; &gt; c.txt
+git add c.txt
+git commit -m &quot;新增 c.txt&quot;
+git log --oneline --graph --all --decorate</code></pre></div>
+<p>預期最新一筆旁有 HEAD -&gt; main，資料夾中有 a、b、c 三個檔案。識別碼依你的操作而不同。</p>
+<h2 id="2-不改動工作區的查詢">2. 不改動工作區的查詢</h2>
+<div class="reading-code"><span>bash</span><pre><code>git show HEAD~2:a.txt
+git ls-tree --name-only HEAD~2
+git log --oneline -- a.txt
+git diff --name-status HEAD~2 HEAD</code></pre></div>
+<p>第一筆有 a.txt、內容 A，之後新增 b、c。<code>--</code> 用來區分版本與路徑。<code>git log --all</code> 查看所有參照可到達的歷史，不是找出曾經存在的每個物件。</p>
+<h2 id="3-切到舊版本detached-head">3. 切到舊版本：detached HEAD</h2>
+<p>先確認工作區乾淨，再操作：</p>
+<div class="reading-code"><span>bash</span><pre><code>git status --short
+git switch --detach HEAD~2
+ls
+git status
+git log --oneline --all --decorate</code></pre></div>
+<p>預期只見 a.txt，HEAD 直接指向第一筆，main 仍指向第三筆。受追蹤檔案隨版本更新，並非把 b、c 的歷史刪掉。舊寫法 <code>git checkout 識別碼</code> 也可進入 detached HEAD；初學用 switch 明確區分切換與還原檔案。</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch main
+ls</code></pre></div>
+<p>回來後再次看到三個檔案。</p>
+<h2 id="4-想從舊版本繼續開發">4. 想從舊版本繼續開發</h2>
+<p>查詢用寫法：<code>git switch -c experiment 實際識別碼</code>。建立分支後再提交，成果會有分支名稱保留。若已在 detached HEAD 做了提交，<strong>離開前</strong>用 <code>git switch -c experiment</code> 保留目前成果；不要以為回到 main 就會自動把它合併。</p>
+<p>自己做：不切換工作區，用 show 讀出第一筆 a.txt；再從第二筆建立練習分支，新增 d.txt。完成標準：main 仍保留原版本，練習分支有自己的新增提交。</p>
+<p>參考：<a href="https://git-scm.com/docs/git-switch">git switch</a>、<a href="https://git-scm.com/docs/git-show">git show</a>。</p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

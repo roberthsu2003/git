@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 667" width="960" height="667" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">看完就回 main</title><desc id="diagram-desc">切換前先確認工作區乾淨；有未提交修改要先處理再切換。 回到 main：switch main；檔案回到最新版；HEAD 重新指向分支。清理：確認後再刪；有用的先合併；不需要才刪除</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="667" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">14｜查看過去版本與 detached</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">看完就回 main</tspan></text>
+<path d="M 120 175 L 350 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 350 175 L 580 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<circle cx="120" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="120" y="181" text-anchor="middle" class="commit">C1</text><text x="120" y="141" text-anchor="middle" class="ref">舊版本</text>
+<circle cx="350" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="350" y="181" text-anchor="middle" class="commit">C2</text><text x="350" y="141" text-anchor="middle" class="ref">經過的版本</text>
+<circle cx="580" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="580" y="181" text-anchor="middle" class="commit">C3</text><text x="580" y="141" text-anchor="middle" class="ref">HEAD → main</text>
+<text x="36" y="294" class="eyebrow"><tspan x="36" dy="0">圓點是 commit；線表示父子關係；名稱標示分支指向的位置。</tspan></text>
+<rect x="36" y="315" width="435" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 317 H 459" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="353" class="card-title"><tspan x="56" dy="0">回到 main</tspan></text>
+<text x="56" y="383" class="tag"><tspan x="56" dy="0">switch main</tspan></text>
+<text x="56" y="420" class="body"><tspan x="56" dy="0">檔案回到最新版</tspan><tspan x="56" dy="27">HEAD 重新指向分支</tspan></text>
+<rect x="489" y="315" width="435" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 501 317 H 912" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="509" y="353" class="card-title"><tspan x="509" dy="0">清理</tspan></text>
+<text x="509" y="383" class="tag"><tspan x="509" dy="0">確認後再刪</tspan></text>
+<text x="509" y="420" class="body"><tspan x="509" dy="0">有用的先合併</tspan><tspan x="509" dy="27">不需要才刪除</tspan></text>
+<rect x="36" y="514" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="545" class="command"><tspan x="54" dy="0">git switch main；確認後清理實驗分支</tspan></text>
+<text x="36" y="612" class="note"><tspan x="36" dy="0">切換前先確認工作區乾淨；有未提交修改要先處理再切換。</tspan></text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 523" width="960" height="523" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">分享標籤：只推指定的</title><desc id="diagram-desc">修正發布通常建立新名稱；共享標籤可能被別人使用，不能隨意刪除或強制移動。 上傳：指定名稱；一般 push 不推標籤；全推前先確認每一個；只分享需要的版本。刪除：本地與遠端分開；tag -d 只刪本地；遠端要用 push 刪；共享標籤不要亂動</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="523" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">13｜tag：固定指向版本</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">分享標籤：只推指定的</tspan></text>
+<rect x="36" y="144" width="435" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 146 H 459" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="182" class="card-title"><tspan x="56" dy="0">上傳</tspan></text>
+<text x="56" y="212" class="tag"><tspan x="56" dy="0">指定名稱</tspan></text>
+<text x="56" y="249" class="body"><tspan x="56" dy="0">一般 push 不推標籤</tspan><tspan x="56" dy="27">全推前先確認每一個</tspan><tspan x="56" dy="27">只分享需要的版本</tspan></text>
+<rect x="489" y="144" width="435" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 501 146 H 912" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="509" y="182" class="card-title"><tspan x="509" dy="0">刪除</tspan></text>
+<text x="509" y="212" class="tag"><tspan x="509" dy="0">本地與遠端分開</tspan></text>
+<text x="509" y="249" class="body"><tspan x="509" dy="0">tag -d 只刪本地</tspan><tspan x="509" dy="27">遠端要用 push 刪</tspan><tspan x="509" dy="27">共享標籤不要亂動</tspan></text>
+<rect x="36" y="370" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="401" class="command"><tspan x="54" dy="0">git push origin v1.0；遠端刪除用 push 刪標籤</tspan></text>
+<text x="36" y="468" class="note"><tspan x="36" dy="0">修正發布通常建立新名稱；共享標籤可能被別人使用，不能隨意刪除或強制移動。</tspan></text>
+</svg>

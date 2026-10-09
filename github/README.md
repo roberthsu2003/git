@@ -1,274 +1,168 @@
+# GitHub 基本操作
 
-# GitHub基本使用方法
+**延伸圖解 · 第 12 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
-本章是指令查詢，不是要從頭連續執行的練習。想跟同學一起完成作業，請接著閱讀 [GitHub 簡單共同開發與 PR](../協作與PullRequest)；使用 AI 修改程式時，參考 [Git 策略](../日常工作流程)。
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#sync/1`，按下一步觀察本地 main、origin/main 與 GitHub main 的位置。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
-![push 上傳任務分支，不會自動合併 main](../docs/diagrams/collaboration-3.svg)
+Git 管理本地版本，GitHub 提供遠端儲存庫與共同開發功能。先完成前四章，再準備本章的帳號與連線；合作實作見 [GitHub 共同開發](../協作與PullRequest/README.md)。
 
-先看懂本地與 GitHub 的差別，再操作下面指令。完整互動流程見 [SVG 圖解教室](../docs/README.md)。
-## 0. 申請一個Github個人帳號
+![三個位置：本地 main、origin/main、GitHub main](../docs/diagrams/sync-1.svg)
 
-## 1. 編輯git的config
+## 1. 提交身分與登入分開設定
 
-### 1.1 配置使用者名稱和電子郵件
-Git需要知道你的身份。使用以下命令配置你的名稱和電子郵件：
+`git config user.name`、`user.email` 寫入提交資訊，不會讓你取得 GitHub 權限。先申請 GitHub 帳號，再選一種 Git 連線方式：
 
-```bash
-git config --global user.name "你的名字"
-git config --global user.email "你的電子郵件"
-```
+- HTTPS：使用登入／憑證工具，必要時使用 personal access token。
+- SSH：使用自己的金鑰，參考 [SSH 設定](../ssh/README.md)。
 
-### 1.2 查看配置
-檢查你的配置設定是否正確：
+GitHub 帳號密碼不能作為 HTTPS Git 操作的密碼。憑證設定見 [憑證章節](../credential/README.md)，不需要為了登入重建儲存庫。
 
-```bash
-git config --list
-```
+## 2. 路線 A：已有遠端專案，從 clone 開始
 
-## 2. git的credential.name
-
-### 2.1 設置憑證幫助程序
-Git可以使用憑證幫助程序來管理你的密碼。設置憑證幫助程序：
+下方 OWNER 與網址要換成實際帳號及儲存庫。先選未使用的資料夾位置：
 
 ```bash
-git config --global credential.helper cache
+git clone https://github.com/OWNER/class-team-demo.git
+cd class-team-demo
+git remote -v
+git branch --show-current
+git status
 ```
 
-### 2.2 清除記憶體中的暫存憑證
-以下指令結束 credential-cache 程序，清除其暫存憑證，不是查看憑證：
+clone 自動設定 origin，並依遠端預設分支取出檔案。不需要再 init 或再次 `remote add origin`。本教材練習的預設分支是 main，其他專案請看實際名稱。
+
+## 3. 路線 B：自己的本地專案，推到全新空白遠端
+
+這是另一條獨立路線，不要接著路線 A 做。先在 GitHub 建立 class-first-repo，選擇適合的可見性，**不要先新增 README、LICENSE 或 .gitignore**，讓遠端保持空白；避免本地與遠端各自建立不相干的起點。
+
+在終端機或 Git Bash 的新練習位置開始，確認 class-first-repo 尚未存在，已設定提交身分：
 
 ```bash
-git credential-cache exit
+mkdir class-first-repo
+cd class-first-repo
+git init -b main
+printf '# 我的第一個遠端專案\n' > README.md
+git add README.md
+git commit -m "建立專案說明"
+git remote add origin https://github.com/OWNER/class-first-repo.git
+git remote -v
+git push -u origin main
 ```
 
-## 3. git remote的使用
+OWNER 要替換。成功後重新整理 GitHub，應看到 README 與提交。`-u` 設定本地 main 的上游追蹤關係。已有自己的本地專案時，先確認目前分支、提交與遠端，不要重複執行初始化步驟。
 
-### 3.1 添加遠端倉庫
-添加遠端倉庫URL：
+如果遠端已經有 README，初學改走 clone 路線，把要加入的本地檔案複製進去、檢查後提交；不要用 force 覆蓋遠端，或隨意加上 `--allow-unrelated-histories` 合併無關歷史。
+
+## 4. origin、origin/main、main 是什麼？
+
+| 名稱 | 意思 |
+| --- | --- |
+| origin | 本機給遠端網址取的名稱，可以修改 |
+| main | 本地分支 |
+| origin/main | 本機記錄的遠端 main 位置，fetch 後更新 |
+| GitHub 的 main | 真正保存在遠端的分支 |
+
+origin/main 不是即時雲端狀態；別人 push 後，你尚未 fetch 時它可能還在舊位置。
+
+## 5. fetch、pull、push（查詢用）
+
+| 指令 | 做了什麼？ |
+| --- | --- |
+| `git fetch origin` | 下載物件、更新遠端追蹤紀錄，不自動整合工作區 |
+| `git pull --ff-only origin main` | fetch 後只接受 fast-forward；分岔時拒絕 |
+| `git pull --no-rebase origin main` | fetch 後以 merge 整合，可能 fast-forward、建立合併提交或衝突 |
+| `git pull --rebase origin main` | fetch 後把自己的提交重套到遠端版本，可能改識別碼與遇到衝突 |
+| `git push -u origin <任務分支>` | 上傳指定分支並設定上游關係 |
+
+pull 把指定來源整合到**目前分支**，不會因為寫 origin main 就自動切到本地 main。開始前先確認分支與工作區。單獨 pull 的行為受設定與版本影響，教材明確指定策略。
+
+push 只上傳提交，不包含尚未提交的檔案，也不自動替你合併功能分支與 main。不要為方便一次推所有分支或標籤；先分享本次需要的版本。
+
+## 6. 修改遠端與卡關
+
+下面是依需要選用的查詢指令：
+
+| 目的 | 指令 |
+| --- | --- |
+| 看遠端網址 | `git remote -v` |
+| 更新已存在的 origin 網址 | `git remote set-url origin <實際網址>` |
+| 移除 origin 設定 | `git remote remove origin` |
+| 清理已消失的遠端分支追蹤紀錄 | `git fetch --prune origin` |
+
+remove origin 只移除本機的遠端設定與相關追蹤紀錄，不會刪 GitHub 專案。push 出現 non-fast-forward 是遠端拒絕更新分支，不等於已發生檔案衝突；先 fetch 看歷史，參考 [常見錯誤](../github常見的錯誤訊息/README.md)。
+
+## 7. 路線 C：用 GitHub CLI 建立 repo 並直接 push
+
+這是替代網站建庫的方式，三條路線三選一就好，不要把網站建庫與 CLI 建庫重複執行。想在終端機一次完成「建立遠端＋上傳」，就用這一條。
+
+先確認已安裝 `gh`，再登入並檢查狀態：
 
 ```bash
-git remote add origin <遠端倉庫URL>
+gh --version
+gh auth login
+gh auth status
 ```
 
-### 3.2 查看遠端倉庫
-查看已添加的遠端倉庫：
+`gh auth login` 依提示選 GitHub.com、HTTPS、瀏覽器登入；`gh auth status` 有帳號與 token 狀態才算成功。這只代表 CLI 的登入，不代表 SSH 或其他 helper 用同一帳號。
+
+### 照做：本地已有提交，一鍵建庫並上傳
+
+這是另一條獨立路線，不要接著路線 A、B 做。在新練習位置開始，確認 class-cli-demo 尚未存在：
+
+```bash
+mkdir class-cli-demo
+cd class-cli-demo
+git init -b main
+printf '# CLI 建立的專案\n' > README.md
+git add README.md
+git commit -m "建立專案說明"
+git status --short
+```
+
+確認 status 沒有輸出（已提交乾淨），且還沒有設定 origin，再執行：
 
 ```bash
 git remote -v
+gh repo create class-cli-demo --private --source=. --remote=origin --push
 ```
 
-### 3.3 刪除遠端倉庫
-刪除遠端倉庫：
+- `class-cli-demo` 是遠端名稱，請換成自己的練習名稱。
+- `--private` 建私人庫，練習用建議先私人；要公開才改 `--public`，建立後也可在網頁改可見性。
+- `--source=.` 指目前資料夾的本地專案，`--remote=origin` 把遠端命名為 origin，`--push` 建好後直接把 main 推上去。
+
+預期 `git remote -v` 出現 origin 的 GitHub 網址，終端機顯示 push 進度，重新整理 GitHub 就看到 README 與提交。接著驗證：
 
 ```bash
-git remote remove origin
+git remote -v
+git branch --show-current
+git status --short
+gh repo view --web
 ```
 
-## 4. git fetch
+預期目前分支是 main、status 沒有輸出，`gh repo view --web` 開啟剛建立的遠端頁面。之後新增提交照常用 `git push`，不需要每次都 `gh repo create`。
 
-### 4.1 拉取最新改動
-從遠端倉庫獲取最新的改動：
+### 只建空庫、不上傳，何時用？
+
+還沒有本地提交、只想先佔一個空遠端時，在任意位置執行：
 
 ```bash
-git fetch origin
+gh repo create class-empty-demo --private
 ```
 
-## 5. git pull
+這只建遠端，不設定 origin 也不 push，等同網站建庫的「空白遠端」。之後要上傳，走路線 B 的 `remote add origin`＋`push -u origin main`。已經用 `--source=. --push` 的人不要再重複建一次。
 
-### 5.1 拉取並合併
-從遠端倉庫拉取最新改動並合併：
+| 方式 | 適合情況 | 指令 |
+| --- | --- | --- |
+| 網站建庫＋手動 push | 熟悉網頁流程 | 網頁建空白庫，再 `remote add`＋`push -u origin main` |
+| CLI 一鍵建庫並上傳 | 本地已有提交，想一次推上 GitHub | `gh repo create 名稱 --private --source=. --remote=origin --push` |
+| CLI 只建空庫 | 先佔遠端、稍後再傳 | `gh repo create 名稱 --private` |
 
-```bash
-git pull origin main
-```
+### 卡關先查這三個
 
-## 6. merge 和 rebase 的區別
-### Merge（合併）
-使用 `git pull --no-rebase` 時，Git 先 fetch 再 merge。若能 fast-forward，不會建立新的合併提交；兩邊分岔且使用一般合併時才建立 merge commit。單獨 `git pull` 的策略受設定與版本影響，本教材明確指定選項。
+- `remote origin already exists`：本地已有 origin，先用 `git remote -v` 確認，不要重複 create；要用 CLI 接管，先 `git remote remove origin` 再重來，或直接手動 push。
+- 名稱已存在：遠端已有同名庫，換一個名稱，或到網頁確認是不是自己之前建的。
+- 可見性選錯：public／private 建完都可在 GitHub 儲存庫 Settings 改，不需要刪庫重建。作業、練習先用 private。
 
-```bash
-git pull --no-rebase origin main
-# 等同於：
-git fetch origin
-git merge origin/main
-```
+完成標準：能在 GitHub 找到自己上傳的提交，說出本地 main、origin/main 與遠端 main 的差別，並說出 `gh repo create --source=. --push` 與網站建庫的差別。接著完成 [兩人 PR 練習](../協作與PullRequest/README.md)。
 
-#### 優點：
-- 保留了完整的歷史記錄，包括所有分支和合併點。
-- 更容易理解每個變更是如何進行的。
-
-#### 缺點:
-- 歷史記錄可能會變得複雜，特別是在有很多分支和合併的情況下。
-
-### Rebase（重排）
-當你執行 git pull --rebase 時，Git 會將本地的提交暫存，然後將遠端的提交應用到本地分支，最後重新應用本地的提交。
-
-```bash
-git pull --rebase origin main
-# 等同於：
-git fetch origin
-git rebase origin/main
-```
-
-#### 優點：
-- 生成更線性的提交歷史，便於閱讀和理解。
-- 沒有合併提交，歷史記錄更簡潔。
-
-
-
-#### 缺點:
-- 需要小心處理衝突，因為重排可能會改變提交的順序和內容。
-- 可能會覆蓋他人的工作歷史，導致協作困難。
-
-
-
-## 7. git push
-git push 是 Git 的一個命令，用來將本地的提交（變更）推送到遠端倉庫。這個操作會將本地的分支更新同步到遠端分支，使得其他協作者可以看到和合併這些變更。以下是有關 git push 的詳細說明以及如何執行它的步驟。
-
-### 7.1 git push 基本概念
-- **推送（Push）**：將本地倉庫中的變更上傳到遠端倉庫。
-- **遠端倉庫（Remote Repository）**：GitHub、GitLab、Bitbucket 等托管服務上的倉庫。
-- **本地分支（Local Branch）**：你的電腦上的 Git 分支。
-- **遠端分支（Remote Branch）**：遠端倉庫中的 Git 分支。
-- 
-### 7.2 基本用法
-#### 7.2.1 配置遠端倉庫
-在推送之前，需要確保你的本地倉庫已經配置了遠端倉庫。通常在git clone倉庫時會自動設置遠端倉庫，如果沒有，可以手動添加：
-
-```bash
-git remote add origin <遠端倉庫URL>
-```
-
-#### 7.2.2 推送到遠端倉庫
-
-將本地的 main 分支推送到遠端的 main 分支：
-
-```bash
-git push origin main
-```
-
-這個命令中的 origin 是遠端倉庫的預設名稱，main 是你要推送的分支名稱。
-
-#### 7.2.3 推送所有分支
-
-如果你想推送所有本地分支，可以使用以下命令：
-
-```bash
-git push --all origin
-```
-
-#### 7.2.4 強制推送
-
-強制推送可能改寫遠端歷史，不適合當作初學共同開發的日常操作。遇到 push 被拒絕，先確認目前分支與遠端變更；不要直接對共享 main 強制推送。需要整理個人分支歷史時，再另外學習並與協作者確認。
-
-#### 7.2.5 推送標籤
-如果你創建了標籤，也可以推送它們到遠端倉庫：
-
-```bash
-git push origin --tags
-```
-
-### 7.3 步驟示例
-#### 7.3.1 假設情景
-你在本地倉庫進行了一些變更，並且想要將這些變更推送到 GitHub 上的遠端倉庫。
-
-#### 7.3.2 詳細步驟
-
-##### 1. 初始化本地倉庫（如果還沒有）
-```bash
-git init
-```
-
-##### 2. 添加遠端倉庫
-
-```bash
-git remote add origin https://github.com/yourusername/your-repo.git
-```
-
-##### 3. 添加文件到暫存區
-
-```bash
-git add .
-```
-
-##### 4. 提交變更
-
-```bash
-git commit -m "描述你的變更"
-```
-
-##### 5. 推送到遠端倉庫
-
-```bash
-git push origin main
-```
-
-這樣，你的變更就會被推送到 GitHub 上的 main 分支，其他協作者就可以看到這些變更了。
-
-#### 7.3.3 推送過程中的常見問題
-##### 1. 認證問題
-
-GitHub 不接受帳號密碼作為 HTTPS Git 操作的密碼。使用 SSH 金鑰，或 HTTPS 搭配登入／憑證工具或 personal access token；`user.name` 與 `user.email` 是 commit 身分，不是登入憑證。參考 [GitHub 官方驗證說明](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)。
-
-##### 2. 分支衝突
-如果遠端分支有其他人的變更，你在推送時可能會遇到衝突。在這種情況下，你需要先拉取遠端的變更並解決衝突：
-
-```bash
-git pull origin main
-```
-
-然後再次推送：
-
-```bash
-git push origin main
-```
-
-##### 3. 未跟踪分支
-如果你創建了一個新的分支，並且該分支還沒有與遠端分支建立跟踪關係，你可以使用以下命令推送並設置跟踪：
-
-```bash
-git push -u origin new-branch
-```
-
-這樣，下次你只需使用 git push 即可。
-
-## 8. git clone
-
-
-### 8.1 複製遠端倉庫
-從遠端倉庫複製到本地：
-
-```bash
-git clone <遠端倉庫URL>
-```
-
-## 9. 使用GitHub CLI建立GitHub repo
-
-### 9.1 安裝GitHub CLI
-首先，安裝GitHub CLI。參考官方文件進行安裝。
-
-### 9.2 登錄GitHub
-使用GitHub CLI登錄：
-
-```bash
-gh auth login
-```
-
-### 9.3 創建新倉庫
-創建新的GitHub倉庫：
-
-```bash
-gh repo create <倉庫名稱> --public
-```
-
-## 10. 使用GitHub網站手動建立repo
-
-### 10.1 登錄GitHub
-打開[GitHub](https://github.com)，並登錄你的賬號。
-
-### 10.2 創建新倉庫
-點擊右上角的 "+" 號，選擇 "New repository"。填寫倉庫名稱和描述，選擇可見性，然後點擊 "Create repository"。
-
----
-
-這是GitHub基本使用方法的詳細講義，希望這能幫助你理解和使用GitHub進行版本控制和協作開發。如果需要進一步的詳細解說或示範，可以參考官方文檔或教程。
+參考：[GitHub 驗證方式](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)、[git pull](https://git-scm.com/docs/git-pull)、[GitHub CLI 手冊](https://cli.github.com/manual/)。

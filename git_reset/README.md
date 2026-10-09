@@ -2,224 +2,122 @@
 
 **復原與整理 · 第 10 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
-圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 [Git 圖解教室](../docs/README.md)。
-> 注意  小心會修改工作目錄內的檔案和內容
-> 回到前面記錄點(commit)
-> 有3種模式 --hard,--soft,--mixed
 
-## 預設模式(—mixed)
+本章比較 `git reset [--soft|--mixed|--hard] 目標提交`：在一般分支上會移動目前分支，再依模式更新暫存區或工作區。它不是立即刪除 commit；但會改變分支可見的歷史。只在獨立練習專案操作，已分享的錯誤優先追加修正或 revert。
 
-> 回到指定的commit,先前commit拆解的檔案,進入尚未commit的工作區
+## 1. 三種模式
 
-![Git 概念圖：reset-2](../docs/diagrams/reset-2.svg)
+![三種 reset 模式比較](../docs/diagrams/reset-1.svg)
 
-```
-$ touch i1.html
-$ git add i1.html
-$ git commit -m “增加i1.html”
+| 模式 | 目前分支 | 暫存區 | 工作區 |
+| --- | --- | --- | --- |
+| `--soft` | 移到目標 | 保留原版本 | 保留原內容 |
+| `--mixed`（預設） | 移到目標 | 改為目標版本 | 保留原內容 |
+| `--hard` | 移到目標 | 改為目標版本 | 受追蹤內容改為目標版本 |
 
-$ touch i2.html
-$ git add i2.html
-$ git commit -m “增加i2.html”
+hard 會丟棄受追蹤內容的未提交修改，也可能覆蓋或刪除擋住還原路徑的未追蹤檔案；它不是通用的「刪除所有未追蹤檔案」指令。`git reset -- 檔名` 是另一種只更新暫存區、不移動分支的用法，初學可用 `git restore --staged` 表達取消暫存。
 
-$ git log --oneline
-______________________________________
+## 2. 照做：準備相同起點
 
-fa7a416 (HEAD -> master) 增加i2.html
-f6679ed 增加i1.html
-3c24296 修改.gitignore
-cca5666 增加h.cer檔案和hfloder目錄
-cd28b1e 增加.gitignore
-d2600eb 新增f1.html,f2.html 新增f3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-
-
-$ git reset 3c24296      #回到3c24296
-
-$ git status
-________________________________________
-On branch master
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        i1.html
-        i2.html
-
-nothing added to commit but untracked files present (use "git add" to track)
-
-$ git log --oneline
-_____________________________________
-3c24296 (HEAD -> master) 修改.gitignore
-cca5666 增加h.cer檔案和hfloder目錄
-cd28b1e 增加.gitignore
-d2600eb 新增f1.html,f2.html 新增f3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-
-```
-
-- HEAD回到3c24296
-- 先前commit拆解的檔案回到尚未commit的工作區域
-
-## 回復到原來的commit
-
-> commit 實際是沒被拆解！只要記的先前的commit識別碼.就可以回復
-
-```
-$ git reset fa7a416  #復原到最先的commit
-$ git log --oneline
-_______________________________
-fa7a416 (HEAD -> master) 增加i2.html
-f6679ed 增加i1.html
-3c24296 修改.gitignore
-cca5666 增加h.cer檔案和hfloder目錄
-cd28b1e 增加.gitignore
-d2600eb 新增f1.html,f2.html 新增f3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-```
-
-- 回復到原先的commit
-
-## soft模式(--soft)
-
-> 回到指定的commit,先前commit拆解的檔案,進入尚未commit的staged區
-
-![Git 概念圖：reset-1](../docs/diagrams/reset-1.svg)
-
-```
-$ git log --oneline
-_____________________________
-fa7a416 (HEAD -> master) 增加i2.html
-f6679ed 增加i1.html
-3c24296 修改.gitignore
-cca5666 增加h.cer檔案和hfloder目錄
-cd28b1e 增加.gitignore
-d2600eb 新增f1.html,f2.html 新增f3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-
-$ git reset --soft 3c24296
-$ git status
-____________________________________
-On branch master
-Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
-        new file:   i1.html
-        new file:   i2.html
-        
-$ git log --oneline
-_______________________________________
-3c24296 (HEAD -> master) 修改.gitignore
-cca5666 增加h.cer檔案和hfloder目錄
-cd28b1e 增加.gitignore
-d2600eb 新增f1.html,f2.html 新增f3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-
-```
-
-- 回到commit 3c24296
-- 被拆解的commit檔案,進入staged內
-
-## 回復到原來的commit
-
-> commit 實際是沒被拆解！只要記的先前的commit識別碼.就可以回復
-
-```
-$ git reset fa7a416  #復原到最先的commit
-$ git log --oneline
-_______________________________
-fa7a416 (HEAD -> master) 增加i2.html
-f6679ed 增加i1.html
-3c24296 修改.gitignore
-cca5666 增加h.cer檔案和hfloder目錄
-cd28b1e 增加.gitignore
-d2600eb 新增f1.html,f2.html 新增f3.html
-059c439 “加入新增d1.html,d2.html,d3.html,d3.html加入內容“
-bfe5b85 新增c1.html,c2.html,c3.html,c3.html加入內容
-63d60eb 建立b3.html
-58718cc 建立b2.html
-6421101 建立b1.html
-454c953 建立3個a檔案
-```
-
-- 回復到原先的commit
-
-
-## hard 模式（--hard）
-
-以下與 soft、mixed 分別比較，從已提交至 fa7a416、工作區乾淨的起點開始。回到較早的 3c24296 時，分支與暫存區都會改成目標版本，工作區的受追蹤檔案也會被覆蓋。
-
-![hard 同時重設分支、暫存區與工作區](../docs/diagrams/reset-3.svg)
-
-先保留需要的修改，再在自己的練習專案操作；本圖用 C1／V1 簡化表示目標 commit。
+已設定提交身分，在終端機或 Git Bash 的新練習位置操作；reset-demo 尚未存在。
 
 ```bash
-git reset --hard 3c24296
-git status
-git log --oneline
+mkdir reset-demo
+cd reset-demo
+git init -b main
+printf 'V1\n' > version.txt
+git add version.txt
+git commit -m "版本 V1"
+printf 'V2\n' > version.txt
+git add version.txt
+git commit -m "版本 V2"
+printf 'V3\n' > version.txt
+git add version.txt
+git commit -m "版本 V3"
+git branch lesson-start
+git status --short
 ```
 
-預期：HEAD 與目前分支回到 3c24296；status 顯示工作區乾淨。這個舊範例在目標版本還沒有 i1.html、i2.html，因此兩個已追蹤檔案會被移除。
+預期 main 有三筆提交，檔案是 V3，status 沒有輸出。lesson-start 是留在 V3 的備用分支名稱，讓三次比較能回到相同起點；它不會隨 main 的 reset 移動。
 
-不指定目標的 `git reset --hard` 是回到目前 HEAD 的版本，不會自行選擇更早的 commit。hard 也不是刪除所有未追蹤檔案的指令。
+## 3. soft：保留已暫存差異
 
-##  git reflog
+![soft 保留暫存區與工作區](../docs/diagrams/reset-2.svg)
 
-> 可以查詢到所有commit的動作記錄！就可以查到先前被拆解的commit識別碼
-
+```bash
+git reset --soft HEAD~2
+git status --short
+cat version.txt
+git show HEAD:version.txt
+git diff --staged
 ```
-$ git reflog
-__________________________________
-fa7a416 (HEAD -> master) HEAD@{0}: reset: moving to fa7a416
-3c24296 HEAD@{1}: reset: moving to 3c24296
-fa7a416 (HEAD -> master) HEAD@{2}: reset: moving to fa7a416
-3c24296 HEAD@{3}: reset: moving to 3c24296
-fa7a416 (HEAD -> master) HEAD@{4}: reset: moving to fa7a416
-3c24296 HEAD@{5}: reset: moving to 3c24296
-fa7a416 (HEAD -> master) HEAD@{6}: commit: 增加i2.html
-f6679ed HEAD@{7}: commit: 增加i1.html
-3c24296 HEAD@{8}: commit: 修改.gitignore
-cca5666 HEAD@{9}: commit: 增加h.cer檔案和hfloder目錄
-cd28b1e HEAD@{10}: commit: 增加.gitignore
-d2600eb HEAD@{11}: commit (amend): 新增f1.html,f2.html
-aa7edbe HEAD@{12}: commit (amend): 新增f1.html,f2.html
-fcf905a HEAD@{13}: commit: 新增f1.html
-059c439 HEAD@{14}: reset: moving to 059c439
-59b62a4 HEAD@{15}: commit: 新增H1.html
-0a7a99e HEAD@{16}: commit (amend): 重新修改commit說明
-c1a6019 HEAD@{17}: reset: moving to c1a6019
-d4e1b24 HEAD@{18}: reset: moving to d4e1b24
-c1a6019 HEAD@{19}: reset: moving to c1a6019
-d4e1b24 HEAD@{20}: commit: 刪除e1.html,e2.html,e3.html
-c1a6019 HEAD@{21}: reset: moving to c1a6019
-6633812 HEAD@{22}: reset: moving to 6633812
-c1a6019 HEAD@{23}: commit: 新增e1.html,e2.html,e3.html
-059c439 HEAD@{24}: reset: moving to 059c439
-6633812 HEAD@{25}: reset: moving to 6633812
 
+預期 `M  version.txt`；工作區與暫存區仍是 V3，HEAD 是 V1，staged 差異是 V1 → V3。兩筆提交不再由 main 指向，仍由 lesson-start 保留。
+
+回相同起點再比較：
+
+```bash
+git reset --soft lesson-start
+git status --short
 ```
+
+預期乾淨、main 又在 V3。
+
+## 4. mixed：保留未暫存差異
+
+![mixed 更新暫存區但保留工作區](../docs/diagrams/reset-3.svg)
+
+```bash
+git reset --mixed HEAD~2
+git status --short
+cat version.txt
+git show HEAD:version.txt
+git diff
+```
+
+預期 ` M version.txt`；HEAD 與暫存區是 V1，工作區仍是 V3。要重新提交就必須再 add。
+
+```bash
+git reset --mixed lesson-start
+git status --short
+```
+
+工作區仍是 V3，暫存區與 main 回到 V3，因此又乾淨。
+
+## 5. hard：連工作區一起還原
+
+hard 會把目前分支、暫存區、受追蹤的工作區內容都改為目標版本（對照前兩節的圖，第三個區域也會一起還原）。
+
+以下只在本章 reset-demo、已確認沒有其他要保留修改時執行：
+
+```bash
+git reset --hard HEAD~2
+git status --short
+cat version.txt
+```
+
+預期沒有待處理差異，內容改成 V1。備用分支仍保留已提交 V3，所以可以回去：
+
+```bash
+git reset --hard lesson-start
+cat version.txt
+git branch -d lesson-start
+```
+
+預期 V3，完成後只剩 main。能找回是因為 V3 已提交且仍有名稱指向它，不代表 hard 能找回未提交修改。
+
+## 6. 已移走的 commit 怎麼找？
+
+`git reflog` 記錄本機參照的移動；可能找到 reset 前的識別碼。查到後，可先用 `git show 識別碼` 確認，再用 `git branch recovered 識別碼` 建立保留分支，避免立刻再次 reset。
+
+reflog 不是遠端共享紀錄，也不是永久備份；紀錄與無法到達的物件可能到期被清理，整個 .git 遺失時也不能靠它復原。
+
+## 7. 自己做
+
+在另一個練習專案做三筆版本，再比較三種模式。驗收時同時指出 HEAD、暫存區與工作區的版本；不能只說「退回兩筆」。
+
+參考：[git reset](https://git-scm.com/docs/git-reset)、[git reflog](https://git-scm.com/docs/git-reflog)。
+
 
 ---
 

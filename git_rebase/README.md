@@ -1,194 +1,121 @@
-## git rebase
+# rebase：整理自己的提交歷史
 
-### 重新修改多個commit 
+**延伸圖解 · 第 15 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
-```
-#修改目前的前3個commit
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#rebase/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
-$ git rebase -i HEAD~3
-```
+先完成 [分支](../分支/README.md)、[reset](../git_reset/README.md) 與 [amend](../修改目前commit/README.md)。rebase 會重新套用提交，可能重建識別碼；本章只整理自己尚未分享的練習分支。
 
-### 重新修改多個commit的message
+![reword 逐一改寫訊息](../docs/diagrams/rebase-1.svg)
 
-1. #### 增加3個commit
+## 1. 照做：準備起點加三筆提交
 
-```
-$ echo 'f4.html' >> f4.html
-$ git add f4.html
-$ git commit -m "add f4.html"
-[main (root-commit) ef76d6a] add f4.html
- 1 file changed, 1 insertion(+)
- create mode 100644 f4.html
- 
-$ echo 'ht.html' > f5.html
-$ git add f5.html
-$ git commit -m "add f5.html"
-[main c75f677] add f5.html
- 1 file changed, 1 insertion(+)
- create mode 100644 f5.html
- 
-$ echo 'h6.html' > f6.html
-$ git add f6.html
-$ git commit -m "ad h6.html"
-[main 560225d] ad h6.html
- 1 file changed, 1 insertion(+)
- create mode 100644 f6.html
- $ git log --oneline
-560225d (HEAD -> main) ad h6.html
-c75f677 add f5.html
-ef76d6a add f4.html
+使用終端機或 Git Bash，已設定身分，在尚無 rebase-demo 的位置開始。互動操作會開啟編輯器，先熟悉 [儲存與離開](../環境安裝與設定/README.md)。
+
+```bash
+mkdir rebase-demo
+cd rebase-demo
+git init -b main
+printf '# 起點\n' > README.md
+git add README.md
+git commit -m "建立練習起點"
+git switch -c feature-pages
+touch f4.html
+git add f4.html
+git commit -m "新增 f4"
+touch f5.html
+git add f5.html
+git commit -m "新增 f5"
+touch f6.html
+git add f6.html
+git commit -m "新增 f6"
+git branch before-rebase
+git status --short
 ```
 
-2. #### 一次修改3個commit message
+共有四筆提交，before-rebase 留住整理前的版本。本練習共四筆，故 `HEAD~3` 存在，可照用；`HEAD~3` 必須存在：**如果整個儲存庫只有三筆，第三次回溯超過 root，不能照用這個指令**。整理包含根提交的歷史另有 `git rebase -i --root`，先不混入本練習。
 
-```
-$ git rebase -i HEAD~3   #修改前3個
-----------------------------------------												 
-#將pick改為reword改為reword(修改commit message)
-#執行後,會分別出現2次新的commit message修改對話框
+## 2. 照做：改三筆訊息
 
-reword 807884e 新增f4.html
-reword d0a9f5a 新增f5.html
-reword 0c8d81f 新增f6.html
-
-# Rebase 0abe09e..ac95c93 onto 0abe09e (3 commands)
-#
-# Commands:
-# p, pick <commit> = use commit
-# r, reword <commit> = use commit, but edit the commit message
+```bash
+git rebase -i HEAD~3
 ```
 
+編輯器按最舊到最新列出三筆提交；識別碼依你的專案不同。保留實際識別碼與順序，只把三行開頭的 pick 改成 reword：
 
-### 將3個commit,擠壓成為1個
-
-```
-$ git rebase -i HEAD~3   #修改前3個
-------------------------------------
-#將第2個和第3個改為squash(向前擠壓)
-#第1個保持pick
-#會開啟一個對話框,可以修改新的commit message
-
-pick 144a0e8 新增f4.html修改
-squash 949e35b 新增f5.html修改
-squash b86cfdf 新增f6.html修改
+```text
+reword 實際識別碼 新增 f4
+reword 實際識別碼 新增 f5
+reword 實際識別碼 新增 f6
 ```
 
-### 將1個commit,拆解為2個
+這是編輯器內容示意，不是 shell 指令。儲存離開後，三筆都選 reword，會依序進行**三次**訊息編輯；分別改成「新增 f4.html」、「新增 f5.html」、「新增 f6.html」。
 
-```
-$ git log --oneline
-e341558 (HEAD -> main) add h7.html
-b92cb0f add f5.html-modify add h6.html modify #將要拆解中間這個
-ef76d6a add f4.html
-```
-
-1. #### 開始拆解
-
-```
-$ git rebase -i HEAD~2
-
-#將要拆解的改為edit
-pick b92cb0f add f5.html-modify add h6.html modify
-pick e341558 add h7.html
+```bash
+git log --oneline -4
+git diff before-rebase HEAD
+git status --short
 ```
 
-2. #### 拆解說明
-	- git commit --amend 
-	- git rebase --continue # 拆解完成要執行這個指令
+預期仍四筆提交、訊息改好，檔案差異與 status 都沒有輸出。
 
-```
-Stopped at b92cb0f...  add f5.html-modify add h6.html modify
-You can amend the commit now, with
+## 3. 照做：三筆合成一筆
 
-  git commit --amend 
+接續同一個 feature-pages：
 
-Once you are satisfied with your changes, run
-
-  git rebase --continue
-
+```bash
+git rebase -i HEAD~3
 ```
 
-3. #### 先使用git status開查stage 和 working directory內的狀態
-	- 無任何東西
-```
-$ git status
-interactive rebase in progress; onto ef76d6a #現在正在rebase中
-Last command done (1 command done):
-   edit b92cb0f add f5.html-modify add h6.html modify
-Next command to do (1 remaining command):
-   pick e341558 add h7.html
-  (use "git rebase --edit-todo" to view and edit)
-You are currently editing a commit while rebasing branch 'main' on 'ef76d6a'.
-  (use "git commit --amend" to amend the current commit)
-  (use "git rebase --continue" once you are satisfied with your changes)
+保留第一行 pick，後兩行改 squash：
 
-nothing to commit, working tree clean
-
+```text
+pick 實際識別碼 新增 f4.html
+squash 實際識別碼 新增 f5.html
+squash 實際識別碼 新增 f6.html
 ```
 
-4. #### 將目前的commit內容,分解至working directory
+squash 把該提交合到前面累積的提交，並讓你整理訊息；最後訊息改為「新增三個練習頁面」。不要 squash 第一行，因為範圍內沒有前一筆可合。
 
-```
-$ git reset HEAD^
-$ git status
-interactive rebase in progress; onto ef76d6a
-Last command done (1 command done):
-   edit b92cb0f add f5.html-modify add h6.html modify
-Next command to do (1 remaining command):
-   pick e341558 add h7.html
-  (use "git rebase --edit-todo" to view and edit)
-You are currently editing a commit while rebasing branch 'main' on 'ef76d6a'.
-  (use "git commit --amend" to amend the current commit)
-  (use "git rebase --continue" once you are satisfied with your changes)
-
-Untracked files:  # 已經被拆解至working directory
-  (use "git add <file>..." to include in what will be committed)
-	f5.html
-	f6.html
-
-nothing added to commit but untracked files present (use "git add" to track)
+```bash
+git rev-list --count HEAD
+git show --stat HEAD
+git diff before-rebase HEAD
 ```
 
-5. #### 建立2個新增的commit
+預期現在只有起點與合併後提交，共兩筆；三個頁面都在，與整理前檔案相同。`fixup` 也會合到前面，但一般 fixup 丟棄該筆訊息、沿用前面的訊息；與 squash 的訊息處理不同。
 
-```
- $ git add f5.html
- $ git commit -m "add f5.html"
- $ git add f6.html\
- $ git commit -m "add f6.html"
-```
+## 4. 照做：把最後一筆拆成兩筆
 
-6. #### 結束rebase,和檢查commit
+接續上節，目前最後一筆新增三個檔案：
 
-```
-$ git rebase --continue
-$ git log --oneline
-
-#已經被拆解為2個了
-cfb65c5 (HEAD -> main) add h7.html
-859de98 add f6.html
-09b96cf add f5.html
-ef76d6a add f4.html
+```bash
+git rebase -i HEAD~1
 ```
 
-### rebase的fixup 和 squash是相似的,也是向前組合commit,但不會要求更改commit的message
+將唯一一行 pick 改成 edit，儲存離開。Git 停在該提交時：
 
-1. #### 執行rebase
-
-```
-$ git rebase -i HEAD~3
-
-#將後面2個組合至第1個
-pick 09b96cf add f5.html
-fixup 859de98 add f6.html
-fixup cfb65c5 add h7.html
-``` 
-
-2. #### 檢查commit內容
-
-```
-$ git log --oneline
-b500edb (HEAD -> main) add f5.html
-ef76d6a add f4.html
+```bash
+git reset --mixed HEAD^
+git status --short
+git add f4.html
+git commit -m "新增 f4.html"
+git add f5.html f6.html
+git commit -m "新增 f5.html 與 f6.html"
+git rebase --continue
+git rev-list --count HEAD
+git diff before-rebase HEAD
+git status --short
 ```
 
+預期 reset 後三個新檔案未追蹤，分批 add／commit 後總共三筆，與整理前內容相同，工作區乾淨。拆分不用把三個檔案重新寫一遍；是把原變更分成不同提交。
+
+## 5. 卡關與同步上游（查詢用）
+
+遇到衝突：讀 `git status`，修正列出的檔案、移除衝突標記，`git add 實際檔名` 後 `git rebase --continue`。仍在 rebase 中時可用 `git rebase --abort` 取消本次操作；不要直接 reset 猜測狀態。`--skip` 會略過一筆提交，不能當成一般解衝突方法。
+
+另一種用途是在自己功能分支用 `git fetch origin`、`git rebase origin/main`，把自己的提交重新套用到最新 main。這與本章互動整理有共同原理，但不是要接著執行的步驟。已共享的分支改寫需團隊約定；本教材的初學協作先使用 merge。
+
+完成標準：能用 before-rebase 比較檔案內容，說明為什麼提交數量與識別碼變了，成果卻相同。before-rebase 是尚未整合的舊歷史，branch -d 可能拒絕；先保留它用來比較，不需要強行刪除。
+
+參考：[git rebase 官方文件](https://git-scm.com/docs/git-rebase)。

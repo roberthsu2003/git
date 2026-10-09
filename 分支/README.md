@@ -163,4 +163,4 @@ squash 後，Git 不一定把原分支判定為「已合併」，`branch -d` 可
 
 ---
 
-[← main、HEAD 與歷史](../使用master主要分支/README.md)　｜　[忽略不需要追蹤的檔案 →](../不想被追蹤的檔案/README.md)
+[← main、HEAD 與歷史](../使用main主要分支/README.md)　｜　[忽略不需要追蹤的檔案 →](../不想被追蹤的檔案/README.md)

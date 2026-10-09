@@ -17,7 +17,7 @@
 | 章節 | 學習內容 | 完成後你能做什麼？ |
 | --- | --- | --- |
 | 01 | [工作區與暫存區](./開始使用Git/README.md) | 用 add 與 commit 保存正確的檔案版本 |
-| 02 | [main、HEAD 與歷史](./使用master主要分支/README.md) | 看懂目前分支與各筆 commit 的關係 |
+| 02 | [main、HEAD 與歷史](./使用main主要分支/README.md) | 看懂目前分支與各筆 commit 的關係 |
 | 03 | [分支與合併](./分支/README.md) | 在功能分支開發，完成後整合回 main |
 | 04 | [忽略不需要追蹤的檔案](./不想被追蹤的檔案/README.md) | 用 .gitignore 排除暫存檔，理解已追蹤檔案的差別 |
 
@@ -56,11 +56,12 @@
 
 | 類別 | 教材 |
 | --- | --- |
-| 進階歷史整理 | [rebase](./git_rebase/README.md) |
-| 標記版本 | [tag](./tag/README.md) |
-| 查看過去版本 | [檢查先前修改的檔案](./檢查先前修改的檔案/README.md) |
-| GitHub 卡關 | [常見錯誤訊息](./github常遇的錯誤訊息/README.md) |
-| 工具設定 | [GitHub 基本操作與 CLI](./github/README.md)、[SSH](./ssh/README.md)、[憑證](./credential/README.md) |
+| 同步三角（12） | [GitHub 基本操作與 CLI](./github/README.md) |
+| 標記版本（13） | [tag](./tag/README.md) |
+| 查看過去版本（14） | [檢查先前修改的檔案](./檢查先前修改的檔案/README.md) |
+| 進階歷史整理（15） | [rebase](./git_rebase/README.md) |
+| GitHub 卡關 | [常見錯誤訊息](./github常見的錯誤訊息/README.md) |
+| 工具設定 | [SSH](./ssh/README.md)、[憑證](./credential/README.md) |
 | 課堂使用 | [課程安排](./課程/README.md)、[測驗](./測驗/README.md)、[跨領域延伸主題](./課程/延伸主題.md) |
 
-互動教室包含 **11 章、44 個觀察步驟**；教材另附 nano 操作圖，共 **45 組 SVG（桌面與手機各一版）**。GitHub 顯示靜態圖，下載後可用瀏覽器開啟 `docs/index.html` 離線操作。
+互動教室包含 **15 章、66 個觀察步驟**；教材另附 nano 操作圖，共 **67 組 SVG（桌面與手機各一版）**。GitHub 顯示靜態圖，下載後可用瀏覽器開啟 `docs/index.html` 離線操作。

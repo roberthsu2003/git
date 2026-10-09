@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 694" width="960" height="694" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">備份分支不會跟著 reset 移動</title><desc id="diagram-desc">能找回是因為 V3 已提交且仍有名稱指向它；hard 丟棄的未提交修改不能用 reflog 找回。 lesson-start：備份仍指向 V3；reset 只移動目前分支；備份分支不會跟著移；可比較也可移回去。reflog：找移走的 commit；記錄分支 recent 位置；V3 識別碼查得到；未提交修改救不回</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="694" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">10｜reset 的三種模式</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">備份分支不會跟著 reset 移動</tspan></text>
+<path d="M 120 175 L 350 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 350 175 L 580 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<circle cx="120" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="120" y="181" text-anchor="middle" class="commit">C1</text><text x="120" y="141" text-anchor="middle" class="ref">HEAD → main（已移回）</text>
+<circle cx="350" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="350" y="181" text-anchor="middle" class="commit">C2</text><text x="350" y="141" text-anchor="middle" class="ref">V2</text>
+<circle cx="580" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="580" y="181" text-anchor="middle" class="commit">C3</text><text x="580" y="141" text-anchor="middle" class="ref">lesson-start（仍在 V3）</text>
+<text x="36" y="294" class="eyebrow"><tspan x="36" dy="0">圓點是 commit；線表示父子關係；名稱標示分支指向的位置。</tspan></text>
+<rect x="36" y="315" width="435" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 317 H 459" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="353" class="card-title"><tspan x="56" dy="0">lesson-start</tspan></text>
+<text x="56" y="383" class="tag"><tspan x="56" dy="0">備份仍指向 V3</tspan></text>
+<text x="56" y="420" class="body"><tspan x="56" dy="0">reset 只移動目前分支</tspan><tspan x="56" dy="27">備份分支不會跟著移</tspan><tspan x="56" dy="27">可比較也可移回去</tspan></text>
+<rect x="489" y="315" width="435" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 501 317 H 912" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="509" y="353" class="card-title"><tspan x="509" dy="0">reflog</tspan></text>
+<text x="509" y="383" class="tag"><tspan x="509" dy="0">找移走的 commit</tspan></text>
+<text x="509" y="420" class="body"><tspan x="509" dy="0">記錄分支 recent 位置</tspan><tspan x="509" dy="27">V3 識別碼查得到</tspan><tspan x="509" dy="27">未提交修改救不回</tspan></text>
+<rect x="36" y="541" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="572" class="command"><tspan x="54" dy="0">git branch lesson-start；git reset --hard HEAD~2；git reflog</tspan></text>
+<text x="36" y="639" class="note"><tspan x="36" dy="0">能找回是因為 V3 已提交且仍有名稱指向它；hard 丟棄的未提交修改不能用 reflog 找回。</tspan></text>
+</svg>

@@ -1,160 +1,53 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>工作區與暫存區｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic is-current" href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">建立版本 · 第 01 章</div><article class="reading-content"><h1 id="工作區與暫存區">工作區與暫存區</h1>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>工作區與暫存區｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic is-current" href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">建立版本 · 第 01 章</div><article class="reading-content"><h1 id="工作區與暫存區">工作區與暫存區</h1>
 <p><strong>建立版本 · 第 01 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
-<p>圖解已重畫為 SVG；圖中使用 main 與簡化 commit 名稱，舊範例若使用 master，主要分支的概念相同。互動版見 <a href="guide.html">Git 圖解教室</a>。</p>
-<h2 id="git是什麼">git是什麼?</h2>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-6.svg"/><img src="../diagrams/staging-6.svg" alt="Git 概念圖：staging-6" loading="lazy"/></picture><figcaption>Git 概念圖：staging-6</figcaption></figure>
-<p>就是在專案開始到結束時, 建立非常多的記錄點(commit),在開發的過程中,我們可以在記錄點上遊走,說簡單點就是我們可以回到記錄點被建立當下的專案檔案的狀態。</p>
-<h2 id="建立記錄點有什麼好處呢">建立記錄點有什麼好處呢?</h2>
-<h3 id="1-當專案測試新功能時發現程式不對可以回到測試前的記錄點重新開始">1. 當專案測試新功能時，發現程式不對，可以回到測試前的記錄點，重新開始</h3>
-<h3 id="2-不怕專案不小心被刪了">2. 不怕專案不小心被刪了</h3>
-<h3 id="3-可以多人同時開發相同專案">3. 可以多人同時開發相同專案</h3>
-<h3 id="4-可以記錄每一個檔案是誰修改的時間點改了那些東西簡單的註記說明">4. 可以記錄每一個檔案是誰修改的，時間點，改了那些東西，簡單的註記說明</h3>
-<h3 id="5-可以保存在git-servergithub">5. 可以保存在git server(github)</h3>
-<h2 id="使用-gui介面-還是command-line介面較好">使用 「GUI介面」 還是「Command line」介面較好?</h2>
-<p>不會command line介面，基本上就不會使用GUI介面。GUI介面只是一個方便檢視(view)功能，不建議使用GUI操作功能</p>
-<h2 id="git好學嗎">Git好學嗎?</h2>
-<p>好學，難熟練。學20%功能，就可以使用80%功能。所以初學者一開始不要鑽牛角尖。</p>
-<h2 id="開始將專案交給git管理">開始將專案交給git管理</h2>
-<h4 id="--建立一個資料夾這資料夾將是我們的專案">- 建立一個資料夾，這資料夾將是我們的專案</h4>
-<h4 id="--將資料夾交給git管理">- 將資料夾交給git管理</h4>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ cd ~/Documents      #進入文件資料夾
-$ mkdir markdownLag   #建立markdownLag
-$ cd markdownLag      #進入markdownLag資料夾 
-$ git init            #初始化git, 將資料夾交給git管理</code></pre></div>
-<h4 id="檢查markdownlag資料夾內的檔案內容">檢查markdownLag資料夾內的檔案內容:</h4>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ ls -al
-
----------------
-drwxr-xr-x   3 roberthsu2003  staff   96 11 29 11:26 .
-drwx------+ 19 roberthsu2003  staff  608 11 29 11:25 ..
-drwxr-xr-x   9 roberthsu2003  staff  288 11 29 11:26 .git</code></pre></div>
-<p>以上資料夾建立了一個隱藏檔「.git 」，未來所有的git資訊將儲存於.git內，也代表此資料夾目前已經被git管理。</p>
-<p>下方為您可以想像的圖像:</p>
-<ul><li>工作區(就是在這資料內的檔案和目錄),目前是空的</li><li>暫存區(要將檔案加入至記錄區時，必需先加入至暫存區)</li><li>記錄區(記錄當時工作區的狀態)</li></ul>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-1.svg"/><img src="../diagrams/staging-1.svg" alt="Git 概念圖：staging-1" loading="lazy"/></picture><figcaption>Git 概念圖：staging-1</figcaption></figure>
-<hr>
-<h2 id="取消git的管理直接刪除git">取消git的管理(直接刪除.git)</h2>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ rm -rf .git</code></pre></div>
-<h2 id="建立不初git管理的檔案清單gitignore">建立不初git管理的檔案清單(.gitignore)</h2>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch .gitignore</code></pre></div>
-<h3 id="gitignore內容">.gitignore內容</h3>
-<div class="reading-code"><span>操作與輸出</span><pre><code>.DS_Store
-__pycache__
-.env
-.enve
-*.pyc</code></pre></div>
-<h2 id="新增1個檔案並交由git管理">新增1個檔案,並交由git管理</h2>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ touch index.txt           #建立一個index.txt檔</code></pre></div>
-<hr>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git status
-
--------------
-On branch main
-
-No commits yet
-
-Untracked files:
-  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
-	index.txt
-</code></pre></div>
-<p>代表說明index.txt是新建立的檔案尚未被追蹤</p>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-2.svg"/><img src="../diagrams/staging-2.svg" alt="Git 概念圖：staging-2" loading="lazy"/></picture><figcaption>Git 概念圖：staging-2</figcaption></figure>
-<hr>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git add index.txt         #git開始追蹤index.txt檔</code></pre></div>
-<hr>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git status 
-
---------------------
-On branch main
-
-No commits yet
-
-Changes to be committed:
-  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)
-	new file:   index.txt
-</code></pre></div>
-<p>代表index.txt已經被追蹤，等待被加入記錄區</p>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-3.svg"/><img src="../diagrams/staging-3.svg" alt="Git 概念圖：staging-3" loading="lazy"/></picture><figcaption>Git 概念圖：staging-3</figcaption></figure>
-<hr>
-<h4 id="修改indextxt的內容">修改index.txt的內容</h4>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ vim index.txt #:wq存檔並離開
-
------------------------------
-
-markdown語法介紹
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                               
-~                                                                                                                                                             
- </code></pre></div>
-<hr>
-<h4 id="檢查目前git狀態">檢查目前git狀態</h4>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git status
-
----------------------
-Changes to be committed:
-  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)
-	new file:   index.txt
-
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
-	modified:   index.txt
-</code></pre></div>
-<ol><li>暫存區內有記錄新增了一個檔</li><li>工作區內的index.txt已經被編輯，尚未加入至暫存區內</li></ol>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-4.svg"/><img src="../diagrams/staging-4.svg" alt="Git 概念圖：staging-4" loading="lazy"/></picture><figcaption>Git 概念圖：staging-4</figcaption></figure>
-<hr>
-<h4 id="將編輯的狀態加入暫存區並檢目前狀態">將編輯的狀態加入暫存區，並檢目前狀態</h4>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git add --all #代表將工作區內所有有改變的檔案，加入至暫存區
-$ git status
-
--------------------------
-On branch main
-
-No commits yet
-
-Changes to be committed:
-  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)
-	new file:   index.txt
-</code></pre></div>
-<ol><li>暫存區內有記錄index.txt編輯的狀態</li><li>工作區與暫存區的內容一致，沒有未暫存差異</li></ol>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-5.svg"/><img src="../diagrams/staging-5.svg" alt="Git 概念圖：staging-5" loading="lazy"/></picture><figcaption>Git 概念圖：staging-5</figcaption></figure>
-<hr>
-<h4 id="將目前的暫存區建立記錄點並加入至記錄區內並檢目前狀態和log">將目前的暫存區建立記錄點並加入至記錄區內，並檢目前狀態和log</h4>
-<div class="reading-code"><span>操作與輸出</span><pre><code>$ git commit -m &quot;建立新檔index.txt和編輯了內容&quot;
-------------
-[main (root-commit) da39e43] 建立新檔index.txt和編輯了內容
- 1 file changed, 1 insertion(+)
- create mode 100644 index.txt
- 
-  
-$ git status
--------------------
-On branch main
-nothing to commit, working tree clean
-
-$ git log
---------------------------
-commit da39e43531f32e40b373deec447f4626520bbe03 (HEAD -&gt; main)
-Author: roberthsu2003 &lt;roberthsu2003@gmail.com&gt;
-Date:   Mon Nov 29 13:07:32 2021 +0800
-
-    建立新檔index.txt和編輯了內容
-
-</code></pre></div>
-<ol><li>代表建立在記錄區內的第一個記錄點，識別碼前面的7個字元是「da39e43」,記錄點的註解是&quot;建立新檔index.txt和編輯了內容&quot;</li></ol>
-<ol><li>目前工作區沒有任何改變，暫存區與 HEAD 的內容一致，沒有待提交差異</li></ol>
-<ol><li>說明如下圖:</li></ol>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-6.svg"/><img src="../diagrams/staging-6.svg" alt="Git 概念圖：staging-6" loading="lazy"/></picture><figcaption>Git 概念圖：staging-6</figcaption></figure>
-<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/history-1.svg"/><img src="../diagrams/history-1.svg" alt="Git 概念圖：branch-1" loading="lazy"/></picture><figcaption>Git 概念圖：branch-1</figcaption></figure>
-<h4 id="在source-tree出現的畫面">在source tree出現的畫面</h4>
-<figure><picture><img src="../../開始使用Git/images/pic10.png" alt="教材操作圖" loading="lazy"/></picture></figure>
+<p>Git 記錄專案版本，讓你比較修改、回看已提交內容。它不會自動保存所有檔案；整個資料夾連同 <code>.git</code> 都刪掉時，本地歷史也會消失。重要專案還需要遠端儲存庫或備份。</p>
+<h2 id="1-三個區域先分清楚">1. 三個區域先分清楚</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">區域</th><th scope="col">保存什麼？</th><th scope="col">怎麼更新？</th></tr></thead><tbody><tr><td>工作區</td><td>現在實際編輯的檔案</td><td>編輯器、建檔或刪檔</td></tr><tr><td>暫存區（index）</td><td>下一次提交要使用的檔案版本</td><td><code>git add</code></td></tr><tr><td>commit</td><td>已記錄的專案快照與提交資訊</td><td><code>git commit</code></td></tr></tbody></table></div>
+<p><strong>commit 使用暫存區的版本。</strong> add 後又編輯，新的修改不會自動進入暫存區。提交後暫存區仍記錄檔案版本，只是與 HEAD 沒有待提交差異。</p>
+<h2 id="2-照做add-後再修改">2. 照做：add 後再修改</h2>
+<p>先完成 <a href="setup.html">環境設定</a>。以下在 macOS／Linux 終端機或 Windows Git Bash 執行；選一個練習位置，確認 staging-demo 尚未存在。<code>bash</code> 是指令，<code>text</code> 是預期結果，請不要把輸出一起輸入。</p>
+<h3 id="步驟一建立儲存庫">步驟一：建立儲存庫</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-1.svg"/><img src="../diagrams/staging-1.svg" alt="剛建立的三個區域" loading="lazy"/></picture><figcaption>剛建立的三個區域</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>mkdir staging-demo
+cd staging-demo
+git init -b main
+git status</code></pre></div>
+<p>預期目前分支 main，尚無 commit。<code>.git</code> 是 Git 保存資料的目錄；不要為了重做練習把它刪掉，另開新的練習資料夾即可。</p>
+<h3 id="步驟二建立空檔案">步驟二：建立空檔案</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-2.svg"/><img src="../diagrams/staging-2.svg" alt="新檔案尚未追蹤" loading="lazy"/></picture><figcaption>新檔案尚未追蹤</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>touch index.txt
+git status --short</code></pre></div>
+<div class="reading-code"><span>text</span><pre><code>?? index.txt</code></pre></div>
+<p><code>??</code> 表示未追蹤。此時一般 <code>git diff</code> 不會列出這個新檔案。</p>
+<h3 id="步驟三暫存空檔案版本">步驟三：暫存空檔案版本</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-3.svg"/><img src="../diagrams/staging-3.svg" alt="第一次 add 保存空檔案" loading="lazy"/></picture><figcaption>第一次 add 保存空檔案</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>git add index.txt
+git status --short</code></pre></div>
+<div class="reading-code"><span>text</span><pre><code>A  index.txt</code></pre></div>
+<h3 id="步驟四再修改工作區">步驟四：再修改工作區</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-4.svg"/><img src="../diagrams/staging-4.svg" alt="工作區與暫存區有不同版本" loading="lazy"/></picture><figcaption>工作區與暫存區有不同版本</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;markdown 語法介紹\n&#39; &gt; index.txt
+git status --short
+git diff</code></pre></div>
+<div class="reading-code"><span>text</span><pre><code>AM index.txt</code></pre></div>
+<p>兩欄分別表示「暫存區相對 HEAD」與「工作區相對暫存區」的狀態：A 是新增已暫存，M 是又有未暫存修改。<strong>現在直接 commit，只會保存空檔案。</strong></p>
+<h3 id="步驟五更新暫存版本並檢查">步驟五：更新暫存版本並檢查</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-5.svg"/><img src="../diagrams/staging-5.svg" alt="再次 add 更新暫存版本" loading="lazy"/></picture><figcaption>再次 add 更新暫存版本</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>git add index.txt
+git diff --staged
+git status --short</code></pre></div>
+<p>預期 staged 差異有 <code>+markdown 語法介紹</code>，status 回到 <code>A  index.txt</code>。</p>
+<h3 id="步驟六提交與確認">步驟六：提交與確認</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/staging-6.svg"/><img src="../diagrams/staging-6.svg" alt="commit 記錄暫存區內容" loading="lazy"/></picture><figcaption>commit 記錄暫存區內容</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>git commit -m &quot;新增語法介紹&quot;
+git status --short
+git log --oneline
+git show HEAD:index.txt</code></pre></div>
+<p>status 沒有輸出；log 有一筆提交；最後一行顯示已保存的文字。識別碼依你的操作而不同，不需要與教材相同（<code>--oneline</code> 只顯示識別碼與主題，不顯示作者與日期）。</p>
+<h2 id="3-自己做與完成標準">3. 自己做與完成標準</h2>
+<p>新增 notes.txt，先寫 V1 並 add，再改成 V2。先用 <code>git diff</code> 與 <code>git diff --staged</code> 說明兩個版本；再次 add 後提交。完成時 status 沒有輸出，<code>git show HEAD:notes.txt</code> 是 V2。</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">指令</th><th scope="col">比較什麼？</th></tr></thead><tbody><tr><td><code>git status</code></td><td>哪些路徑已暫存、未暫存、未追蹤</td></tr><tr><td><code>git diff</code></td><td>已追蹤檔案的工作區與暫存區差異</td></tr><tr><td><code>git diff --staged</code></td><td>暫存區與 HEAD 的差異</td></tr><tr><td><code>git show HEAD</code></td><td>最近一筆提交的資訊與差異</td></tr></tbody></table></div>
+<p>GUI 工具也能 add、commit、切換與合併，不只是查看歷史。本教材以指令呈現，是為了讓不同平台都能照做。以下是舊版 SourceTree 畫面，介面可能不同，請以實際狀態與指令結果為準。</p>
+<figure><picture><img src="../../開始使用Git/images/pic10.png" alt="SourceTree 歷史與狀態畫面（舊版介面）" loading="lazy"/></picture><figcaption>SourceTree 歷史與狀態畫面（舊版介面）</figcaption></figure>
 <hr>
 <p><a href="setup.html">← 開始前的準備</a>　｜　<a href="history.html">main、HEAD 與歷史 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

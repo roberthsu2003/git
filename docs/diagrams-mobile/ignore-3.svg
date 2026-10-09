@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 643" width="440" height="643" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">查原因與提交清單本身</title><desc id="diagram-desc">已追蹤路徑在 status --ignored 預設不會列為被忽略；真實秘密已提交要先更換秘密。 check-ignore：查命中哪條規則；顯示檔名與行號；只對未追蹤檔有效；已追蹤路徑無輸出。status --ignored：列出被忽略；!! .env；!! cache/；已追蹤檔不列為忽略。.gitignore 本身：也要提交；同學才有一致規則；改規則也是一次提交</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="643" rx="16" fill="#fafbf7"/>
+<rect x="16" y="18" width="408" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="56" class="card-title"><tspan x="36" dy="0">check-ignore</tspan></text>
+<text x="36" y="86" class="tag"><tspan x="36" dy="0">查命中哪條規則</tspan></text>
+<text x="36" y="123" class="body"><tspan x="36" dy="0">顯示檔名與行號</tspan><tspan x="36" dy="27">只對未追蹤檔有效</tspan><tspan x="36" dy="27">已追蹤路徑無輸出</tspan></text>
+<rect x="16" y="234" width="408" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 236 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="272" class="card-title"><tspan x="36" dy="0">status --ignored</tspan></text>
+<text x="36" y="302" class="tag"><tspan x="36" dy="0">列出被忽略</tspan></text>
+<text x="36" y="339" class="body"><tspan x="36" dy="0">!! .env</tspan><tspan x="36" dy="27">!! cache/</tspan><tspan x="36" dy="27">已追蹤檔不列為忽略</tspan></text>
+<rect x="16" y="450" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 452 H 412" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="488" class="card-title"><tspan x="36" dy="0">.gitignore 本身</tspan></text>
+<text x="36" y="518" class="tag"><tspan x="36" dy="0">也要提交</tspan></text>
+<text x="36" y="555" class="body"><tspan x="36" dy="0">同學才有一致規則</tspan><tspan x="36" dy="27">改規則也是一次提交</tspan></text>
+</svg>

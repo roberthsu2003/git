@@ -1,184 +1,93 @@
-# 設定SSH KEY 連線
-## Mac
-### 此方法可以建立不同github帳號和不同的repo的ssh key
-### 原則為先建立公開和私有SSH金鑰,並先處理SSH Key,再clone repo會比較簡單
-### 步驟1:建立SSH金鑰
-1. **打開Terminal**
-2. **進入~/.ssh的資料夾**
+# SSH 金鑰連線 GitHub
+
+SSH 金鑰有一對：公鑰 `.pub` 可加入 GitHub，私鑰保留在自己的電腦。**不要上傳或分享私鑰。** 本章先教帳號金鑰；不同專案不一定需要各建一把金鑰，本章先學會一個帳號一把。
+
+## 1. 準備並建立金鑰
+
+使用 macOS／Linux 終端機或 Windows Git Bash。先檢查是否已有金鑰，避免覆蓋：
 
 ```bash
-cd ~/.ssh
+mkdir -p ~/.ssh
+ls -la ~/.ssh
 ```
 
-3.**為每一個帳號和Repo建立不同的SSH Key**
-- 以下範例一次建立2個SSH Key
+確認 id_ed25519_github 尚未存在後，再建立（信箱請換成自己的識別註解）：
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C "your-email-for-account1@example.com" -f id_rsa_account1
-ssh-keygen -t rsa -b 4096 -C "your-email-for-account2@example.com" -f id_rsa_account2
+ssh-keygen -t ed25519 -C "student@example.com" -f ~/.ssh/id_ed25519_github
 ```
 
-> your-email-for-account1@example.com:必需是**github的帳號email**
-> 
-> id_rsa_account1:**建立SSH Key的名稱**
+`-C` 是方便識別的註解，不是必須與 GitHub 信箱一致的驗證資料。`-f` 已指定檔名，產生私鑰 id_ed25519_github 與公鑰 id_ed25519_github.pub；不是一律產生 id_rsa。建議設定 passphrase 保護私鑰，輸入不回顯是正常現象。
 
-輸入後會出現下面幾行,如下所示:
-- 會自動將金鑰建立於/Users/you/.ssh/id_rsa
-- 取用這個鈕鑰有需要使用驗証碼(passphrase)嗎?(一般我直接按enter)
-- 完成後,將產生私有金鑰id_rsa和公有金鑰id_rsa.pub
-- 公有金鑰必需要放至github的repo內
-
-```
-Generating public/private rsa key pair.
-Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]
-Enter passphrase (empty for no passphrase): [Type a passphrase]
-Enter same passphrase again: [Type passphrase again]
-```
-
-### 步驟2. 將SSH keys加入至SSH Agent
-1. **啟動SSH agent:**
+## 2. 加入 ssh-agent
 
 ```bash
 eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519_github
+ssh-add -l
 ```
 
-2. **加入剛產生的SSH Key(沒有.pub的key)進入agent**
+agent 讓你在工作階段內使用金鑰，仍可能依系統或重新登入需要再次加入。macOS 的 Keychain 整合、Linux 與 Windows 的 agent 持久化方式不同；進階設定請依 [官方金鑰與 agent 指南](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)。
+
+## 3. 把公鑰加入「帳號」
 
 ```bash
-ssh-add ~/.ssh/id_rsa_account1
-ssh-add ~/.ssh/id_rsa_account2
+cat ~/.ssh/id_ed25519_github.pub
 ```
 
-3. **檢查加入至SSH Agent的SSH Key**
+複製完整公鑰，到 **GitHub 帳號 Settings → SSH and GPG keys → New SSH key**，用途選 Authentication Key，輸入名稱與公鑰。一般個人開發不是去每個 repo 的 Deploy keys 設定。
 
-```bash
-ssh-add -L
-```
- 
-### 步驟3. 將Public key增加至repo內
+Deploy key 綁定單一儲存庫，通常用於部署機器；預設唯讀，需要寫入時另外授權。下面保留的是舊版 Deploy keys 截圖，**不是本節帳號金鑰操作的位置**。
 
-1. **顯示並複制顯示的public key至剪貼簿**
+![Deploy keys 舊版畫面：供區分部署金鑰與帳號金鑰](./images/image1.png)
 
-```bash
-cat ~/.ssh/id_rsa_account1.pub
-```
+## 4. 設定指定金鑰
 
-2. **至Github Repo內的Setting -> Deploy Keys**
-3. **新增SSH key title(自訂一個名稱),貼上public key,並允許read/write**
-
-![](./images/image1.png)
-
-### 步驟4. 建立ssh的Configuration檔案
-
-1. **打開或建立SSH的config檔案**
-
-```bash
-vim ~/.ssh/config
-```
-
-2. **加入下列的設定內容至config檔內**
+用編輯器開啟 ~/.ssh/config；不存在就建立，已有內容則加入下面區段，不要覆蓋其他帳號：
 
 ```config
-	# Host  -是小名,ssh指令將知道這個小名,(小名將被設定至git remote url內)
-	# HostName和User  -組合後就成為git@github.com
-	# IdentityFile  -告知對應的ssh key
-	# AddKeysToAgent yes -自動將此ssh key加入至key agent
-	# UseKeyChain yes  -如果ssh key使用時,需要使用密碼時,自動使用鑰匙圈內的密碼.由於我們建立ssh key時,並沒有使用密碼可以不設定。樹莓派並沒有鑰匙圈的功能,一定不可以使用,不然會出錯
-	
 Host github-personal
     HostName github.com
     User git
-    AddKeysToAgent yes
-    UseKeyChain yes
-    IdentityFile ~/.ssh/id_rsa_account1
-
-# Work account
-Host github-work
-    HostName github.com
-    User git
-    AddKeysToAgent yes
-    UseKeyChain yes
-    IdentityFile ~/.ssh/id_rsa_account2
-    
-# *的意思是所有使用上面的Host全部會自動套用下面的內容
-Host *
-    AddKeysToAgent yes
-    UseKeyChain yes
+    IdentityFile ~/.ssh/id_ed25519_github
+    IdentitiesOnly yes
 ```
 
-3. **測試**
-- **直接使用githbu的位置**
+github-personal 是本機別名，User 固定為 git，GitHub 依金鑰判斷帳號。IdentitiesOnly 避免 agent 裡其他金鑰干擾。macOS 可依官方指南另外加入 AddKeysToAgent 與 UseKeychain 設定；UseKeychain 不是 Linux／Windows 通用選項，不要照搬到樹莓派。
+
+在 macOS／Linux 上可設定合理權限：
 
 ```bash
-ssh -T git@github.com
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/config ~/.ssh/id_ed25519_github
 ```
 
-- **使用小名的名稱**
+Windows 的 ACL 與 Unix 模式不同；若有權限錯誤，依實際 OpenSSH 環境處理。
+
+## 5. 測試與 clone
 
 ```bash
-ssh -T github-personal
-ssh -T github-work
+ssh -T git@github-personal
 ```
 
+第一次連線可能要求確認主機指紋，先對照 [GitHub 官方 SSH 指紋](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints)，符合再接受。不要靠關閉主機檢查跳過。
 
+成功訊息會顯示你的 GitHub 帳號，並說明不提供 shell access；這個測試即使驗證成功也可能回傳狀態碼 1，請讀訊息判斷。若顯示錯誤帳號，檢查別名與金鑰。
 
-### 步驟5. 使用小名的方式,clone repo自本機
-- **請使用小名方式clone**
-- **小名已經定義在config內了**
-
-```
-#使用小名的方式clone
-git clone github-personal:roberthsu2003/__2024_09_04_tvdi__.git
-```
-
-> 注意:小名為github-personal:
-
-```
-#使用github官方的方式clone
-git clone git@github.com:roberthsu2003/__2024_09_04_tvdi__.git
-```
-
-> 注意:官方的位置設定在git@github.com:
-
-### 步驟6. 更改每個repo內的local user.name和user.email
-
-- 全域的要設定--global
+替換 OWNER 與儲存庫名稱後，在新位置操作：
 
 ```bash
-git config user.name "Your Name"
-git config user.email "your-email-for-account1@example.com"
+git clone git@github-personal:OWNER/class-team-demo.git
+cd class-team-demo
+git remote -v
 ```
 
+這個網址必須使用設定中的 github-personal 別名才會套用該區段。帳號有通過 SSH 驗證，也不代表有所有儲存庫的寫入權限。
 
+## 6. 多帳號（查詢用）
 
+替第二個帳號建立**不同檔名**的金鑰、公鑰加入第二個帳號，再新增 Host github-work 區段，指定第二把 IdentityFile，並使用 `git@github-work:OWNER/REPO.git`。每個儲存庫內可設定 local user.name／user.email，但這只影響提交作者，不能替代 SSH 帳號切換。
 
-## Raspberry-樹莓派
+完成標準：測試顯示正確帳號，clone 成功，能辨認私鑰、公鑰、Host 別名與提交信箱的用途。
 
-- 設定方法和Mac是一樣的,只要注意樹莓派並沒有鑰匙圈的功能,config檔內的設定不可以有`UseKeyChain yes`
-
-
-```config
-	# Host  -是小名,ssh指令將知道這個小名,(小名將被設定至git remote url內)
-	# HostName和User  -組合後就成為git@github.com
-	# IdentityFile  -告知對應的ssh key
-	# AddKeysToAgent yes -自動將此ssh key加入至key agent
-	# UseKeyChain yes  -如果ssh key使用時,需要使用密碼時,自動使用鑰匙圈內的密碼.由於我們建立ssh key時,並沒有使用密碼可以不設定。樹莓派並沒有鑰匙圈的功能,一定不可以使用,不然會出錯
-	
-Host github-personal
-    HostName github.com
-    User git
-    AddKeysToAgent yes
-    IdentityFile ~/.ssh/id_rsa_account1
-
-# Work account
-Host github-work
-    HostName github.com
-    User git
-    AddKeysToAgent yes
-    IdentityFile ~/.ssh/id_rsa_account2
-    
-# *的意思是所有使用上面的Host全部會自動套用下面的內容
-Host *
-    AddKeysToAgent yes
-```
-
+參考：[加入帳號 SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)。
