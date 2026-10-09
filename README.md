@@ -60,6 +60,7 @@
 | 標記版本（13） | [tag](./tag/README.md) |
 | 查看過去版本（14） | [檢查先前修改的檔案](./檢查先前修改的檔案/README.md) |
 | 進階歷史整理（15） | [rebase](./git_rebase/README.md) |
+| 提示詞實戰（16） | [AI 提示詞實戰](./AI提示詞實戰/README.md) |
 | GitHub 卡關 | [常見錯誤訊息](./github常見的錯誤訊息/README.md) |
 | 工具設定 | [SSH](./ssh/README.md)、[憑證](./credential/README.md) |
 | 課堂使用 | [課程安排](./課程/README.md)、[測驗](./測驗/README.md)、[跨領域延伸主題](./課程/延伸主題.md) |
