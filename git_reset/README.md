@@ -1,13 +1,13 @@
 # reset 的三種模式
 
-**復原與整理 · 第 10 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+**復原與整理 · 第 10 章**　[學習路線](../README.md)
 
 
 本章比較 `git reset [--soft|--mixed|--hard] 目標提交`：在一般分支上會移動目前分支，再依模式更新暫存區或工作區。它不是立即刪除 commit；但會改變分支可見的歷史。只在獨立練習專案操作，已分享的錯誤優先追加修正或 revert。
 
 ## 1. 三種模式
 
-![三種 reset 模式比較](../docs/diagrams/reset-1.svg)
+![三種 reset 模式比較](./diagrams/reset-1.svg)
 
 | 模式 | 目前分支 | 暫存區 | 工作區 |
 | --- | --- | --- | --- |
@@ -42,7 +42,7 @@ git status --short
 
 ## 3. soft：保留已暫存差異
 
-![soft 保留暫存區與工作區](../docs/diagrams/reset-2.svg)
+![soft 保留暫存區與工作區](./diagrams/reset-2.svg)
 
 ```bash
 git reset --soft HEAD~2
@@ -65,7 +65,7 @@ git status --short
 
 ## 4. mixed：保留未暫存差異
 
-![mixed 更新暫存區但保留工作區](../docs/diagrams/reset-3.svg)
+![mixed 更新暫存區但保留工作區](./diagrams/reset-3.svg)
 
 ```bash
 git reset --mixed HEAD~2

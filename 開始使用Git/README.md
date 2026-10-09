@@ -1,6 +1,6 @@
 # 工作區與暫存區
 
-**建立版本 · 第 01 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+**建立版本 · 第 01 章**　[學習路線](../README.md)
 
 
 Git 記錄專案版本，讓你比較修改、回看已提交內容。它不會自動保存所有檔案；整個資料夾連同 `.git` 都刪掉時，本地歷史也會消失。重要專案還需要遠端儲存庫或備份。
@@ -21,7 +21,7 @@ Git 記錄專案版本，讓你比較修改、回看已提交內容。它不會�
 
 ### 步驟一：建立儲存庫
 
-![剛建立的三個區域](../docs/diagrams/staging-1.svg)
+![剛建立的三個區域](./diagrams/staging-1.svg)
 
 ```bash
 mkdir staging-demo
@@ -34,7 +34,7 @@ git status
 
 ### 步驟二：建立空檔案
 
-![新檔案尚未追蹤](../docs/diagrams/staging-2.svg)
+![新檔案尚未追蹤](./diagrams/staging-2.svg)
 
 ```bash
 touch index.txt
@@ -49,7 +49,7 @@ git status --short
 
 ### 步驟三：暫存空檔案版本
 
-![第一次 add 保存空檔案](../docs/diagrams/staging-3.svg)
+![第一次 add 保存空檔案](./diagrams/staging-3.svg)
 
 ```bash
 git add index.txt
@@ -62,7 +62,7 @@ A  index.txt
 
 ### 步驟四：再修改工作區
 
-![工作區與暫存區有不同版本](../docs/diagrams/staging-4.svg)
+![工作區與暫存區有不同版本](./diagrams/staging-4.svg)
 
 ```bash
 printf 'markdown 語法介紹\n' > index.txt
@@ -78,7 +78,7 @@ AM index.txt
 
 ### 步驟五：更新暫存版本並檢查
 
-![再次 add 更新暫存版本](../docs/diagrams/staging-5.svg)
+![再次 add 更新暫存版本](./diagrams/staging-5.svg)
 
 ```bash
 git add index.txt
@@ -90,7 +90,7 @@ git status --short
 
 ### 步驟六：提交與確認
 
-![commit 記錄暫存區內容](../docs/diagrams/staging-6.svg)
+![commit 記錄暫存區內容](./diagrams/staging-6.svg)
 
 ```bash
 git commit -m "新增語法介紹"

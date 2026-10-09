@@ -1,12 +1,11 @@
 # 查看過去版本
 
-**延伸圖解 · 第 14 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+**延伸圖解 · 第 14 章**　[學習路線](../README.md)
 
-本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#checkout/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 先用 log、show 查詢；只有真的要在整個舊版本操作時才切換。以下是獨立練習，已設定提交身分，使用終端機或 Git Bash，在尚無 history-view-demo 的位置開始。
 
-![detach 暫時指向舊版本](../docs/diagrams/checkout-1.svg)
+![detach 暫時指向舊版本](./diagrams/checkout-1.svg)
 
 ## 1. 建立三筆提交
 

@@ -1,12 +1,11 @@
 # GitHub 基本操作
 
-**延伸圖解 · 第 12 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+**延伸圖解 · 第 12 章**　[學習路線](../README.md)
 
-本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#sync/1`，按下一步觀察本地 main、origin/main 與 GitHub main 的位置。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 Git 管理本地版本，GitHub 提供遠端儲存庫與共同開發功能。先完成前四章，再準備本章的帳號與連線；合作實作見 [GitHub 共同開發](../協作與PullRequest/README.md)。
 
-![三個位置：本地 main、origin/main、GitHub main](../docs/diagrams/sync-1.svg)
+![三個位置：本地 main、origin/main、GitHub main](./diagrams/sync-1.svg)
 
 ## 1. 提交身分與登入分開設定
 

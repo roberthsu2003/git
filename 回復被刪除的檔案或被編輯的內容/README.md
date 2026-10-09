@@ -1,6 +1,6 @@
 # 還原檔案與取消暫存
 
-**復原與整理 · 第 09 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+**復原與整理 · 第 09 章**　[學習路線](../README.md)
 
 
 先判斷修改在哪裡，再選操作。`restore` 針對檔案與暫存區；已提交的錯誤通常用新的修正 commit 或 revert 處理。
@@ -41,7 +41,7 @@ cat note.txt
 
 ## 3. 照做：取消暫存不等於丟棄修改
 
-![取消暫存保留工作區](../docs/diagrams/restore-1.svg)
+![取消暫存保留工作區](./diagrams/restore-1.svg)
 
 接續 restore-demo：
 
@@ -55,7 +55,7 @@ cat note.txt
 
 預期 ` M note.txt`，工作區仍是 Version 2。若確認這份練習修改不要了，再做：
 
-![從暫存區還原工作區](../docs/diagrams/restore-2.svg)
+![從暫存區還原工作區](./diagrams/restore-2.svg)
 
 ```bash
 git restore -- note.txt

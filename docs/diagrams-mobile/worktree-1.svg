@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 238" width="440" height="238" role="img" aria-labelledby="diagram-title diagram-desc">
-<title id="diagram-title">原資料夾有未提交的會員修改</title><desc id="diagram-desc">不要急著丟掉或提交未完成的內容；我們從 main 另開修正工作。 worktree-demo/：feature-login；index.txt：Home titel；login.txt：會員草稿；密碼欄位：尚未 commit</desc>
-<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
-<rect width="440" height="238" rx="16" fill="#fafbf7"/>
-<rect x="16" y="18" width="408" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
-<text x="36" y="56" class="card-title"><tspan x="36" dy="0">worktree-demo/</tspan></text>
-<text x="36" y="86" class="tag"><tspan x="36" dy="0">feature-login</tspan></text>
-<text x="36" y="123" class="body"><tspan x="36" dy="0">index.txt：Home titel</tspan><tspan x="36" dy="27">login.txt：會員草稿</tspan><tspan x="36" dy="27">密碼欄位：尚未 commit</tspan></text>
-</svg>

@@ -85,7 +85,7 @@ cd ..
 
 編輯後 Ctrl+O 儲存、Enter 確認檔名，Ctrl+X 離開；按鍵名稱以底部提示為準。
 
-![nano 編輯、儲存與離開](../docs/diagrams/editor.svg)
+![nano 編輯、儲存與離開](./diagrams/editor.svg)
 
 ### Vim
 
