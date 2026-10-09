@@ -1,0 +1,106 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI 開發的 Git 節奏｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic is-current" href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#ai/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">一起開發 · 第 08 章</div><article class="reading-content"><h1 id="ai-開發的-git-節奏">AI 開發的 Git 節奏</h1>
+<p><strong>一起開發 · 第 08 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>本章附 SVG 圖解；可先讀 <a href="guide.html">互動版使用說明</a>，再用瀏覽器開啟 <code>docs/index.html#ai/1</code>，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。</p>
+<p>AI 可以一次修改很多檔案。Git 讓你保留起點、看清楚這次改了什麼，並把確認過的成果分次記錄。<strong>建議一個任務一條分支，每次只做一小段，檢查與驗證後再 commit。</strong></p>
+<p>這套流程適用於各種 AI 程式工具，不需要指定產品。先學 <a href="branch.html">分支</a>；團隊專案搭配 <a href="collaboration.html">GitHub PR</a>。</p>
+<h2 id="1-每一輪的流程">1. 每一輪的流程</h2>
+<div class="reading-code"><span>text</span><pre><code>確認目前狀態 → 建立任務分支 → 說清楚這一輪需求
+→ AI 修改 → 自己讀 diff → 執行檢查 → commit
+→ 下一小段 → 完成後 push、PR、審查與合併</code></pre></div>
+<div class="table-scroll"><table><thead><tr><th scope="col">時機</th><th scope="col">建議動作</th><th scope="col">目的</th></tr></thead><tbody><tr><td>開始前</td><td>看 status、確認分支與可用版本</td><td>不把既有修改混入新任務</td></tr><tr><td>下需求時</td><td>指定目標、範圍與驗收方式</td><td>限制每輪需要閱讀與驗證的內容</td></tr><tr><td>AI 改完</td><td>看 diff、確認新增檔案、執行檢查</td><td>不只依賴 AI 的完成報告</td></tr><tr><td>一段完成</td><td>只加入這次相關檔案並 commit</td><td>每筆紀錄有明確用途</td></tr><tr><td>任務完成</td><td>push 分支，再送 PR</td><td>同學可審查，main 保留可用版本</td></tr></tbody></table></div>
+<p>commit 的單位是「一段能說清楚且驗證過的變更」，不是每次對話。不要把新增功能、全專案格式化、升級套件混成一筆。</p>
+<h2 id="2-開始前保留可確認的起點">2. 開始前：保留可確認的起點</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/ai-1.svg"/><img src="../diagrams/ai-1.svg" alt="AI 任務從可確認的起點開始" loading="lazy"/></picture><figcaption>AI 任務從可確認的起點開始</figcaption></figure>
+<p>已連線 GitHub 的專案，在專案資料夾先執行：</p>
+<div class="reading-code"><span>bash</span><pre><code>git status --short
+git branch --show-current</code></pre></div>
+<p>如果有未提交內容，先看差異，提交已完成的工作，或另外保留尚未完成的工作。不要把別人的修改當成 AI 可以丟棄的內容。</p>
+<p>工作區乾淨後，從更新過的 main 建立任務分支：</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch main
+git pull --ff-only origin main
+git switch -c ai/search-page</code></pre></div>
+<p>若專案只有本地版本，略過 pull。<code>--ff-only</code> 拒絕時，先確認本地 main 為什麼分岔，不要強制覆蓋。</p>
+<p>給 AI 的需求範例：</p>
+<blockquote>目前在 ai/search-page 分支。這一輪只新增搜尋欄位與空白輸入提示，不做登入或資料庫。請先檢查現有寫法，沿用專案風格；修改完成後列出修改檔案、實際執行的檢查與尚未驗證的部分。先保留修改，讓我檢查後再提交。</blockquote>
+<h2 id="3-ai-改完怎麼決定能不能-commit">3. AI 改完：怎麼決定能不能 commit？</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/ai-4.svg"/><img src="../diagrams/ai-4.svg" alt="差異檢查與驗證後才提交" loading="lazy"/></picture><figcaption>差異檢查與驗證後才提交</figcaption></figure>
+<p>操作位置：目前任務分支的專案資料夾。</p>
+<div class="reading-code"><span>bash</span><pre><code>git status --short
+git diff --stat
+git diff</code></pre></div>
+<p>逐項確認：是否只改本輪需求？有沒有刪掉原有功能？新檔案是否合理？<code>git diff</code> 不顯示未追蹤的新檔案，所以要搭配 status，並在編輯器打開新檔案。</p>
+<p>依專案 README 執行適當檢查，例如測試、建置，或實際操作新增功能。指令要以專案現有設定為準；「AI 說通過」要有實際結果支持。</p>
+<p>只加入相關檔案，以下路徑是示意，請換成自己實際修改的檔案：</p>
+<div class="reading-code"><span>bash</span><pre><code>git add src/search.js tests/search.test.js
+git diff --staged
+git diff --staged --check
+git commit -m &quot;新增搜尋欄位與空白輸入提示&quot;</code></pre></div>
+<p><code>--staged</code> 檢查真正要 commit 的內容；<code>--check</code> 只檢查差異中的部分格式問題，不能取代測試。若專案沒有 tests/search.test.js，不要照抄這個路徑。</p>
+<p>不要把 API 金鑰、真實 .env、帳密或私人資料加入版本控制；可使用不含秘密的 .env.example。<code>.gitignore</code> 不會移除已經追蹤的檔案，也不能清除歷史裡的秘密。</p>
+<h2 id="4-照做模擬一次-ai-修改失敗">4. 照做：模擬一次 AI 修改失敗</h2>
+<p>這個練習不需要 AI 或網路，用檔案修改模擬它的結果，專注觀察 Git。使用 macOS／Linux 終端機或 Windows Git Bash，在你選的練習位置開始；ai-git-demo 必須尚未存在，已設定 Git 姓名與電子郵件。</p>
+<h3 id="步驟一建立可用起點">步驟一：建立可用起點</h3>
+<div class="reading-code"><span>bash</span><pre><code>mkdir ai-git-demo
+cd ai-git-demo
+git init -b main
+printf &#39;Search: ready\n&#39; &gt; search.txt
+git add search.txt
+git commit -m &quot;建立可用的搜尋頁草稿&quot;
+git switch -c ai/search-hint</code></pre></div>
+<p>預期：目前在 ai/search-hint，search.txt 內容是 Search: ready。</p>
+<h3 id="步驟二模擬-ai-錯誤修改尚未-commit">步驟二：模擬 AI 錯誤修改，尚未 commit</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/ai-2.svg"/><img src="../diagrams/ai-2.svg" alt="尚未提交的錯誤修改" loading="lazy"/></picture><figcaption>尚未提交的錯誤修改</figcaption></figure>
+<p>操作位置：ai-git-demo 的 ai/search-hint。</p>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;Search: broken\n&#39; &gt; search.txt
+git diff</code></pre></div>
+<p>預期差異中，ready 被改成 broken。</p>
+<p>先猜一猜：這次修改還沒 commit，要不要用 revert？答案是不需要，revert 用來反轉已提交的變更。</p>
+<p><strong>只在這個練習檔案已確認可丟棄時</strong>，恢復尚未暫存的錯誤修改：</p>
+<div class="reading-code"><span>bash</span><pre><code>git restore search.txt
+cat search.txt</code></pre></div>
+<p>預期又是 Search: ready。restore 會丟棄指定檔案的未暫存修改；如果裡面混有自己要保留的內容，先備份或手動修改，不要直接執行。</p>
+<h3 id="步驟三模擬修改正確檢查後提交">步驟三：模擬修改正確，檢查後提交</h3>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;Search: ready\nHint: enter a keyword\n&#39; &gt; search.txt
+git diff
+git add search.txt
+git diff --staged
+git commit -m &quot;新增搜尋輸入提示&quot;</code></pre></div>
+<p>預期 search.txt 保留 ready，並新增提示。真實程式專案在 commit 前還要執行功能檢查；這裡用讀檔確認教材文字。</p>
+<h3 id="步驟四模擬已提交的錯誤用新-commit-撤銷">步驟四：模擬已提交的錯誤，用新 commit 撤銷</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/ai-5.svg"/><img src="../diagrams/ai-5.svg" alt="revert 建立新的反向修改 commit" loading="lazy"/></picture><figcaption>revert 建立新的反向修改 commit</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;Search: broken\n&#39; &gt; search.txt
+git add search.txt
+git commit -m &quot;錯誤改寫搜尋頁&quot;
+git revert --no-edit HEAD
+cat search.txt
+git log --oneline -4</code></pre></div>
+<p>預期 ready 與 Hint 都回來，歷史多出一筆 Revert，原錯誤 commit 仍在。這種方式適合要保留共享歷史的修正；它不是把舊 commit 刪掉。</p>
+<h3 id="步驟五整合完成的成果">步驟五：整合完成的成果</h3>
+<p>本練習只有本地儲存庫，在 ai-git-demo 操作：</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch main
+git merge --ff-only ai/search-hint
+git branch -d ai/search-hint
+git status --short
+cat search.txt</code></pre></div>
+<p>預期 main 有 ready 與 Hint，status 沒有輸出。團隊專案則把步驟五改成 push 任務分支、送 PR，經檢查後在 GitHub 合併，再 pull 更新本地 main。</p>
+<h2 id="5-修改不滿意時要選哪個方式">5. 修改不滿意時，要選哪個方式？</h2>
+<p>以下是查詢表，不是連續執行的操作。示意檔名、commit 編號須換成實際值。</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">情況</th><th scope="col">做法</th><th scope="col">注意</th></tr></thead><tbody><tr><td>加入暫存區後，發現不想提交</td><td><code>git restore --staged 檔名</code></td><td>只取消暫存，檔案修改仍在</td></tr><tr><td>尚未 commit，確認指定檔案的未暫存修改全部不要</td><td><code>git restore 檔名</code></td><td>丟棄該檔案未暫存修改，不能找回未提交內容</td></tr><tr><td>想保留一輪實驗，稍後再看</td><td><code>git stash push -u -m &quot;保留搜尋實驗&quot;</code></td><td>暫存已追蹤與未追蹤內容；不包含被忽略的檔案</td></tr><tr><td>要取回最近一份 stash</td><td><code>git stash apply</code></td><td>成功後仍保留 stash；確認內容後再決定是否 drop</td></tr><tr><td>已 commit，尤其已分享給同學</td><td><code>git revert --no-edit 實際commit編號</code></td><td>建立反向修改的 commit，可能有衝突；merge commit 需要另外判斷，不套用本例</td></tr></tbody></table></div>
+<p>已分享的分支不要隨意 reset、rebase 或 force push 改寫歷史。初學時先用追加修正 commit 或 revert；Git 只能恢復它記錄過的內容，不是所有檔案的自動備份。</p>
+<h2 id="6-同時處理兩項-ai-任務搭配-worktree">6. 同時處理兩項 AI 任務：搭配 worktree</h2>
+<p>先完成 <a href="worktree.html">worktree 實作</a>。在已連線 GitHub、工作區乾淨的原專案中，更新 main：</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch main
+git pull --ff-only origin main
+git worktree add -b ai/search ../project-ai-search main
+git worktree add -b ai/docs ../project-ai-docs main</code></pre></div>
+<p>兩個路徑與分支名稱都必須尚未使用。一個視窗開 project-ai-search 做搜尋功能，另一個開 project-ai-docs 更新文件；各自 commit、push，各送一份 PR。這是操作方式，不需要同時使用兩個 AI。</p>
+<p>指派任務時說清楚工作路徑與分支，避免兩項工作共用同一個工作區。worktree 隔開未提交檔案，但不會自動消除合併衝突；兩邊若修改同一段程式，仍需整合。套件、環境檔與本地服務也要各自確認，不能假設會自動共用。</p>
+<p>先合併一份 PR；第二份在自己的工作資料夾提交好修改後，用 <code>git fetch origin</code>、<code>git merge --no-edit origin/main</code> 更新，重新檢查，再完成 PR。</p>
+<p>PR 都合併後，回原專案更新 main，確認兩個 worktree 都沒有待保留內容，再用 <code>git worktree remove</code> 移除。分支清理方式見 worktree 教材；若 GitHub 使用 squash merge，先確認成果已進 main，不能只靠 <code>branch -d</code> 是否成功判斷。</p>
+<h2 id="7-自己做與交作業">7. 自己做與交作業</h2>
+<p>接著使用 ai-git-demo：從 main 開 ai/help-text 分支，新增 help.txt，內容包含使用說明。可以請 AI 協助，但你要自己解釋差異與驗收方式。完成後提交，再合併回 main。</p>
+<p>完成標準：main 的搜尋提示仍在；help.txt 有說明；工作區乾淨。交作業時附上：</p>
+<ul><li>這次任務與修改範圍。</li><li>你實際檢查了什麼、結果如何。</li><li>一筆 commit 的差異與你對它的解釋。</li><li>尚未確認的部分；有 GitHub 時附上 PR 連結。</li></ul>
+<p>參考：<a href="https://docs.github.com/en/get-started/using-github/github-flow">GitHub flow</a>、<a href="https://git-scm.com/docs/git-revert">git revert</a>、<a href="https://git-scm.com/docs/git-stash">git stash</a>。本章 AI 任務拆分與檢查節奏是教材建議，可依專案調整。</p>
+<hr>
+<p><a href="worktree.html">← worktree：多任務工作</a>　｜　<a href="restore.html">還原檔案與取消暫存 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

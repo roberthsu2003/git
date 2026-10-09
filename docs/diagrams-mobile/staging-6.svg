@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 636" width="440" height="636" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">commit：記錄暫存區的版本</title><desc id="diagram-desc">工作區乾淨表示沒有待處理差異，不代表檔案或暫存區被清空。 工作區：沒有未暫存變更；index.txt：V2。暫存區：與 HEAD 相同；index.txt：V2；暫存區不是空的；只是沒有待提交差異。commit C1：已記錄 V2；index.txt：V2；main 指向 C1；HEAD 指向 main</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="636" rx="16" fill="#fafbf7"/>
+<rect x="16" y="18" width="408" height="168" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="56" class="card-title"><tspan x="36" dy="0">工作區</tspan></text>
+<text x="36" y="86" class="tag"><tspan x="36" dy="0">沒有未暫存變更</tspan></text>
+<text x="36" y="123" class="body"><tspan x="36" dy="0">index.txt：V2</tspan></text>
+<rect x="16" y="200" width="408" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 202 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="238" class="card-title"><tspan x="36" dy="0">暫存區</tspan></text>
+<text x="36" y="268" class="tag"><tspan x="36" dy="0">與 HEAD 相同</tspan></text>
+<text x="36" y="305" class="body"><tspan x="36" dy="0">index.txt：V2</tspan><tspan x="36" dy="27">暫存區不是空的</tspan><tspan x="36" dy="27">只是沒有待提交差異</tspan></text>
+<rect x="16" y="416" width="408" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 418 H 412" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="454" class="card-title"><tspan x="36" dy="0">commit C1</tspan></text>
+<text x="36" y="484" class="tag"><tspan x="36" dy="0">已記錄 V2</tspan></text>
+<text x="36" y="521" class="body"><tspan x="36" dy="0">index.txt：V2</tspan><tspan x="36" dy="27">main 指向 C1</tspan><tspan x="36" dy="27">HEAD 指向 main</tspan></text>
+</svg>

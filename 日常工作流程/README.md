@@ -1,7 +1,8 @@
 # AI 開發的 Git 節奏
 
-**一起開發 · 第 08 章**　[學習路線](../README.md)
+**一起開發 · 第 08 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#ai/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 AI 可以一次修改很多檔案。Git 讓你保留起點、看清楚這次改了什麼，並把確認過的成果分次記錄。**建議一個任務一條分支，每次只做一小段，檢查與驗證後再 commit。**
 
@@ -27,7 +28,7 @@ commit 的單位是「一段能說清楚且驗證過的變更」，不是每次�
 
 ## 2. 開始前：保留可確認的起點
 
-![AI 任務從可確認的起點開始](./diagrams/ai-1.svg)
+![AI 任務從可確認的起點開始](../docs/diagrams/ai-1.svg)
 
 
 已連線 GitHub 的專案，在專案資料夾先執行：
@@ -55,7 +56,7 @@ git switch -c ai/search-page
 
 ## 3. AI 改完：怎麼決定能不能 commit？
 
-![差異檢查與驗證後才提交](./diagrams/ai-4.svg)
+![差異檢查與驗證後才提交](../docs/diagrams/ai-4.svg)
 
 
 操作位置：目前任務分支的專案資料夾。
@@ -103,7 +104,7 @@ git switch -c ai/search-hint
 
 ### 步驟二：模擬 AI 錯誤修改，尚未 commit
 
-![尚未提交的錯誤修改](./diagrams/ai-2.svg)
+![尚未提交的錯誤修改](../docs/diagrams/ai-2.svg)
 
 
 操作位置：ai-git-demo 的 ai/search-hint。
@@ -140,7 +141,7 @@ git commit -m "新增搜尋輸入提示"
 
 ### 步驟四：模擬已提交的錯誤，用新 commit 撤銷
 
-![revert 建立新的反向修改 commit](./diagrams/ai-5.svg)
+![revert 建立新的反向修改 commit](../docs/diagrams/ai-5.svg)
 
 
 ```bash
@@ -205,7 +206,7 @@ PR 都合併後，回原專案更新 main，確認兩個 worktree 都沒有待�
 
 接著使用 ai-git-demo：從 main 開 ai/help-text 分支，新增 help.txt，內容包含使用說明。可以請 AI 協助，但你要自己解釋差異與驗收方式。完成後提交，再合併回 main。
 
-完成標準：main 的搜尋提示仍在；help.txt 有說明；工作區乾淨。不會寫需求時，先讀 [AI 提示詞實戰](../AI提示詞實戰/README.md)，裡面有五個可複製的範例。交作業時附上：
+完成標準：main 的搜尋提示仍在；help.txt 有說明；工作區乾淨。交作業時附上：
 
 - 這次任務與修改範圍。
 - 你實際檢查了什麼、結果如何。

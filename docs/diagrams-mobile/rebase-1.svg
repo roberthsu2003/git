@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 770" width="440" height="770" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">reword：三筆訊息逐一重寫</title><desc id="diagram-desc">本練習共四筆，HEAD~3 存在可照用；整理含根提交才用 rebase 相關的 root 選項。 編輯器：最舊到最新；三行都改 reword；保留識別碼與順序。儲存後：依序編輯三次；檔案內容不變；三筆識別碼都改變</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="770" rx="16" fill="#fafbf7"/>
+<circle cx="48" cy="46" r="20" fill="#fff" stroke="#748f61" stroke-width="2"/><text x="48" y="52" text-anchor="middle" class="commit">C1</text>
+<text x="84" y="38" class="ref"><tspan x="84" dy="0">起點（不動）</tspan></text>
+<text x="84" y="89" class="eyebrow"><tspan x="84" dy="0">起點／圖中未列出父 commit</tspan></text>
+<circle cx="48" cy="140" r="20" fill="#fff" stroke="#748f61" stroke-width="2"/><text x="48" y="146" text-anchor="middle" class="commit">C2</text>
+<text x="84" y="132" class="ref"><tspan x="84" dy="0">f4（改訊息）</tspan></text>
+<text x="84" y="183" class="eyebrow"><tspan x="84" dy="0">父 commit：C1</tspan></text>
+<circle cx="48" cy="234" r="20" fill="#fff" stroke="#748f61" stroke-width="2"/><text x="48" y="240" text-anchor="middle" class="commit">C3</text>
+<text x="84" y="226" class="ref"><tspan x="84" dy="0">f5（改訊息）</tspan></text>
+<text x="84" y="277" class="eyebrow"><tspan x="84" dy="0">父 commit：C2</tspan></text>
+<circle cx="48" cy="328" r="20" fill="#fff" stroke="#748f61" stroke-width="2"/><text x="48" y="334" text-anchor="middle" class="commit">C4</text>
+<text x="84" y="320" class="ref"><tspan x="84" dy="0">HEAD → 功能分支</tspan></text>
+<text x="84" y="371" class="eyebrow"><tspan x="84" dy="0">父 commit：C3</tspan></text>
+<rect x="16" y="388" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 390 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="426" class="card-title"><tspan x="36" dy="0">編輯器</tspan></text>
+<text x="36" y="456" class="tag"><tspan x="36" dy="0">最舊到最新</tspan></text>
+<text x="36" y="493" class="body"><tspan x="36" dy="0">三行都改 reword</tspan><tspan x="36" dy="27">保留識別碼與順序</tspan></text>
+<rect x="16" y="577" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 579 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="615" class="card-title"><tspan x="36" dy="0">儲存後</tspan></text>
+<text x="36" y="645" class="tag"><tspan x="36" dy="0">依序編輯三次</tspan></text>
+<text x="36" y="682" class="body"><tspan x="36" dy="0">檔案內容不變</tspan><tspan x="36" dy="27">三筆識別碼都改變</tspan></text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 589" width="440" height="589" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">Fork 和 clone 是不同動作</title><desc id="diagram-desc">Fork 建立線上副本；clone 把副本下載到自己的電腦。 老師的 GitHub：upstream；class-homework / main；原始專案。自己的 GitHub：origin；class-homework / main；Fork 副本。自己的電腦：本地 clone；origin → 自己的 Fork；upstream → 老師專案</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="589" rx="16" fill="#fafbf7"/>
+<rect x="16" y="18" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="56" class="card-title"><tspan x="36" dy="0">老師的 GitHub</tspan></text>
+<text x="36" y="86" class="tag"><tspan x="36" dy="0">upstream</tspan></text>
+<text x="36" y="123" class="body"><tspan x="36" dy="0">class-homework / main</tspan><tspan x="36" dy="27">原始專案</tspan></text>
+<rect x="16" y="207" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 209 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="245" class="card-title"><tspan x="36" dy="0">自己的 GitHub</tspan></text>
+<text x="36" y="275" class="tag"><tspan x="36" dy="0">origin</tspan></text>
+<text x="36" y="312" class="body"><tspan x="36" dy="0">class-homework / main</tspan><tspan x="36" dy="27">Fork 副本</tspan></text>
+<rect x="16" y="396" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 398 H 412" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="434" class="card-title"><tspan x="36" dy="0">自己的電腦</tspan></text>
+<text x="36" y="464" class="tag"><tspan x="36" dy="0">本地 clone</tspan></text>
+<text x="36" y="501" class="body"><tspan x="36" dy="0">origin → 自己的 Fork</tspan><tspan x="36" dy="27">upstream → 老師專案</tspan></text>
+</svg>

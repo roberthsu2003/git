@@ -1,7 +1,8 @@
 # worktree：多任務工作
 
-**一起開發 · 第 07 章**　[學習路線](../README.md)
+**一起開發 · 第 07 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#worktree/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 學完本章，你可以保留尚未完成的功能，在另一個資料夾修 bug，再把修正合併回主要分支。
 
@@ -57,7 +58,7 @@ git commit -m "建立首頁"
 
 ### 步驟二：開始會員功能，保留尚未提交的修改
 
-![會員功能還沒完成](./diagrams/worktree-1.svg)
+![會員功能還沒完成](../docs/diagrams/worktree-1.svg)
 
 
 操作位置：`worktree-demo`。
@@ -81,7 +82,7 @@ git status --short
 
 ### 步驟三：從 main 建立修正用的 worktree
 
-![兩個 worktree 各自保留檔案](./diagrams/worktree-2.svg)
+![兩個 worktree 各自保留檔案](../docs/diagrams/worktree-2.svg)
 
 
 操作位置：仍在 `worktree-demo`，目前分支是 `feature-login`。
@@ -119,7 +120,7 @@ git worktree list
 
 ### 步驟四：在新資料夾修正並提交
 
-![修正 commit 不會改動另一邊](./diagrams/worktree-3.svg)
+![修正 commit 不會改動另一邊](../docs/diagrams/worktree-3.svg)
 
 
 ```bash
@@ -167,7 +168,7 @@ Home titel
 
 ### 步驟六：完成會員功能，再把修正合併回 main
 
-![main 先收到首頁修正](./diagrams/worktree-4.svg)
+![main 先收到首頁修正](../docs/diagrams/worktree-4.svg)
 
 
 操作位置：`worktree-demo`。先完成並提交手上的修改，讓後面的切換步驟容易觀察。
@@ -187,7 +188,7 @@ ls
 
 ### 步驟七：把會員功能也整合回 main
 
-![main 整合兩項成果](./diagrams/worktree-5.svg)
+![main 整合兩項成果](../docs/diagrams/worktree-5.svg)
 
 
 操作位置：仍在 `worktree-demo` 的 main 分支。
@@ -213,7 +214,7 @@ Login form: add password field
 
 ### 步驟八：移除不用的 worktree，再刪除分支
 
-![移除資料夾與刪分支是不同動作](./diagrams/worktree-6.svg)
+![移除資料夾與刪分支是不同動作](../docs/diagrams/worktree-6.svg)
 
 
 操作位置：`worktree-demo` 的 main 分支。

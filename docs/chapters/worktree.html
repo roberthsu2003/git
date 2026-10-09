@@ -1,0 +1,135 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>worktree：多任務工作｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic is-current" href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#worktree/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">一起開發 · 第 07 章</div><article class="reading-content"><h1 id="worktree多任務工作">worktree：多任務工作</h1>
+<p><strong>一起開發 · 第 07 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>本章附 SVG 圖解；可先讀 <a href="guide.html">互動版使用說明</a>，再用瀏覽器開啟 <code>docs/index.html#worktree/1</code>，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。</p>
+<p>學完本章，你可以保留尚未完成的功能，在另一個資料夾修 bug，再把修正合併回主要分支。</p>
+<h2 id="1-什麼時候會用到">1. 什麼時候會用到？</h2>
+<p>你正在寫會員功能，檔案已經改了，但還沒準備好 commit。這時老師說：「首頁的標題錯了，請先修正。」</p>
+<p>如果只有一個工作資料夾，切換分支時可能需要先處理現有修改。worktree 可以替同一個 Git 儲存庫建立另一個工作資料夾，讓你在那裡處理修正，原本的功能檔案繼續留著。</p>
+<p><strong>分支記錄開發路線；worktree 提供實際編輯這條路線的資料夾。</strong></p>
+<div class="table-scroll"><table><thead><tr><th scope="col">操作</th><th scope="col">你會看到的變化</th></tr></thead><tbody><tr><td><code>git branch feature-login</code></td><td>建立分支，但沒有新增工作資料夾，也沒有切換分支</td></tr><tr><td><code>git switch feature-login</code></td><td>在目前資料夾切換到另一個分支，受追蹤的檔案會依該分支更新</td></tr><tr><td><code>git worktree add -b hotfix-title ../worktree-hotfix main</code></td><td>從 main 建立新分支，並在旁邊新增資料夾，讓兩邊都能工作</td></tr></tbody></table></div>
+<p>建立後的資料夾像這樣：</p>
+<div class="reading-code"><span>text</span><pre><code>你選的練習位置/
+├── worktree-demo/       ← feature-login：繼續寫功能
+└── worktree-hotfix/     ← hotfix-title：修首頁標題</code></pre></div>
+<p>兩個資料夾共用 commit 紀錄與分支，但各自有自己的檔案、目前位置（HEAD）和暫存區（等待 commit 的內容）。在一邊執行 <code>git add</code>，不會把另一邊尚未提交的修改一起加入。</p>
+<h2 id="2-開始前的準備">2. 開始前的準備</h2>
+<ul><li>先完成 <a href="staging.html">開始使用 Git</a> 與 <a href="branch.html">分支</a> 的基本操作。</li><li>已安裝 Git，並設定 commit 使用的姓名與電子郵件。</li><li>使用 macOS／Linux 終端機，或 Windows 的 <strong>Git Bash</strong>。下方檔案操作指令以這些環境為準。</li><li>在你選的練習位置開啟終端機，確認 <code>worktree-demo</code> 與 <code>worktree-hotfix</code> 兩個資料夾名稱尚未被使用。本練習不用 GitHub 或網路。</li></ul>
+<p>本章所有 <code>bash</code> 區塊都是要輸入的指令；<code>text</code> 區塊是預期結果，不用輸入。請依順序做，<code>cd</code> 表示切換資料夾，<code>..</code> 表示上一層。</p>
+<h2 id="3-實作功能寫到一半先去修-bug">3. 實作：功能寫到一半，先去修 bug</h2>
+<h3 id="步驟一建立有初始-commit-的專案">步驟一：建立有初始 commit 的專案</h3>
+<p>操作位置：你選的練習位置。</p>
+<div class="reading-code"><span>bash</span><pre><code>mkdir worktree-demo
+cd worktree-demo
+git init -b main
+printf &#39;Home titel\n&#39; &gt; index.txt
+git add index.txt
+git commit -m &quot;建立首頁&quot;</code></pre></div>
+<p><code>index.txt</code> 故意把 title 拼成 titel，稍後要修正。先有一筆 commit，才有本練習建立新分支的起點。</p>
+<h3 id="步驟二開始會員功能保留尚未提交的修改">步驟二：開始會員功能，保留尚未提交的修改</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/worktree-1.svg"/><img src="../diagrams/worktree-1.svg" alt="會員功能還沒完成" loading="lazy"/></picture><figcaption>會員功能還沒完成</figcaption></figure>
+<p>操作位置：<code>worktree-demo</code>。</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch -c feature-login
+printf &#39;Login form: still working\n&#39; &gt; login.txt
+git add login.txt
+git commit -m &quot;加入會員功能草稿&quot;
+printf &#39;Login form: add password field\n&#39; &gt;&gt; login.txt
+git status --short</code></pre></div>
+<p>預期看到（M 前面有一個空白）：</p>
+<div class="reading-code"><span>text</span><pre><code> M login.txt</code></pre></div>
+<p>這表示 <code>login.txt</code> 有尚未加入暫存區的修改。<strong>先保留它，不要 commit</strong>，用它觀察 worktree 如何讓你接著處理另一件事。</p>
+<h3 id="步驟三從-main-建立修正用的-worktree">步驟三：從 main 建立修正用的 worktree</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/worktree-2.svg"/><img src="../diagrams/worktree-2.svg" alt="兩個 worktree 各自保留檔案" loading="lazy"/></picture><figcaption>兩個 worktree 各自保留檔案</figcaption></figure>
+<p>操作位置：仍在 <code>worktree-demo</code>，目前分支是 <code>feature-login</code>。</p>
+<div class="reading-code"><span>bash</span><pre><code>git worktree add -b hotfix-title ../worktree-hotfix main
+git worktree list</code></pre></div>
+<p>指令分成四個部分：</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">部分</th><th scope="col">意思</th></tr></thead><tbody><tr><td><code>git worktree add</code></td><td>新增一個工作資料夾</td></tr><tr><td><code>-b hotfix-title</code></td><td>同時建立名為 hotfix-title 的新分支</td></tr><tr><td><code>../worktree-hotfix</code></td><td>把資料夾放在目前資料夾的旁邊</td></tr><tr><td><code>main</code></td><td>從 main 的 commit 開始，避免帶入尚未完成的會員功能</td></tr></tbody></table></div>
+<p><code>git worktree list</code> 的結果大致如下；路徑和 commit 編號會不同：</p>
+<div class="reading-code"><span>text</span><pre><code>/你的練習位置/worktree-demo    abc1234 [feature-login]
+/你的練習位置/worktree-hotfix  def5678 [hotfix-title]</code></pre></div>
+<p>原本資料夾仍在 <code>feature-login</code>。新增 worktree 不會替你切換終端機位置，下一步要自己 <code>cd</code> 過去。</p>
+<h3 id="用兩個-vs-code-視窗觀察">用兩個 VS Code 視窗觀察</h3>
+<p>如果已安裝 VS Code，可以用選單「檔案 → 新增視窗」，讓第一個視窗開啟 worktree-demo、第二個視窗開啟 worktree-hotfix。使用「開啟資料夾」各自選取，不需要設定 <code>code</code> 指令。</p>
+<p>第一個視窗應看到尚未提交的 login.txt 修改；第二個視窗目前只有 index.txt。先猜一猜：在第二個視窗修好首頁並 commit，第一個視窗的首頁會立刻改變嗎？接著做步驟四、五驗證。</p>
+<p>每個視窗的終端機也要各自確認位置：<code>pwd</code> 看資料夾，<code>git branch --show-current</code> 看分支。以下文字指令仍以原本的一個終端機依順序操作；不要在兩個終端機交錯複製 <code>cd</code>。</p>
+<h3 id="步驟四在新資料夾修正並提交">步驟四：在新資料夾修正並提交</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/worktree-3.svg"/><img src="../diagrams/worktree-3.svg" alt="修正 commit 不會改動另一邊" loading="lazy"/></picture><figcaption>修正 commit 不會改動另一邊</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>cd ../worktree-hotfix
+git branch --show-current
+ls</code></pre></div>
+<p>預期目前分支是 <code>hotfix-title</code>，檔案只有 <code>index.txt</code>，沒有 <code>login.txt</code>。因為這個分支從 main 開始，會員功能只存在於 feature-login。</p>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;Home title\n&#39; &gt; index.txt
+git add index.txt
+git commit -m &quot;修正首頁標題拼字&quot;
+git status --short</code></pre></div>
+<p>最後一行沒有輸出，表示這個 worktree 沒有待處理的變更。</p>
+<h3 id="步驟五回原資料夾確認進度還在">步驟五：回原資料夾，確認進度還在</h3>
+<div class="reading-code"><span>bash</span><pre><code>cd ../worktree-demo
+git branch --show-current
+git status --short
+cat login.txt
+cat index.txt</code></pre></div>
+<p>預期看到（依序對應上面四個指令）：</p>
+<div class="reading-code"><span>text</span><pre><code># branch --show-current → feature-login
+# status --short →  M login.txt
+# cat login.txt → 兩行 Login form...
+# cat index.txt → Home titel
+feature-login
+ M login.txt
+Login form: still working
+Login form: add password field
+Home titel</code></pre></div>
+<p>會員功能的修改還在，首頁也仍是舊拼字。<strong>另一個分支完成 commit，不代表目前分支已經收到修正。</strong> 接下來才用 merge 整合。</p>
+<h3 id="步驟六完成會員功能再把修正合併回-main">步驟六：完成會員功能，再把修正合併回 main</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/worktree-4.svg"/><img src="../diagrams/worktree-4.svg" alt="main 先收到首頁修正" loading="lazy"/></picture><figcaption>main 先收到首頁修正</figcaption></figure>
+<p>操作位置：<code>worktree-demo</code>。先完成並提交手上的修改，讓後面的切換步驟容易觀察。</p>
+<div class="reading-code"><span>bash</span><pre><code>git add login.txt
+git commit -m &quot;新增密碼欄位草稿&quot;
+git switch main
+git merge --ff-only hotfix-title
+cat index.txt
+ls</code></pre></div>
+<p>預期首頁變成 <code>Home title</code>，但 main 還沒有 <code>login.txt</code>。此時只是整合首頁修正。</p>
+<p>本例 main 尚未增加其他 commit，因此可以 fast-forward（把分支指標往前移到修正的 commit）；<code>--ff-only</code> 要求 Git 只能用這種方式合併。</p>
+<h3 id="步驟七把會員功能也整合回-main">步驟七：把會員功能也整合回 main</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/worktree-5.svg"/><img src="../diagrams/worktree-5.svg" alt="main 整合兩項成果" loading="lazy"/></picture><figcaption>main 整合兩項成果</figcaption></figure>
+<p>操作位置：仍在 <code>worktree-demo</code> 的 main 分支。</p>
+<div class="reading-code"><span>bash</span><pre><code>git merge --no-edit feature-login
+cat index.txt
+cat login.txt
+git log --oneline --graph --all</code></pre></div>
+<p><code>--no-edit</code> 使用預設合併訊息，避免在練習途中開啟訊息編輯器。</p>
+<p>預期檔案內容：</p>
+<div class="reading-code"><span>text</span><pre><code>Home title
+Login form: still working
+Login form: add password field</code></pre></div>
+<p>兩個分支都從原本的 main 向前開發，這次一般合併會建立 merge commit。本例修改不同檔案，所以不會發生衝突；如果兩個分支修改同一檔案的同一段，仍可能需要手動解決衝突。</p>
+<h3 id="步驟八移除不用的-worktree再刪除分支">步驟八：移除不用的 worktree，再刪除分支</h3>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/worktree-6.svg"/><img src="../diagrams/worktree-6.svg" alt="移除資料夾與刪分支是不同動作" loading="lazy"/></picture><figcaption>移除資料夾與刪分支是不同動作</figcaption></figure>
+<p>操作位置：<code>worktree-demo</code> 的 main 分支。</p>
+<div class="reading-code"><span>bash</span><pre><code>git worktree remove ../worktree-hotfix
+git branch -d hotfix-title
+git branch -d feature-login
+git worktree list
+git status --short</code></pre></div>
+<p>預期只剩 <code>worktree-demo</code> 這個 worktree，分支是 main；status 沒有輸出。</p>
+<p><code>remove</code> 會移除那個工作資料夾與 worktree 登記，<strong>不會刪除分支</strong>。這裡兩個分支都已合併，所以再用 <code>branch -d</code> 刪除。不要站在準備移除的資料夾裡執行 remove。</p>
+<h2 id="4-常用指令與卡關處理">4. 常用指令與卡關處理</h2>
+<p>以下是查詢用的範例，不是接續步驟八全部執行的指令。</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">目的</th><th scope="col">指令</th></tr></thead><tbody><tr><td>查看所有 worktree</td><td><code>git worktree list</code></td></tr><tr><td>從 main 建立新分支和資料夾</td><td><code>git worktree add -b feature-search ../worktree-search main</code></td></tr><tr><td>為已存在的分支建立資料夾</td><td><code>git worktree add ../worktree-search feature-search</code></td></tr><tr><td>移除已完成的工作資料夾</td><td><code>git worktree remove ../worktree-search</code></td></tr></tbody></table></div>
+<p>新增分支和使用既有分支是兩種選擇：如果 <code>feature-search</code> 已存在，就不要再加 <code>-b</code>。</p>
+<p><strong>出現「分支已被使用／already checked out」</strong>：一般情況下，同一個分支不能同時在兩個 worktree 中使用。先用 <code>git worktree list</code> 找出它在哪裡，直接進入那個資料夾工作，或替另一項任務建立不同分支。</p>
+<p><strong>出現「分支已存在／already exists」</strong>：<code>-b</code> 要建立全新分支。如果要使用現有分支，拿掉 <code>-b</code>，使用表格中的既有分支寫法；仍要確認該分支沒有被另一個 worktree 使用。</p>
+<p><strong>無法 remove，顯示有修改或未追蹤檔案</strong>：先進入該資料夾執行 <code>git status</code>，確認內容，提交要保留的修改，或把仍需要的未追蹤檔案搬到別處，再回到保留的 worktree 移除。不要為了跳過錯誤直接加 <code>--force</code>。</p>
+<p><strong>自己刪掉資料夾，但 list 還看得到紀錄</strong>：先執行 <code>git worktree prune --dry-run --verbose</code> 檢查，確定是已刪除且不用的資料夾，再執行 <code>git worktree prune --verbose</code> 清除符合條件的失效紀錄。prune 不會找回檔案，也不會清掉正常存在的 worktree；平常請用 remove。</p>
+<p><strong>資料夾名稱重複</strong>：換一個尚未使用的路徑；不要直接覆蓋現有資料夾。</p>
+<h2 id="5-換你練習">5. 換你練習</h2>
+<p>保留步驟八完成的 <code>worktree-demo</code>，再做一次不同任務：</p>
+<ol><li>從 main 建立 <code>feature-about</code> 分支，搭配旁邊的 <code>worktree-about</code> 資料夾。</li><li>在新資料夾建立 <code>about.txt</code>，寫下自己的名字並 commit。</li><li>回到原資料夾，確認 main 還沒有 <code>about.txt</code>。</li><li>在 main 合併 feature-about，確認 <code>about.txt</code> 出現。</li><li>移除 worktree-about，再刪除已合併的分支。</li></ol>
+<p>完成標準：main 有 <code>index.txt</code>、<code>login.txt</code>、<code>about.txt</code>；<code>git worktree list</code> 只剩原本的 worktree。</p>
+<p>想一想：</p>
+<ul><li>步驟三為什麼指定 <code>main</code> 當起點，而不是 feature-login？</li><li>步驟四已經修好首頁，為什麼步驟五還看到舊拼字？</li><li><code>git worktree remove</code> 和 <code>git branch -d</code> 各自移除什麼？</li></ul>
+<p>答案提示：起點決定帶入哪些已提交內容；合併才會把另一個分支的成果整合進來；工作資料夾與分支是分開管理的。</p>
+<p>參考：<a href="https://git-scm.com/docs/git-worktree">Git 官方 git-worktree 文件</a>。</p>
+<hr>
+<p><a href="fork.html">← 用 Fork 交作業</a>　｜　<a href="ai.html">AI 開發的 Git 節奏 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

@@ -1,0 +1,49 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>開始前的準備｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h1 id="環境安裝與設定">環境安裝與設定</h1>
+<p>完成本章，你應能開啟終端機、確認操作位置、建立檔案，並設定 Git 提交身分。</p>
+<h2 id="1-安裝與確認">1. 安裝與確認</h2>
+<p>從 <a href="https://git-scm.com/install/">Git 官方安裝頁</a> 依作業系統安裝受維護版本。Windows 請使用 Git for Windows 附的 Git Bash；macOS／Linux 使用終端機。教材的檔案操作指令以這些 shell 為準，PowerShell 與 cmd 的語法可能不同。</p>
+<div class="reading-code"><span>bash</span><pre><code>git --version</code></pre></div>
+<p>本教材使用 <code>switch</code>、<code>restore</code> 與 <code>init -b</code>，Git 至少需要 2.28，建議安裝目前受維護版本。版本輸出與安裝路徑依電腦不同，不需與截圖一致。</p>
+<p>可以使用 VS Code 或其他文字編輯器；Git GUI 也能提交與合併。本教材以指令教學，GUI 可輔助看圖，不需要同時安裝所有工具。</p>
+<h2 id="2-設定提交身分">2. 設定提交身分</h2>
+<p>下面姓名與信箱請換成自己的資料，不要原樣輸入：</p>
+<div class="reading-code"><span>bash</span><pre><code>git config --global user.name &quot;你的名字&quot;
+git config --global user.email &quot;你的電子郵件&quot;
+git config --global init.defaultBranch main
+git config --global --get user.name
+git config --global --get user.email</code></pre></div>
+<p>這是寫進 commit 的作者身分，<strong>不是 GitHub 登入帳密</strong>。公開儲存庫的提交資訊可能公開；需要隱藏信箱時，可使用 GitHub 帳號設定提供的 noreply 地址，詳見 <a href="https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address">官方信箱設定</a>。改設定只影響後續提交，不會改掉 log 裡已有的作者。</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">範圍</th><th scope="col">指令範例</th><th scope="col">作用</th></tr></thead><tbody><tr><td>global</td><td><code>git config --global user.name &quot;名字&quot;</code></td><td>目前使用者的預設設定</td></tr><tr><td>local</td><td><code>git config user.name &quot;專案用名字&quot;</code></td><td>目前儲存庫，需在儲存庫內執行</td></tr><tr><td>system</td><td><code>git config --system ...</code></td><td>整台電腦，通常需要管理權限</td></tr></tbody></table></div>
+<p>常用範圍的優先順序是 local 高於 global 高於 system；命令列等其他來源也可能覆蓋設定。global 通常在 ~/.gitconfig，也可能使用 XDG 位置。查設定來源可用：</p>
+<div class="reading-code"><span>bash</span><pre><code>git config --show-origin --list</code></pre></div>
+<p>不要公開貼出整份設定，可能含私人路徑或其他敏感設定。</p>
+<h2 id="3-終端機最小練習">3. 終端機最小練習</h2>
+<p>在自己選的練習位置開始，確認 terminal-demo 尚未存在：</p>
+<div class="reading-code"><span>bash</span><pre><code>pwd
+mkdir terminal-demo
+cd terminal-demo
+printf &#39;Hello Git\n&#39; &gt; index.txt
+ls
+cat index.txt
+mkdir empty-folder
+rmdir empty-folder
+cd ..</code></pre></div>
+<p>完成標準：能說出目前位置，找到 terminal-demo/index.txt，內容是 Hello Git。</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">指令</th><th scope="col">用途與注意</th></tr></thead><tbody><tr><td><code>pwd</code></td><td>看目前位置</td></tr><tr><td><code>cd 路徑</code></td><td>切換資料夾；有空白的路徑加雙引號</td></tr><tr><td><code>cd ..</code></td><td>上一層</td></tr><tr><td><code>cd ~</code></td><td>回家目錄；單獨輸入 ~ 不是切換指令</td></tr><tr><td><code>ls -a</code></td><td>包含隱藏項目，例如 .git</td></tr><tr><td><code>touch 檔名</code></td><td>不存在時建立空檔，存在時更新時間</td></tr><tr><td><code>printf &#39;內容\n&#39; &gt; 檔名</code></td><td>寫入並覆蓋原內容</td></tr><tr><td><code>printf &#39;內容\n&#39; &gt;&gt; 檔名</code></td><td>接在原內容後面</td></tr><tr><td><code>rm 明確檔名</code></td><td>刪除檔案，通常不進資源回收筒</td></tr><tr><td><code>rmdir 目錄</code></td><td>移除空目錄</td></tr></tbody></table></div>
+<p>教材不需要用 rm 的萬用字元清空專案。若練習要建立的檔名已存在，先用 pwd、ls、cat 確認位置與內容，不要直接覆蓋自己的作品。</p>
+<h2 id="4-提交訊息編輯器">4. 提交訊息編輯器</h2>
+<p>初學可用 <code>git commit -m &quot;訊息&quot;</code>。沒有 -m 時，Git 可能開啟編輯器。</p>
+<p>使用 VS Code 且 <code>code</code> 指令已可用時，可設定 <code>git config --global core.editor &quot;code --wait&quot;</code>。未安裝 code 指令時，先由 VS Code 的設定方式處理，不要照抄後誤以為 Git 壞掉。</p>
+<h3 id="nano">nano</h3>
+<p>編輯後 Ctrl+O 儲存、Enter 確認檔名，Ctrl+X 離開；按鍵名稱以底部提示為準。</p>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/editor.svg"/><img src="../diagrams/editor.svg" alt="nano 編輯、儲存與離開" loading="lazy"/></picture><figcaption>nano 編輯、儲存與離開</figcaption></figure>
+<h3 id="vim">Vim</h3>
+<p>Normal 模式可以移動與執行編輯命令；按 i 進 Insert 輸入文字，Esc 回 Normal。輸入 <code>:wq</code> 儲存離開，<code>:q!</code> 放棄本次編輯離開。Shift+V 是 Visual line（整行選取）模式。<strong>離開編輯器不等於取消 Git 操作</strong>；純新建 commit 時 <code>:q!</code> 不存檔通常會因空訊息而中止提交，但 <code>--amend</code>／merge 等已有訊息時，<code>:q!</code> 仍可能沿用原訊息完成操作，不想繼續時要再用 <code>git status</code> 確認結果。</p>
+<p>以下為舊版安裝／設定截圖，只供辨認介面，請依目前安裝程式與上面的指令確認。</p>
+<figure><picture><img src="../../環境安裝與設定/images/pic1.png" alt="安裝示意（舊版介面）" loading="lazy"/></picture><figcaption>安裝示意（舊版介面）</figcaption></figure>
+<figure><picture><img src="../../環境安裝與設定/images/pic3.png" alt="設定示意（舊版介面）" loading="lazy"/></picture><figcaption>設定示意（舊版介面）</figcaption></figure>
+<h2 id="5-pull-策略先不用全域硬改">5. pull 策略先不用全域硬改</h2>
+<p><code>git pull</code> 先 fetch，再依選項與設定整合，不是一律 merge。教材一般更新 main 時明確用 <code>git pull --ff-only origin main</code>；分岔時先看歷史，再選 merge 或 rebase。不要為配合某個編輯器，把自己所有專案的 pull 策略改掉。</p>
+<p>若 chmod 出現在後面的 SSH 設定，它是 Unix 權限操作，不是 Git 的設定，也不是 Git 的存取權限設定；Windows 的檔案權限與 Unix 模式不同。</p>
+<p>參考：<a href="https://git-scm.com/docs/git-config">git config</a>、<a href="https://git-scm.com/docs/git-pull">git pull</a>。</p>
+<p><a href="staging.html">開始第一章 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 643" width="440" height="643" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">新檔案與既有檔案，結果不同</title><desc id="diagram-desc">把不含秘密的 .env.example 加入教材，真實金鑰不要提交。 新的 .env：尚未追蹤；符合忽略規則；一般 add 不會加入；仍存在於電腦。已追蹤的 .env：仍被追蹤；只改 .gitignore 不夠；rm --cached 取消追蹤；再 commit 記錄變更。舊 commit：歷史仍有內容；ignore 不清除舊版本；已洩漏秘密需另行處理</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="643" rx="16" fill="#fafbf7"/>
+<rect x="16" y="18" width="408" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="56" class="card-title"><tspan x="36" dy="0">新的 .env</tspan></text>
+<text x="36" y="86" class="tag"><tspan x="36" dy="0">尚未追蹤</tspan></text>
+<text x="36" y="123" class="body"><tspan x="36" dy="0">符合忽略規則</tspan><tspan x="36" dy="27">一般 add 不會加入</tspan><tspan x="36" dy="27">仍存在於電腦</tspan></text>
+<rect x="16" y="234" width="408" height="202" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 236 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="272" class="card-title"><tspan x="36" dy="0">已追蹤的 .env</tspan></text>
+<text x="36" y="302" class="tag"><tspan x="36" dy="0">仍被追蹤</tspan></text>
+<text x="36" y="339" class="body"><tspan x="36" dy="0">只改 .gitignore 不夠</tspan><tspan x="36" dy="27">rm --cached 取消追蹤</tspan><tspan x="36" dy="27">再 commit 記錄變更</tspan></text>
+<rect x="16" y="450" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 452 H 412" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="488" class="card-title"><tspan x="36" dy="0">舊 commit</tspan></text>
+<text x="36" y="518" class="tag"><tspan x="36" dy="0">歷史仍有內容</tspan></text>
+<text x="36" y="555" class="body"><tspan x="36" dy="0">ignore 不清除舊版本</tspan><tspan x="36" dy="27">已洩漏秘密需另行處理</tspan></text>
+</svg>

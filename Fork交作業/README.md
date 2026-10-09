@@ -1,12 +1,12 @@
 # 用 Fork 交作業
 
-**一起開發 · 第 06 章**　[學習路線](../README.md)
+**一起開發 · 第 06 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
 你想修改老師的專案，但沒有直接寫入權限。Fork 讓你在自己帳號的副本中工作，再用 PR 提出修改。
 
 先完成 [分支練習](../分支/README.md) 與 [GitHub 基本操作](../github/README.md)，準備帳號與 Git 操作的登入方式。
 
-![跨 Fork 的 PR 選擇老師 main 當目標](./diagrams/fork-3.svg)
+![跨 Fork 的 PR 選擇老師 main 當目標](../docs/diagrams/fork-3.svg)
 
 
 使用另一個允許 Fork 的練習儲存庫，例如老師的 `class-homework`。本章是一條獨立流程，先確認老師提供的網址與主要分支名稱。此處用 HTTPS 示範；已設 SSH 者可換用對應 SSH 網址，origin／upstream 概念不變。

@@ -1,11 +1,12 @@
 # rebase：整理自己的提交歷史
 
-**延伸圖解 · 第 15 章**　[學習路線](../README.md)
+**延伸圖解 · 第 15 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#rebase/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 先完成 [分支](../分支/README.md)、[reset](../git_reset/README.md) 與 [amend](../修改目前commit/README.md)。rebase 會重新套用提交，可能重建識別碼；本章只整理自己尚未分享的練習分支。
 
-![reword 逐一改寫訊息](./diagrams/rebase-1.svg)
+![reword 逐一改寫訊息](../docs/diagrams/rebase-1.svg)
 
 ## 1. 照做：準備起點加三筆提交
 

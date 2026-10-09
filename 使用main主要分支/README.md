@@ -1,6 +1,6 @@
 # main、HEAD 與歷史
 
-**建立版本 · 第 02 章**　[學習路線](../README.md)
+**建立版本 · 第 02 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
 
 本章練習統一使用 main。main 與 master 都是分支名稱，不代表不同的 Git 功能；舊專案若看到 master，可理解為當時的主要分支名稱。
@@ -15,7 +15,7 @@ commit 保存當時的專案快照、作者、訊息與父提交等資訊。分�
 
 ### 第一筆：三個 a 檔案
 
-![第一筆提交與 main、HEAD](./diagrams/history-1.svg)
+![第一筆提交與 main、HEAD](../docs/diagrams/history-1.svg)
 
 ```bash
 mkdir history-demo
@@ -30,7 +30,7 @@ git commit -m "建立三個 a 檔案"
 
 ### 接著：每次新增一個 b 檔案
 
-![main 隨四次提交往前](./diagrams/history-2.svg)
+![main 隨四次提交往前](../docs/diagrams/history-2.svg)
 
 ```bash
 touch b1.html

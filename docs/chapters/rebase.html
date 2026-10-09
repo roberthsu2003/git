@@ -1,0 +1,69 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>rebase｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic is-current" href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#rebase/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">延伸圖解 · 第 15 章</div><article class="reading-content"><h1 id="rebase整理自己的提交歷史">rebase：整理自己的提交歷史</h1>
+<p><strong>延伸圖解 · 第 15 章</strong>　<a href="overview.html">學習路線</a> · <a href="guide.html">互動圖解</a></p>
+<p>本章附 SVG 圖解；可先讀 <a href="guide.html">互動版使用說明</a>，再用瀏覽器開啟 <code>docs/index.html#rebase/1</code>，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。</p>
+<p>先完成 <a href="branch.html">分支</a>、<a href="reset.html">reset</a> 與 <a href="amend.html">amend</a>。rebase 會重新套用提交，可能重建識別碼；本章只整理自己尚未分享的練習分支。</p>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/rebase-1.svg"/><img src="../diagrams/rebase-1.svg" alt="reword 逐一改寫訊息" loading="lazy"/></picture><figcaption>reword 逐一改寫訊息</figcaption></figure>
+<h2 id="1-照做準備起點加三筆提交">1. 照做：準備起點加三筆提交</h2>
+<p>使用終端機或 Git Bash，已設定身分，在尚無 rebase-demo 的位置開始。互動操作會開啟編輯器，先熟悉 <a href="setup.html">儲存與離開</a>。</p>
+<div class="reading-code"><span>bash</span><pre><code>mkdir rebase-demo
+cd rebase-demo
+git init -b main
+printf &#39;# 起點\n&#39; &gt; README.md
+git add README.md
+git commit -m &quot;建立練習起點&quot;
+git switch -c feature-pages
+touch f4.html
+git add f4.html
+git commit -m &quot;新增 f4&quot;
+touch f5.html
+git add f5.html
+git commit -m &quot;新增 f5&quot;
+touch f6.html
+git add f6.html
+git commit -m &quot;新增 f6&quot;
+git branch before-rebase
+git status --short</code></pre></div>
+<p>共有四筆提交，before-rebase 留住整理前的版本。本練習共四筆，故 <code>HEAD~3</code> 存在，可照用；<code>HEAD~3</code> 必須存在：<strong>如果整個儲存庫只有三筆，第三次回溯超過 root，不能照用這個指令</strong>。整理包含根提交的歷史另有 <code>git rebase -i --root</code>，先不混入本練習。</p>
+<h2 id="2-照做改三筆訊息">2. 照做：改三筆訊息</h2>
+<div class="reading-code"><span>bash</span><pre><code>git rebase -i HEAD~3</code></pre></div>
+<p>編輯器按最舊到最新列出三筆提交；識別碼依你的專案不同。保留實際識別碼與順序，只把三行開頭的 pick 改成 reword：</p>
+<div class="reading-code"><span>text</span><pre><code>reword 實際識別碼 新增 f4
+reword 實際識別碼 新增 f5
+reword 實際識別碼 新增 f6</code></pre></div>
+<p>這是編輯器內容示意，不是 shell 指令。儲存離開後，三筆都選 reword，會依序進行<strong>三次</strong>訊息編輯；分別改成「新增 f4.html」、「新增 f5.html」、「新增 f6.html」。</p>
+<div class="reading-code"><span>bash</span><pre><code>git log --oneline -4
+git diff before-rebase HEAD
+git status --short</code></pre></div>
+<p>預期仍四筆提交、訊息改好，檔案差異與 status 都沒有輸出。</p>
+<h2 id="3-照做三筆合成一筆">3. 照做：三筆合成一筆</h2>
+<p>接續同一個 feature-pages：</p>
+<div class="reading-code"><span>bash</span><pre><code>git rebase -i HEAD~3</code></pre></div>
+<p>保留第一行 pick，後兩行改 squash：</p>
+<div class="reading-code"><span>text</span><pre><code>pick 實際識別碼 新增 f4.html
+squash 實際識別碼 新增 f5.html
+squash 實際識別碼 新增 f6.html</code></pre></div>
+<p>squash 把該提交合到前面累積的提交，並讓你整理訊息；最後訊息改為「新增三個練習頁面」。不要 squash 第一行，因為範圍內沒有前一筆可合。</p>
+<div class="reading-code"><span>bash</span><pre><code>git rev-list --count HEAD
+git show --stat HEAD
+git diff before-rebase HEAD</code></pre></div>
+<p>預期現在只有起點與合併後提交，共兩筆；三個頁面都在，與整理前檔案相同。<code>fixup</code> 也會合到前面，但一般 fixup 丟棄該筆訊息、沿用前面的訊息；與 squash 的訊息處理不同。</p>
+<h2 id="4-照做把最後一筆拆成兩筆">4. 照做：把最後一筆拆成兩筆</h2>
+<p>接續上節，目前最後一筆新增三個檔案：</p>
+<div class="reading-code"><span>bash</span><pre><code>git rebase -i HEAD~1</code></pre></div>
+<p>將唯一一行 pick 改成 edit，儲存離開。Git 停在該提交時：</p>
+<div class="reading-code"><span>bash</span><pre><code>git reset --mixed HEAD^
+git status --short
+git add f4.html
+git commit -m &quot;新增 f4.html&quot;
+git add f5.html f6.html
+git commit -m &quot;新增 f5.html 與 f6.html&quot;
+git rebase --continue
+git rev-list --count HEAD
+git diff before-rebase HEAD
+git status --short</code></pre></div>
+<p>預期 reset 後三個新檔案未追蹤，分批 add／commit 後總共三筆，與整理前內容相同，工作區乾淨。拆分不用把三個檔案重新寫一遍；是把原變更分成不同提交。</p>
+<h2 id="5-卡關與同步上游查詢用">5. 卡關與同步上游（查詢用）</h2>
+<p>遇到衝突：讀 <code>git status</code>，修正列出的檔案、移除衝突標記，<code>git add 實際檔名</code> 後 <code>git rebase --continue</code>。仍在 rebase 中時可用 <code>git rebase --abort</code> 取消本次操作；不要直接 reset 猜測狀態。<code>--skip</code> 會略過一筆提交，不能當成一般解衝突方法。</p>
+<p>另一種用途是在自己功能分支用 <code>git fetch origin</code>、<code>git rebase origin/main</code>，把自己的提交重新套用到最新 main。這與本章互動整理有共同原理，但不是要接著執行的步驟。已共享的分支改寫需團隊約定；本教材的初學協作先使用 merge。</p>
+<p>完成標準：能用 before-rebase 比較檔案內容，說明為什麼提交數量與識別碼變了，成果卻相同。before-rebase 是尚未整合的舊歷史，branch -d 可能拒絕；先保留它用來比較，不需要強行刪除。</p>
+<p>參考：<a href="https://git-scm.com/docs/git-rebase">git rebase 官方文件</a>。</p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

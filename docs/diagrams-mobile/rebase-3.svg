@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 589" width="440" height="589" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">edit：把一筆拆成兩筆</title><desc id="diagram-desc">拆分不用把檔案重新寫一遍；是把原變更分成不同提交。 停在該提交：edit 暫停；reset 拆回工作區；三個新檔未追蹤。分批提交：兩次 commit；不用重寫檔案；原變更分兩筆記錄。繼續：continue 回流程；回到整理流程；總數與內容可比較</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:18px;fill:#5e7653}.body{font-size:21px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:18px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="440" height="589" rx="16" fill="#fafbf7"/>
+<rect x="16" y="18" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 20 H 412" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="56" class="card-title"><tspan x="36" dy="0">停在該提交</tspan></text>
+<text x="36" y="86" class="tag"><tspan x="36" dy="0">edit 暫停</tspan></text>
+<text x="36" y="123" class="body"><tspan x="36" dy="0">reset 拆回工作區</tspan><tspan x="36" dy="27">三個新檔未追蹤</tspan></text>
+<rect x="16" y="207" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 209 H 412" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="245" class="card-title"><tspan x="36" dy="0">分批提交</tspan></text>
+<text x="36" y="275" class="tag"><tspan x="36" dy="0">兩次 commit</tspan></text>
+<text x="36" y="312" class="body"><tspan x="36" dy="0">不用重寫檔案</tspan><tspan x="36" dy="27">原變更分兩筆記錄</tspan></text>
+<rect x="16" y="396" width="408" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 28 398 H 412" stroke="#628c87" stroke-width="3" stroke-linecap="round"/>
+<text x="36" y="434" class="card-title"><tspan x="36" dy="0">繼續</tspan></text>
+<text x="36" y="464" class="tag"><tspan x="36" dy="0">continue 回流程</tspan></text>
+<text x="36" y="501" class="body"><tspan x="36" dy="0">回到整理流程</tspan><tspan x="36" dy="27">總數與內容可比較</tspan></text>
+</svg>

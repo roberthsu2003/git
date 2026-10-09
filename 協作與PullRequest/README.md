@@ -1,7 +1,8 @@
 # GitHub 共同開發
 
-**一起開發 · 第 05 章**　[學習路線](../README.md)
+**一起開發 · 第 05 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
+本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#collaboration/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
 Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查與合併成果。先完成 [分支練習](../分支/README.md)，並閱讀 [GitHub 基本操作](../github/README.md) 準備帳號、clone 與登入方式，再做本章。
 
@@ -37,7 +38,7 @@ Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查�
 
 ### 步驟一：每人 clone 一份
 
-![每人一份本地專案與任務分支](./diagrams/collaboration-1.svg)
+![每人一份本地專案與任務分支](../docs/diagrams/collaboration-1.svg)
 
 
 沿用上一節的儲存庫與邀請。兩人各自在自己的電腦操作，使用終端機或 Git Bash。將網址中的 `OWNER` 換成 A 的 GitHub 帳號；不要原樣輸入。
@@ -54,7 +55,7 @@ git branch --show-current
 
 ### 步驟二：A 新增課程介紹
 
-![commit 先保存在本地](./diagrams/collaboration-2.svg)
+![commit 先保存在本地](../docs/diagrams/collaboration-2.svg)
 
 
 操作位置：A 電腦的 class-team-demo。開始前確認工作區乾淨；若有修改，先處理自己的內容再切換。
@@ -81,7 +82,7 @@ git push -u origin docs-course
 
 ### 步驟三：B 新增小組成員
 
-![push 上傳任務分支，main 尚未合併](./diagrams/collaboration-3.svg)
+![push 上傳任務分支，main 尚未合併](../docs/diagrams/collaboration-3.svg)
 
 
 操作位置：B 電腦的 class-team-demo。B 不必等 A 完成，可以從自己的 main 開始。
@@ -102,7 +103,7 @@ git push -u origin docs-members
 
 ### 步驟四：互相檢查 PR
 
-![PR 的目標與來源](./diagrams/collaboration-4.svg)
+![PR 的目標與來源](../docs/diagrams/collaboration-4.svg)
 
 
 操作位置：GitHub 網站。
@@ -117,7 +118,7 @@ git push -u origin docs-members
 
 ### 步驟五：兩人都更新自己的 main
 
-![合併後還要各自 pull](./diagrams/collaboration-6.svg)
+![合併後還要各自 pull](../docs/diagrams/collaboration-6.svg)
 
 
 先在 GitHub 確認兩個 PR 都已合併。兩人各自在自己的 class-team-demo 執行：
