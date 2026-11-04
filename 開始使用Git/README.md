@@ -455,22 +455,91 @@ git commit -m "docs: 整理 Markdown 與 Git 操作對照表" \
 | `refactor:` | 程式碼重構（非新增功能也非修 bug） | `refactor: 簡化驗證函式邏輯` |
 | `chore:` | 雜項事務（如建置工具設定、相依套件更新） | `chore: 更新 .gitignore 排除暫存檔` |
 
-### (4) 救急技巧：`git commit --amend`（修補剛才那次 commit）
+### (4) 救急技巧：`git commit --amend`（修補最新的一次 Commit）
 
-* **情境 1：剛 commit 完，發現 Commit 訊息打錯字了**：
-  ```bash
-  git commit --amend -m "docs: 修正錯字後的正確訊息"
-  ```
-* **情境 2：剛 commit 完，才驚覺「漏了一個檔案」忘記加入暫存區**：
-  不用再產生一筆無意義的 "fix typo" 提交，只要重新 add 後合入剛才那一筆：
-  ```bash
-  # 1. 將漏掉的檔案加進暫存區
-  git add 遺漏的檔案.md
+在日常開發中，最常發生的尷尬情況就是：剛按下 Enter 送出 commit，才發現**訊息打錯字了**，或者**漏存了一個檔案**。這時千萬不要為了解決小問題而多送一筆類似「fix typo」、「oops 漏掉檔案」的混亂 commit，`git commit --amend` 就是專門用來拯救這種情況的神器！
 
-  # 2. 合併進前一筆 commit（--no-edit 代表維持原本的 commit 訊息不變）
-  git commit --amend --no-edit
-  ```
-  > ⚠️ **注意事項**：`--amend` 只建議在**尚未推送到 GitHub 遠端儲存庫**的本地 commit 上使用；若已經 push 到遠端，請避免修改歷史以免造成他人衝突。
+#### 🔍 底層原理：它到底做了什麼？
+> [!NOTE]
+> 在 Git 中，任何 commit 物件都是**不可變（Immutable）**的。  
+> 執行 `git commit --amend` 並不是去修改舊的那筆 commit，而是：
+> 1. 取出暫存區（Index）當前的最新內容。
+> 2. 結合舊 commit 的內容與父節點。
+> 3. **產生一個全新的 Commit 來「取代」掉原本最新的那筆 Commit**。  
+> 因此，執行 amend 後，該 commit 的 **SHA-1 識別碼（Commit ID）一定會改變**！
+
+```text
+[原本狀態]  Commit A ───> Commit B (剛提交，有錯字或漏檔案)
+                            ▲
+                            └── HEAD
+
+[執行 amend 後]
+             Commit A ───> Commit B' (全新 Commit，內容已修正，取代了 B)
+                            ▲
+                            └── HEAD
+             (舊的 Commit B 會被 Git 垃圾回收機制回收)
+```
+
+#### 🛠️ 三種高頻使用情境與指令
+
+##### 情境 1：只修改 Commit 訊息（內容完全不變）
+剛送出 commit，發現標題有錯字或語意不清：
+```bash
+# 直接用新的訊息替換
+git commit --amend -m "docs: 修正錯字後的正確提交訊息"
+```
+*(如果不加 `-m`，Git 會自動打開編輯器，讓你直接在視窗裡修改原本的提交訊息後儲存關閉。)*
+
+##### 情境 2：補交漏掉的檔案，且「不改變原本的提交訊息」
+程式碼剛 commit 完，才驚覺忘記把 `圖片.png` 或 `筆記.md` 一起 `add` 進去：
+```bash
+# 步驟 1：把漏掉的檔案加進暫存區
+git add 遺漏的筆記.md
+
+# 步驟 2：直接將暫存區併入剛才那一筆 commit，維持原訊息不變
+git commit --amend --no-edit
+```
+> 💡 `--no-edit` 參數是關鍵，表示「**沿用原本的 commit 訊息，不要跳出編輯器詢問**」。
+
+##### 情境 3：同時修改內容與 Commit 訊息
+既想把新修改補進去，又想把提交訊息改成更完整的說明：
+```bash
+git add 修改的檔案.md
+git commit --amend -m "feat: 新增完整登入頁面與樣式表"
+```
+
+#### 🧑‍💻 學生實戰動手做：體驗 `--amend`
+
+請帶領學生在終端機中實際感受一次：
+
+1. **先新增一個檔案並提交**：
+   ```bash
+   echo "# 待修補筆記" > amend-demo.md
+   git add amend-demo.md
+   git commit -m "docs: 初版筆記（含錯字）"
+   git log --oneline -n 1
+   ```
+   > 假設終端機顯示：`a1b2c3d docs: 初版筆記（含錯字）`
+2. **發現漏了一行重要資訊，且想把 Commit 訊息改成標準規範**：
+   ```bash
+   echo "這是補上的重要內容" >> amend-demo.md
+   git add amend-demo.md
+   ```
+3. **執行 amend 一鍵整合取代**：
+   ```bash
+   git commit --amend -m "docs: 新增待修補筆記完整內容"
+   git log --oneline -n 1
+   ```
+   > 檢查結果：
+   > 1. 原本的 `docs: 初版筆記（含錯字）` 消失了，被乾淨地替換成 `docs: 新增待修補筆記完整內容`。
+   > 2. 歷史紀錄依舊保持只有**一筆 Commit**（沒有出現多餘的垃圾 commit）。
+   > 3. 前面的 Commit ID 變成了新的（例如 `e5f6g7h`），證實產生了新快照。
+
+#### ⚠️ 黃金安全守則（重要限制）
+> [!CAUTION]
+> **絕對不要在「已經 push 到遠端儲存庫（如 GitHub）」的 Commit 上使用 `--amend`！**  
+> * 因為 `--amend` 會改變 Commit ID，如果其他人已經拉取（pull）了舊的 Commit，你強制 push 會造成團隊所有人的歷史分叉與嚴重衝突。
+> * **結論**：`--amend` 是**專屬於「本地端尚未推出去」的私有反悔魔法**！
 
 ---
 
