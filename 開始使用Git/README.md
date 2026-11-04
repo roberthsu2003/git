@@ -119,6 +119,10 @@ git init -b main
    ?? notes.md
    ```
    `??` 表示檔案僅存在於**工作區**，屬於**未追蹤（Untracked）** 檔案。
+
+   > 💡 **新手常問：為什麼這時候執行 `git diff` 是一片空白？**  
+   > 因為 `git diff` 比較的是「工作區 vs 暫存區（Index）」。這個新檔案**從未被加入過暫存區（尚未被追蹤）**，Index 裡完全沒有它的紀錄，所以 `git diff` 預設不會顯示任何未追蹤檔案的差異。要查看新檔案請使用 `git status`！
+
 3. **加入暫存區並提交**：
    ```bash
    git add notes.md
@@ -347,6 +351,13 @@ git init -b main
 
 在執行 `git commit` 存檔之前，**養成「先看 diff 檢查改動」的習慣**，是專業開發者避免把測試代碼或機密檔案提交出去的最關鍵防線！
 
+> [!IMPORTANT]
+> **關鍵先決條件：為什麼新檔案下 `git diff` 什麼都不會顯示？**  
+> * `git diff` 的預設行為是比對「**工作區 vs 暫存區（Index）**」。
+> * 只有**被追蹤過（Tracked）** 的檔案（即檔案已經存在於暫存區或歷史 commit 中），Git 才會記錄它的基準線。
+> * 如果是**全新建立的未追蹤檔案（Untracked，`??`）**，因為暫存區（Index）根本沒有它的紀錄，此時執行 `git diff` 會是**一片空白**！
+> * **結論**：檔案必須「初次被追蹤過（也就是加入過 Index）」，之後在工作區所做的任何後續修改，`git diff` 才能比對得出來。
+
 ### (1) 三種最核心的比對模式
 
 ```text
@@ -473,7 +484,7 @@ git commit -m "docs: 整理 Markdown 與 Git 操作對照表" \
 | `git restore <file>` | 暫存區/HEAD → 工作區 | **放棄工作區的修改**，還原成乾淨狀態（**限已追蹤檔案**） |
 | `git restore --staged <file>` | 暫存區 → 工作區 | **撤銷暫存**（已有 commit 時），將檔案移出暫存區，保留已編輯內容 |
 | `git rm --cached <file>` | 暫存區 → 工作區 | **撤銷暫存**（專案尚無任何 commit 時），避免「無法解析 HEAD」錯誤 |
-| `git diff` | 工作區 vs 暫存區 | 查看工作區還沒 `add` 的具體行級差異 |
+| `git diff` | 工作區 vs 暫存區 | 查看工作區還沒 `add` 的具體行級差異（**限已被追蹤檔案**） |
 | `git diff --staged` | 暫存區 vs 本地庫(HEAD) | 查看已經 `add` 但還沒 `commit` 的具體內容差異 |
 | `git diff HEAD` | 工作區+暫存區 vs 本地庫 | 查看所有尚未 commit 的總修改內容 |
 | `git diff --stat` | 差異統計 | 以增減行數概覽變更，不顯示詳細內容 |
