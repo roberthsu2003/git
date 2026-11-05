@@ -2,9 +2,11 @@
 
 完成本章，你應能開啟終端機、確認操作位置、建立檔案，並設定 Git 提交身分。
 
+**第一次 Commit 前必做：** 第 1～2 節。**準備學指令時：** 練習第 3 節。第 4～5 節是需要時再查的補充，不必在入門前讀完。
+
 ## 1. 安裝與確認
 
-從 [Git 官方安裝頁](https://git-scm.com/install/) 依作業系統安裝受維護版本。Windows 請使用 Git for Windows 附的 Git Bash；macOS／Linux 使用終端機。教材的檔案操作指令以這些 shell 為準，PowerShell 與 cmd 的語法可能不同。
+從 [Git 官方安裝頁](https://git-scm.com/install/) 依作業系統安裝受維護版本，並安裝 VS Code。在 VS Code 選 **Terminal → New Terminal** 開啟整合終端機。Windows 請選用 Git for Windows 附的 Git Bash 作為終端機設定檔；macOS／Linux 使用預設 shell。教材的檔案操作指令以這些 shell 為準，PowerShell 與 cmd 的語法可能不同。
 
 ```bash
 git --version
@@ -12,7 +14,9 @@ git --version
 
 本教材使用 `switch`、`restore` 與 `init -b`，Git 至少需要 2.28，建議安裝目前受維護版本。版本輸出與安裝路徑依電腦不同，不需與截圖一致。
 
-可以使用 VS Code 或其他文字編輯器；Git GUI 也能提交與合併。本教材以指令教學，GUI 可輔助看圖，不需要同時安裝所有工具。
+日常練習使用 VS Code 的 Source Control；後續章節在 VS Code Terminal 練習 Git 指令，理解相同的版本控制流程。
+
+Windows 選擇 Git Bash：在 VS Code 選 **Terminal → New Terminal**，點 Terminal 面板右上方新增終端機按鈕旁的下拉箭頭，選 **Select Default Profile → Git Bash**，再新增一個 Terminal。若清單沒有 Git Bash，確認已安裝 Git for Windows，重新開啟 VS Code 後再選；既有的 Terminal 不會自動換成新的設定檔。介面可能隨版本調整。
 
 ## 2. 設定提交身分
 
@@ -75,7 +79,7 @@ cd ..
 
 教材不需要用 rm 的萬用字元清空專案。若練習要建立的檔名已存在，先用 pwd、ls、cat 確認位置與內容，不要直接覆蓋自己的作品。
 
-## 4. 提交訊息編輯器
+## 4. 提交訊息編輯器（需要時查閱）
 
 初學可用 `git commit -m "訊息"`。沒有 -m 時，Git 可能開啟編輯器。
 
@@ -97,7 +101,7 @@ Normal 模式可以移動與執行編輯命令；按 i 進 Insert 輸入文字�
 
 ![設定示意（舊版介面）](./images/pic3.png)
 
-## 5. pull 策略先不用全域硬改
+## 5. pull 策略先不用全域硬改（需要時查閱）
 
 `git pull` 先 fetch，再依選項與設定整合，不是一律 merge。教材一般更新 main 時明確用 `git pull --ff-only origin main`；分岔時先看歷史，再選 merge 或 rebase。不要為配合某個編輯器，把自己所有專案的 pull 策略改掉。
 
@@ -105,4 +109,4 @@ Normal 模式可以移動與執行編輯命令；按 i 進 Insert 輸入文字�
 
 參考：[git config](https://git-scm.com/docs/git-config)、[git pull](https://git-scm.com/docs/git-pull)。
 
-[開始第一章 →](../開始使用Git/README.md)
+[VS Code Source Control 入門 →](../VSCode入門/README.md)　｜　[第一章：工作區與暫存區](../開始使用Git/README.md)

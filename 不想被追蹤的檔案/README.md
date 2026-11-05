@@ -7,6 +7,19 @@
 
 ![未追蹤與已追蹤檔案套用忽略規則的差別](../docs/diagrams/ignore-1.svg)
 
+## Python 專案先看：第一次 Commit 前
+
+在專案根目錄建立或編輯 `.gitignore`，例如：
+
+```gitignore
+.venv/
+__pycache__/
+*.pyc
+.env
+```
+
+這些規則排除常見的本機虛擬環境、Python 快取與環境設定；依專案需要調整，並把 `.gitignore` 本身加入提交。先在 VS Code **Source Control** 查看將提交的檔案，不要提交密碼、token 或金鑰。忽略規則不會自動移除已追蹤的檔案，也不是保護秘密的萬靈丹；若秘密已提交，請立即撤銷或更換，並依團隊流程處理歷史。
+
 ## 1. 照做：忽略新檔案
 
 已設定提交身分，使用終端機或 Git Bash，在尚無 ignore-demo 的練習位置開始。範例 `.env` 只放假資料，不要使用真實金鑰。

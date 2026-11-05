@@ -4,7 +4,7 @@
 
 本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#sync/1`，按下一步觀察本地 main、origin/main 與 GitHub main 的位置。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
-Git 管理本地版本，GitHub 提供遠端儲存庫與共同開發功能。完成前四章後，先閱讀本頁第 1～2 節，了解登入與 clone，再進入[第 05 章：GitHub 共同開發](../協作與PullRequest/README.md)。第 3 節起是其他建庫方式與同步指令，按需查閱；互動圖解中的「12」是同步主題的編號，不代表必須在第 05 章之後才讀本頁。
+Git 管理本地版本，GitHub 提供遠端儲存庫與共同開發功能。完成前四章後，先讀第 1～2 節認識登入與 clone，以及第 4～5 節的 Remote、Push、Pull，再進入[第 05 章：GitHub 共同開發](../協作與PullRequest/README.md)。第 3 節可用於將自己的本地專案推到新遠端；第 5 節進階同步策略按需查閱。互動圖解中的「12」是同步主題的編號，不代表必須在第 05 章之後才讀本頁。
 
 ![三個位置：本地 main、origin/main、GitHub main](../docs/diagrams/sync-1.svg)
 

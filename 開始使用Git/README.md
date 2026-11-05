@@ -2,7 +2,7 @@
 
 **建立版本 · 第 01 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
 
-這一章會建立一個練習專案，學會用 `status` 檢查狀態、用 `add` 選擇要保存的內容，再用 `commit` 建立記錄點。請先完成[環境安裝與設定](../環境安裝與設定/README.md)。
+這一章會建立一個練習專案，學會用 `status` 檢查狀態、用 `add` 選擇要保存的內容，再用 `commit` 建立記錄點。請先完成[環境安裝與設定](../環境安裝與設定/README.md)及 [VS Code Source Control 入門](../VSCode入門/README.md)，並在範例課程練習幾次 Commit。這裡的指令可在 VS Code Terminal 執行，與圖形介面操作同一個 Git。
 
 ## 1. 先認識三個位置
 
@@ -18,7 +18,7 @@
 
 ## 2. 跟著做：建立第一筆 commit
 
-以下使用 macOS／Linux 終端機或 Windows Git Bash。選一個練習位置，確認 `git-first` 資料夾尚不存在。每個 `bash` 區塊是要輸入的指令；`text` 是預期結果，不用輸入。
+以下使用 VS Code Terminal 的 macOS／Linux shell 或 Windows Git Bash。選一個練習位置，確認 `git-first` 資料夾尚不存在，且不在另一個 Repository 裡。每個 `bash` 區塊是要輸入的指令；`text` 是預期結果，不用輸入。
 
 ```bash
 mkdir git-first

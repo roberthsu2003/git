@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..');
 require(path.join(root,'docs/lessons.js'));require(path.join(root,'docs/course.js'));
 const entries=[
- ['overview','README.md','教材總覽'],['setup','環境安裝與設定/README.md','開始前的準備'],
+ ['overview','README.md','教材總覽'],['setup','環境安裝與設定/README.md','開始前的準備'],['vscode','VSCode入門/README.md','VS Code Source Control 入門'],
  ...globalThis.GIT_LESSONS.map(l=>[l.id,l.href.replace(/^\.\.\//,'').split('#')[0],l.name]),
  ['staging-extra','開始使用Git/延伸範例.md','閱讀差異與選擇提交內容'],['history-extra','使用main主要分支/延伸範例.md','查詢特定檔案的歷史'],['branch-extra','分支/延伸範例.md','分岔與合併衝突'],['merge-compare','分支/合併方式比較.md','比較合併方式'],['ai-prompts','AI提示詞實戰/README.md','AI 提示詞實戰'],
  ['github','github/README.md','GitHub 基本操作'],['ssh','ssh/README.md','SSH 設定'],['credentials','credential/README.md','憑證設定'],['errors','github常見的錯誤訊息/README.md','GitHub 常見錯誤'],['course','課程/README.md','教師課程安排'],['extras','課程/延伸主題.md','延伸主題'],['quiz','測驗/README.md','練習與測驗'],['guide','docs/README.md','圖解使用說明']
@@ -22,11 +22,20 @@ function inline(value,file){
  const tokens=[];const stash=s=>{tokens.push(s);return `\u0000${tokens.length-1}\u0000`;};
  let s=value.replace(/`([^`]+)`/g,(_,code)=>stash(`<code>${esc(code)}</code>`));
  s=s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,(_,alt,url)=>{
-  const desktop=target(url,file),mobile=desktop.replace('/diagrams/','/diagrams-mobile/');
+  let desktop=target(url,file);
+  if(desktop.startsWith('../../')){
+   const source=path.resolve(path.dirname(path.resolve(root,file)),url);
+   const relative=path.relative(root,source);
+   if(relative.startsWith('..')||!fs.existsSync(source))throw new Error(`Invalid image: ${url} in ${file}`);
+   const destination=path.join(root,'docs/assets/legacy',relative);
+   fs.mkdirSync(path.dirname(destination),{recursive:true});fs.copyFileSync(source,destination);
+   desktop='../assets/legacy/'+relative.split(path.sep).join('/');
+  }
+  const mobile=desktop.replace('/diagrams/','/diagrams-mobile/');
   const alternate=desktop.includes('/diagrams/')&&desktop.endsWith('.svg')?`<source media="(max-width:760px)" srcset="${esc(mobile)}"/>`:'';
   return stash(`<figure><picture>${alternate}<img src="${esc(desktop)}" alt="${esc(alt||'教材操作圖')}" loading="lazy"/></picture>${alt?`<figcaption>${esc(alt)}</figcaption>`:''}</figure>`);
  });
- s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(_,label,url)=>stash(`<a href="${esc(target(url,file))}">${esc(label)}</a>`));
+ s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(_,label,url)=>stash(`<a href="${esc(target(url,file))}">${esc(label).replace(/\u0000(\d+)\u0000/g,(_match,index)=>tokens[Number(index)])}</a>`));
  s=esc(s).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>');
  return s.replace(/\u0000(\d+)\u0000/g,(_,index)=>tokens[Number(index)]);
 }
@@ -54,7 +63,7 @@ const output=path.join(root,'docs/chapters');fs.mkdirSync(output,{recursive:true
 for(const [id,file,title] of entries){
  const lesson=globalThis.GIT_LESSONS.find(l=>l.id===id);
  const diagramId=lesson?.id||({'github':'sync','staging-extra':'staging','history-extra':'history','branch-extra':'branch','merge-compare':'branch','ai-prompts':'ai'}[id])||'staging';
- const nav=globalThis.GIT_COURSE.groups.map((group,index)=>`<section class="topic-group"><h2 class="group-heading"><span>${String(index+1).padStart(2,'0')}</span>${esc(group.label)}</h2>${group.id==='collaborate'?'<a class="reading-topic '+(id==='github'?'is-current':'')+'" href="github.html"><span class="topic-index">先讀</span><span>GitHub 基本操作</span></a>':''}${group.ids.map(topic=>{const l=globalThis.GIT_LESSONS.find(x=>x.id===topic);const url=topic+'.html';return `<a class="reading-topic ${id===topic?'is-current':''}" href="${esc(url)}"><span class="topic-index">${l.number}</span><span>${esc(l.name)}</span></a>`;}).join('')}</section>`).join('');
+ const nav=`<section class="topic-group"><h2 class="group-heading">第一次學習</h2><a class="reading-topic ${id==='setup'?'is-current':''}" href="setup.html">環境準備</a><a class="reading-topic ${id==='vscode'?'is-current':''}" href="vscode.html">VS Code Source Control 入門</a></section>`+globalThis.GIT_COURSE.groups.map((group,index)=>`<section class="topic-group"><h2 class="group-heading"><span>${String(index+1).padStart(2,'0')}</span>${esc(group.label)}</h2>${group.id==='collaborate'?'<a class="reading-topic '+(id==='github'?'is-current':'')+'" href="github.html"><span class="topic-index">先讀</span><span>GitHub 基本操作</span></a>':''}${group.ids.map(topic=>{const l=globalThis.GIT_LESSONS.find(x=>x.id===topic);const url=topic+'.html';return `<a class="reading-topic ${id===topic?'is-current':''}" href="${esc(url)}"><span class="topic-index">${l.number}</span><span>${esc(l.name)}</span></a>`;}).join('')}</section>`).join('');
  const html=`<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節">${nav}</nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#${diagramId}/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">${esc(lesson?lesson.group.label+' · 第 '+lesson.number+' 章':'GIT CLASSROOM · 課程講義')}</div><article class="reading-content">${markdown(fs.readFileSync(path.join(root,file),'utf8'),file)}</article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>`;
  fs.writeFileSync(path.join(output,id+'.html'),html+'\n');
 }
