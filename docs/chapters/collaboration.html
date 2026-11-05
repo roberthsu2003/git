@@ -5,6 +5,7 @@
 <h2 id="1-選一種合作方式">1. 選一種合作方式</h2>
 <div class="table-scroll"><table><thead><tr><th scope="col">方式</th><th scope="col">適合情況</th><th scope="col">操作流程</th></tr></thead><tbody><tr><td>GitHub 網頁編輯</td><td>文件、小幅文字修正</td><td>開新分支 → 網頁編輯並 commit → PR → 同學檢查 → 合併</td></tr><tr><td>同組共用一個儲存庫</td><td>小組作業，有寫入權限</td><td>clone → 個人任務分支 → commit → push → PR → 合併</td></tr><tr><td>Fork 到自己帳號</td><td>沒有原專案寫入權限，例如向老師交作業</td><td>Fork → clone 自己的副本 → 分支 → push → 向原專案送 PR</td></tr></tbody></table></div>
 <p><strong>PR（Pull Request）是提出合併請求，不是已經合併；push 也只是上傳 commit，不會自動把功能分支合併到 main。</strong></p>
+<p>GitHub 的 Merge、Squash and merge、Rebase and merge 會留下不同的歷史。想先比較圖解與本機小範例，參考<a href="merge-compare.html">合併方式比較</a>；第一次合作可先依本章使用一般 merge。</p>
 <p>我們使用 GitHub flow：小任務開分支，完成後送 PR，檢查後合併，再更新本地 main。這是本教材的小組合作約定；若要由 GitHub 強制執行，管理者需另行設定適用的分支保護或 ruleset。</p>
 <h2 id="2-最簡單只用-github-網頁">2. 最簡單：只用 GitHub 網頁</h2>
 <p>先由 A 同學建立名為 <code>class-team-demo</code> 的練習儲存庫，勾選新增 README，確認預設分支是 main。透過儲存庫 Settings &gt; Collaborators 邀請 B 同學，B 接受邀請（依帳號方案介面文字略有差異）；不同帳號類型可能顯示不同名稱。</p>

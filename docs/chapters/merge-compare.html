@@ -1,0 +1,74 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>比較合併方式｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="github.html"><span class="topic-index">先讀</span><span>GitHub 基本操作</span></a><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#branch/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h1 id="比較合併方式同一份功能不同的歷史">比較合併方式：同一份功能，不同的歷史</h1>
+<p>完成<a href="branch.html">分支與合併</a>後，閱讀本頁。你會用同一個練習專案比較 fast-forward、merge commit、squash，以及把功能分支 rebase 到更新後的 main。最後再對照 GitHub PR 的三個選項。</p>
+<h2 id="1-先看差別">1. 先看差別</h2>
+<p>假設功能有兩筆提交 A、B，main 一開始指向它們的共同起點 C0。下面的字母只是圖上的代號，實際識別碼會不同。</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">操作</th><th scope="col">目標分支的歷史</th><th scope="col">什麼時候用？</th></tr></thead><tbody><tr><td>Fast-forward</td><td>main 直接移到 B，不產生新提交</td><td>main 沒有從共同起點另行前進時</td></tr><tr><td>Merge commit</td><td>保留 A、B，再建立有兩個父提交的 M</td><td>想保留各筆提交與明確的合併點</td></tr><tr><td>Squash</td><td>A、B 的內容整理成一筆新的 S</td><td>一個功能有很多零碎提交，想讓目標分支只看到一筆</td></tr><tr><td>Rebase 後整合</td><td>將功能提交重新套到目標版本之後，形成 A′、B′</td><td>需要直線歷史，且團隊同意如何處理改寫歷史</td></tr></tbody></table></div>
+<p><strong>衝突不是另一種合併方式。</strong> 不論採用哪種方法，若修改互相衝突，都可能需要人工處理。以下練習只在自己的新專案進行，不使用網路。</p>
+<h2 id="2-準備共同起點">2. 準備共同起點</h2>
+<p>使用 macOS／Linux 終端機或 Windows Git Bash，已設定提交姓名與信箱；在你選擇的練習位置確認 <code>merge-compare</code> 尚不存在。所有步驟按順序執行，操作位置都在 <code>merge-compare</code>。</p>
+<div class="reading-code"><span>bash</span><pre><code>mkdir merge-compare
+cd merge-compare
+git init -b main
+printf &#39;Home\n&#39; &gt; index.txt
+git add index.txt
+git commit -m &quot;C0 建立首頁&quot;
+git branch start
+git switch -c feature-login
+printf &#39;Login form\n&#39; &gt;&gt; index.txt
+git add index.txt
+git commit -m &quot;A 新增登入表單&quot;
+printf &#39;Password field\n&#39; &gt;&gt; index.txt
+git add index.txt
+git commit -m &quot;B 新增密碼欄位&quot;
+git log --oneline --all --graph --decorate</code></pre></div>
+<p>現在 <code>main</code> 和 <code>start</code> 都在 C0；<code>feature-login</code> 包含 A、B。接下來用三個比較分支模擬 main：每個都從 <code>start</code> 建立，<strong>不必重做前面的提交</strong>。這些分支互相獨立，功能分支也會保留。</p>
+<h2 id="3-fast-forward直接移動分支">3. Fast-forward：直接移動分支</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/merge-compare-ff.svg"/><img src="../diagrams/merge-compare-ff.svg" alt="Fast-forward 將目標分支移到功能分支末端" loading="lazy"/></picture><figcaption>Fast-forward 將目標分支移到功能分支末端</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>git switch -c compare-ff start
+git merge --ff-only feature-login
+git log --oneline --first-parent -3
+cat index.txt</code></pre></div>
+<p>預期歷史由新到舊是 B、A、C0；檔案有 Home、Login form、Password field 三行。因為目標分支還在 C0，可以直接移到 B，沒有新的 merge commit。<code>--ff-only</code> 只允許快轉，若目標已分岔則拒絕。</p>
+<h2 id="4-merge-commit保留合併點">4. Merge commit：保留合併點</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/merge-compare-merge.svg"/><img src="../diagrams/merge-compare-merge.svg" alt="Merge commit 保留功能的兩筆提交與合併點" loading="lazy"/></picture><figcaption>Merge commit 保留功能的兩筆提交與合併點</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>git switch -c compare-merge start
+git merge --no-ff --no-edit feature-login
+git log --oneline --graph --decorate -4
+git show -s --format=%P HEAD
+git diff compare-ff compare-merge -- index.txt</code></pre></div>
+<p><code>--no-ff</code> 即使可以快轉也建立 merge commit；<code>--no-edit</code> 使用預設訊息。<code>git show</code> 會列出 M 的兩個父提交識別碼：C0 與 B。最後的 diff 沒有輸出，表示這兩種做法的 <code>index.txt</code> 最終內容相同；歷史不同。GitHub 的 <strong>Merge pull request</strong> 使用這種保留合併點的方式。</p>
+<h2 id="5-squash把內容整理成一筆">5. Squash：把內容整理成一筆</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/merge-compare-squash.svg"/><img src="../diagrams/merge-compare-squash.svg" alt="Squash 在目標分支新增一筆整合提交" loading="lazy"/></picture><figcaption>Squash 在目標分支新增一筆整合提交</figcaption></figure>
+<div class="reading-code"><span>bash</span><pre><code>git switch -c compare-squash start
+git merge --squash feature-login
+git status --short
+git diff --staged
+git commit -m &quot;S 完成登入功能&quot;
+git log --oneline --first-parent -2
+git diff compare-ff compare-squash -- index.txt</code></pre></div>
+<p><code>merge --squash</code> 先把整合結果放進工作區與暫存區，<strong>還沒有建立提交</strong>，所以要再 commit。目標歷史現在是 C0 → S，最後的 diff 沒有輸出。A、B 仍由 <code>feature-login</code> 指向，但不是 S 的父提交；因此 Git 不會把原功能分支視為已經以一般 merge 完整合併。清理分支或再次整合同一分支前，先確認實際成果與團隊流程。</p>
+<p>GitHub 的 <strong>Squash and merge</strong> 也會把 PR 的變更整理成目標分支上的一筆提交；本機這段指令只是讓你觀察相似的歷史結果。</p>
+<h2 id="6-rebase先接到新的起點再整合">6. Rebase：先接到新的起點，再整合</h2>
+<figure><picture><source media="(max-width:760px)" srcset="../diagrams-mobile/merge-compare-rebase.svg"/><img src="../diagrams/merge-compare-rebase.svg" alt="Rebase 把功能提交重新套用在更新的目標之後" loading="lazy"/></picture><figcaption>Rebase 把功能提交重新套用在更新的目標之後</figcaption></figure>
+<p>前三個比較的目標分支都還在 C0。這次另建 <code>compare-rebase</code>，模擬 main 在功能開發期間新增 D；再複製功能分支來練習，保留原本的 <code>feature-login</code>：</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch -c compare-rebase start
+printf &#39;Release notes\n&#39; &gt; release.txt
+git add release.txt
+git commit -m &quot;D 新增版本說明&quot;
+git switch -c feature-rebase feature-login
+git rebase compare-rebase
+git log --oneline --graph --decorate -4
+git switch compare-rebase
+git merge --ff-only feature-rebase
+git log --oneline --first-parent -4
+git diff compare-ff compare-rebase -- index.txt</code></pre></div>
+<p>預期目標歷史是 C0 → D → A′ → B′，沒有 merge commit。A′、B′ 是把 A、B 的修改重新套用後產生的新提交，識別碼不同；原 <code>feature-login</code> 仍指向原來的 A、B。最後一個 diff 沒有輸出，表示登入功能內容一致；<code>compare-rebase</code> 另外有 D 新增的 <code>release.txt</code>。</p>
+<p>這是<strong>本機 rebase 後快轉合併</strong>的示範，與 GitHub 的 <strong>Rebase and merge</strong> 有相似的直線結果；GitHub 會建立新的提交識別碼，細節不完全等同於每一次本機 rebase。若目標沒有前進，本機 rebase 可能不需要重建提交。已分享的分支不要自行改寫，先與團隊約定；發生衝突時參考 <a href="rebase.html">rebase 卡關處理</a>。</p>
+<h2 id="7-github-pr-怎麼選">7. GitHub PR 怎麼選？</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">GitHub 選項</th><th scope="col">目標分支看到什麼</th><th scope="col">可能的取捨</th></tr></thead><tbody><tr><td>Merge pull request</td><td>保留 PR 的各筆提交，再加 merge commit</td><td>歷史較完整，也會多一個合併點</td></tr><tr><td>Squash and merge</td><td>PR 的變更整理成一筆提交</td><td>容易閱讀；目標分支看不到原本各筆提交的先後</td></tr><tr><td>Rebase and merge</td><td>PR 的提交重新建立並依序接到目標分支</td><td>歷史直線；提交識別碼改變</td></tr></tbody></table></div>
+<p>可選項目受儲存庫設定、權限與 PR 狀態影響，請以團隊約定為準。本機的 <code>git merge --ff-only</code> 是快轉條件，不是 GitHub PR 的第四個按鈕。</p>
+<h2 id="8-換你判斷">8. 換你判斷</h2>
+<ol><li><code>compare-ff</code> 與 <code>compare-merge</code> 的檔案相同，為什麼一個有 M、一個沒有？</li><li><code>compare-squash</code> 的 S 是否以 A、B 作為父提交？原本的 A、B 還在哪裡？</li><li>為什麼 <code>compare-rebase</code> 額外有 <code>release.txt</code>？可以直接對已被同學使用的分支任意 rebase 嗎？</li></ol>
+<p>答案：第一個快轉、第二個刻意建立合併點；S 的父提交是 C0，原 A、B 仍在功能分支；D 在 rebase 前已加入目標分支，共享分支要先與團隊協調。</p>
+<p>參考：<a href="https://git-scm.com/docs/git-merge">Git merge 文件</a>、<a href="https://docs.github.com/en/pull-requests/reference/pull-request-merges">GitHub PR 合併方式</a>。</p>
+<p><a href="branch.html">← 分支與合併</a>　｜　<a href="branch-extra.html">衝突練習 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

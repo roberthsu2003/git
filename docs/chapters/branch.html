@@ -36,6 +36,7 @@ git branch -d feature-login
 git branch</code></pre></div>
 <p>現在 main 有 <code>login.txt</code>。這個練習中 main 沒有新增其他提交，Git 可以直接將 main 往前移，稱為 fast-forward；<code>--ff-only</code> 在不能快轉時會拒絕合併。<code>branch -d</code> 刪除已合併的分支名稱，不會刪掉 main 已接收的提交。</p>
 <p>若兩個分支各自增加提交，可能需要一般 merge；若修改同一段內容，還可能發生衝突。完成基礎練習後，參考<a href="branch-extra.html">合併與衝突延伸範例</a>，或查閱<a href="errors.html">常見錯誤訊息</a>。</p>
+<p>想比較 fast-forward、merge commit、squash 與 rebase，以及 GitHub PR 的選項，接著閱讀<a href="merge-compare.html">合併方式比較與小範例</a>。</p>
 <h2 id="5-換你做">5. 換你做</h2>
 <p>在 <code>branch-demo</code> 從 main 建立 <code>feature-about</code>，新增並提交 <code>about.txt</code>。切回 main，確認合併前看不到該檔案；合併後確認檔案出現，再刪除已合併的分支。</p>
 <p>想一想：要讓 main 收到 feature-about 的內容，應該先切到哪個分支？答案是 main：merge 把指定來源整合進<strong>目前分支</strong>。</p>

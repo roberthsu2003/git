@@ -90,6 +90,18 @@ with tempfile.TemporaryDirectory(prefix="git-teaching-check-") as tmp:
     content(repo, "index.txt", "Hello and welcome\n")
     assert (repo / "about.txt").exists() and (repo / "contact.txt").exists()
 
+    execute("分支/合併方式比較.md", root)
+    repo = root / "merge-compare"
+    clean(repo)
+    assert git(repo, "rev-parse", "compare-ff") == git(repo, "rev-parse", "feature-login")
+    assert len(git(repo, "show", "-s", "--format=%P", "compare-merge").split()) == 2
+    assert len(git(repo, "show", "-s", "--format=%P", "compare-squash").split()) == 1
+    assert git(repo, "rev-parse", "compare-squash^") == git(repo, "rev-parse", "start")
+    for branch in ("compare-merge", "compare-squash", "compare-rebase"):
+        assert git(repo, "diff", "compare-ff", branch, "--", "index.txt") == ""
+    assert git(repo, "rev-parse", "feature-login") != git(repo, "rev-parse", "feature-rebase")
+    assert git(repo, "rev-list", "--count", "start..compare-rebase") == "3"
+
     execute("不想被追蹤的檔案/README.md", root)
     repo = root / "ignore-demo"
     content(repo, "local.config", "theme=dark\n")

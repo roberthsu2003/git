@@ -16,6 +16,8 @@ Git 管理版本，GitHub 讓大家分享 Git 儲存庫、討論修改、審查�
 
 **PR（Pull Request）是提出合併請求，不是已經合併；push 也只是上傳 commit，不會自動把功能分支合併到 main。**
 
+GitHub 的 Merge、Squash and merge、Rebase and merge 會留下不同的歷史。想先比較圖解與本機小範例，參考[合併方式比較](../分支/合併方式比較.md)；第一次合作可先依本章使用一般 merge。
+
 我們使用 GitHub flow：小任務開分支，完成後送 PR，檢查後合併，再更新本地 main。這是本教材的小組合作約定；若要由 GitHub 強制執行，管理者需另行設定適用的分支保護或 ruleset。
 
 ## 2. 最簡單：只用 GitHub 網頁

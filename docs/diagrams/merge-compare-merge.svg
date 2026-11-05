@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 667" width="960" height="667" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">Merge commit：保留合併點</title><desc id="diagram-desc">本例用 --no-ff，即使可以快轉也建立合併提交。 M 有兩個父提交：C0 與 B；保留 A、B 的歷史；新增明確的合併點</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="667" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">延伸｜比較合併方式</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">Merge commit：保留合併點</tspan></text>
+<path d="M 120 150 L 360 220" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 360 220 L 600 220" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 120 150 L 830 150" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 600 220 L 830 150" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<circle cx="120" cy="150" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="120" y="156" text-anchor="middle" class="commit">C0</text><text x="120" y="116" text-anchor="middle" class="ref">共同起點</text>
+<circle cx="360" cy="220" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="360" y="226" text-anchor="middle" class="commit">A</text><text x="360" y="186" text-anchor="middle" class="ref">登入表單</text>
+<circle cx="600" cy="220" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="600" y="226" text-anchor="middle" class="commit">B</text><text x="600" y="186" text-anchor="middle" class="ref">feature-login</text>
+<circle cx="830" cy="150" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="830" y="156" text-anchor="middle" class="commit">M</text><text x="830" y="116" text-anchor="middle" class="ref">compare-merge</text>
+<text x="36" y="294" class="eyebrow"><tspan x="36" dy="0">圓點是 commit；線表示父子關係；名稱標示分支指向的位置。</tspan></text>
+<rect x="36" y="315" width="888" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 317 H 912" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="353" class="card-title"><tspan x="56" dy="0">M 有兩個父提交</tspan></text>
+<text x="56" y="383" class="tag"><tspan x="56" dy="0">C0 與 B</tspan></text>
+<text x="56" y="420" class="body"><tspan x="56" dy="0">保留 A、B 的歷史</tspan><tspan x="56" dy="27">新增明確的合併點</tspan></text>
+<rect x="36" y="514" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="545" class="command"><tspan x="54" dy="0">git merge --no-ff --no-edit feature-login</tspan></text>
+<text x="36" y="612" class="note"><tspan x="36" dy="0">本例用 --no-ff，即使可以快轉也建立合併提交。</tspan></text>
+</svg>

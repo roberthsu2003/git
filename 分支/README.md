@@ -65,6 +65,8 @@ git branch
 
 若兩個分支各自增加提交，可能需要一般 merge；若修改同一段內容，還可能發生衝突。完成基礎練習後，參考[合併與衝突延伸範例](./延伸範例.md)，或查閱[常見錯誤訊息](../github常見的錯誤訊息/README.md)。
 
+想比較 fast-forward、merge commit、squash 與 rebase，以及 GitHub PR 的選項，接著閱讀[合併方式比較與小範例](./合併方式比較.md)。
+
 ## 5. 換你做
 
 在 `branch-demo` 從 main 建立 `feature-about`，新增並提交 `about.txt`。切回 main，確認合併前看不到該檔案；合併後確認檔案出現，再刪除已合併的分支。

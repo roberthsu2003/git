@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 667" width="960" height="667" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">Rebase：接到更新後的起點</title><desc id="diagram-desc">本例另建 feature-rebase，沒有改寫原 feature-login。 目標歷史：沒有 merge commit；A′、B′ 接在 D 後面；識別碼與原本 A、B 不同。原功能分支：本例保留 feature-login；仍指向原來的 A、B；圖中只畫出目標歷史</desc>
+<style>text{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#263c32}.eyebrow{font-size:16px;fill:#71826b}.heading{font-size:28px;font-weight:650}.card-title{font-size:24px;font-weight:650}.tag{font-size:17px;fill:#5e7653}.body{font-size:19px}.command{font-size:18px;fill:#e7eee2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.note{font-size:19px;fill:#61765a}.ref{font-size:16px;fill:#526c47}.commit{font-size:17px;font-weight:650}</style>
+<rect width="960" height="667" rx="16" fill="#f5f7f0"/>
+<text x="36" y="34" class="eyebrow"><tspan x="36" dy="0">延伸｜比較合併方式</tspan></text>
+<text x="36" y="82" class="heading"><tspan x="36" dy="0">Rebase：接到更新後的起點</tspan></text>
+<path d="M 110 175 L 335 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 335 175 L 560 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<path d="M 560 175 L 785 175" stroke="#a4b39a" stroke-width="2.5" fill="none"/>
+<circle cx="110" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="110" y="181" text-anchor="middle" class="commit">C0</text><text x="110" y="141" text-anchor="middle" class="ref">共同起點</text>
+<circle cx="335" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="335" y="181" text-anchor="middle" class="commit">D</text><text x="335" y="141" text-anchor="middle" class="ref">新增版本說明</text>
+<circle cx="560" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="560" y="181" text-anchor="middle" class="commit">A′</text><text x="560" y="141" text-anchor="middle" class="ref">重套登入表單</text>
+<circle cx="785" cy="175" r="21" fill="#fff" stroke="#748f61" stroke-width="2.5"/><text x="785" y="181" text-anchor="middle" class="commit">B′</text><text x="785" y="141" text-anchor="middle" class="ref">compare-rebase</text>
+<text x="36" y="294" class="eyebrow"><tspan x="36" dy="0">圓點是 commit；線表示父子關係；名稱標示分支指向的位置。</tspan></text>
+<rect x="36" y="315" width="435" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 48 317 H 459" stroke="#728d60" stroke-width="3" stroke-linecap="round"/>
+<text x="56" y="353" class="card-title"><tspan x="56" dy="0">目標歷史</tspan></text>
+<text x="56" y="383" class="tag"><tspan x="56" dy="0">沒有 merge commit</tspan></text>
+<text x="56" y="420" class="body"><tspan x="56" dy="0">A′、B′ 接在 D 後面</tspan><tspan x="56" dy="27">識別碼與原本 A、B 不同</tspan></text>
+<rect x="489" y="315" width="435" height="175" rx="10" fill="#ffffff" stroke="#dce3d4"/><path d="M 501 317 H 912" stroke="#b57e4d" stroke-width="3" stroke-linecap="round"/>
+<text x="509" y="353" class="card-title"><tspan x="509" dy="0">原功能分支</tspan></text>
+<text x="509" y="383" class="tag"><tspan x="509" dy="0">本例保留 feature-login</tspan></text>
+<text x="509" y="420" class="body"><tspan x="509" dy="0">仍指向原來的 A、B</tspan><tspan x="509" dy="27">圖中只畫出目標歷史</tspan></text>
+<rect x="36" y="514" width="888" height="62" rx="10" fill="#21362d"/>
+<text x="54" y="545" class="command"><tspan x="54" dy="0">git rebase compare-rebase；再快轉合併</tspan></text>
+<text x="36" y="612" class="note"><tspan x="36" dy="0">本例另建 feature-rebase，沒有改寫原 feature-login。</tspan></text>
+</svg>
