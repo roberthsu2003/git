@@ -11,11 +11,13 @@ cd history-demo
 git init -b main
 printf &#39;Home page\n&#39; &gt; index.txt
 git add index.txt
-git commit -m &quot;新增首頁&quot;
-printf &#39;About our team\n&#39; &gt; about.txt
+git commit -m &quot;新增首頁&quot;</code></pre></div>
+<p><strong>停下核對：</strong> 資料夾是 history-demo、目前分支 main，只有 index.txt 與第一筆提交。先請學生說出提交保存了什麼，再新增下一個檔案。</p>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;About our team\n&#39; &gt; about.txt
 git add about.txt
-git commit -m &quot;新增團隊介紹&quot;
-printf &#39;Contact us\n&#39; &gt; contact.txt
+git commit -m &quot;新增團隊介紹&quot;</code></pre></div>
+<p><strong>停下核對：</strong> 第二筆提交新增 about.txt，第一筆首頁仍在歷史裡。學生完成後再新增第三個檔案。</p>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;Contact us\n&#39; &gt; contact.txt
 git add contact.txt
 git commit -m &quot;新增聯絡資訊&quot;</code></pre></div>
 <p>現在檢查目前位置與歷史：</p>

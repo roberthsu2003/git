@@ -83,8 +83,18 @@ with tempfile.TemporaryDirectory(prefix="git-teaching-check-") as tmp:
     assert "feature-login" not in git(repo, "branch", "--list")
 
     extra = blocks("分支/延伸範例.md")
-    assert len(extra) == 3
-    run("\n".join(extra[:2]) + "\nif git merge feature-title; then exit 1; fi\n" + extra[2], root, "分支延伸：分岔與衝突")
+    assert len(extra) == 4
+    run("\n".join(extra[:2]), root, "分支延伸：準備分岔")
+    repo = root / "merge-demo"
+    # The lesson intentionally pauses on merge failure; verify the conflict before
+    # reproducing the student's manual edit in the editor.
+    conflict = subprocess.run(["bash", "-c", extra[2]], cwd=repo, env=ENV,
+                              text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    assert "CONFLICT" in conflict.stdout
+    assert git(repo, "status", "--porcelain") == "UU index.txt"
+    assert "<<<<<<<" in (repo / "index.txt").read_text()
+    (repo / "index.txt").write_text("Hello and welcome\n")
+    run(extra[3], repo, "分支延伸：手動解決後提交")
     repo = root / "merge-demo"
     clean(repo)
     content(repo, "index.txt", "Hello and welcome\n")
@@ -238,18 +248,27 @@ else:
     learner = root / "learner"
     learner.mkdir()
     fork_blocks = blocks("Fork交作業/README.md")
-    assert len(fork_blocks) == 2
-    first = (fork_blocks[0].replace("https://github.com/YOUR_ACCOUNT/class-homework.git", q(fork) + " class-homework")
-             .replace("https://github.com/TEACHER_ACCOUNT/class-homework.git", q(teacher)))
+    assert len(fork_blocks) == 4
+    first = ("\n".join(fork_blocks[:3]).replace("https://github.com/YOUR_ACCOUNT/class-homework.git", q(fork) + " class-homework")
+             .replace("https://github.com/TEACHER_ACCOUNT/class-homework.git", q(teacher))
+             .replace("YOUR_ACCOUNT", "student-a"))
     run(first, learner, "Fork：clone、提交與 push")
+    learner_b = root / "learner-b"
+    learner_b.mkdir()
+    fork_b = root / "fork-b.git"
+    run(f"git clone --bare {q(teacher)} {q(fork_b)}", root, "準備第二位學生 Fork")
+    second = first.replace(q(fork), q(fork_b)).replace("student-a", "student-b")
+    run(second, learner_b, "Fork：第二位學生使用個人路徑提交")
     teacher_admin = root / "teacher-admin"
     run(f"git clone {q(teacher)} {q(teacher_admin)}\ncd {q(teacher_admin)}\n"
-        + f"git fetch {q(fork)} homework-intro\ngit merge --no-edit FETCH_HEAD\ngit push origin main",
+        + f"git fetch {q(fork)} homework-intro\ngit merge --no-edit FETCH_HEAD\n"
+        + f"git fetch {q(fork_b)} homework-intro\ngit merge --no-edit FETCH_HEAD\ngit push origin main",
         root, "模擬老師合併 Fork 的 PR")
     learner_repo = learner / "class-homework"
-    run(fork_blocks[1], learner_repo, "Fork：合併後同步")
+    run(fork_blocks[3], learner_repo, "Fork：合併後同步")
     clean(learner_repo)
-    assert (learner_repo / "introduction.md").exists()
+    assert (learner_repo / "homework/student-a/introduction.md").exists()
+    assert (learner_repo / "homework/student-b/introduction.md").exists()
     assert git(learner_repo, "rev-parse", "main") == git(learner_repo, "rev-parse", "upstream/main")
     assert git(learner_repo, "rev-parse", "main") == git(learner_repo, "rev-parse", "origin/main")
 

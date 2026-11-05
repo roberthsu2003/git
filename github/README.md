@@ -159,7 +159,7 @@ gh repo create class-empty-demo --private
 
 ### 卡關先查這三個
 
-- `remote origin already exists`：本地已有 origin，先用 `git remote -v` 確認，不要重複 create；要用 CLI 接管，先 `git remote remove origin` 再重來，或直接手動 push。
+- `remote origin already exists`：本地已有 origin，先用 `git remote -v` 確認，不要重複 create；網址正確且遠端已存在時，直接 `git push -u origin main`；網址錯誤才使用 `git remote set-url origin 實際網址`。若確實要另建新遠端，先確認並記下原設定，再選擇未使用的遠端名稱；不要把移除 origin 當作通用解法。
 - 名稱已存在：遠端已有同名庫，換一個名稱，或到網頁確認是不是自己之前建的。
 - 可見性選錯：public／private 建完都可在 GitHub 儲存庫 Settings 改，不需要刪庫重建。作業、練習先用 private。
 

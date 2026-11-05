@@ -72,9 +72,9 @@ globalThis.GIT_LESSONS = [
     id:'fork',title:'05｜Fork：向老師交作業',intro:'origin 指向自己的 Fork，upstream 指向老師的原專案。',
     frames:[
       {title:'Fork 和 clone 是不同動作',command:'GitHub 按 Fork → clone 自己的副本',cards:[{title:'老師的 GitHub',tag:'upstream',lines:['class-homework / main','原始專案']},{title:'自己的 GitHub',tag:'origin',lines:['class-homework / main','Fork 副本']},{title:'自己的電腦',tag:'本地 clone',lines:['origin → 自己的 Fork','upstream → 老師專案']}],note:'Fork 建立線上副本；clone 把副本下載到自己的電腦。'},
-      {title:'開分支、commit、push 到自己的 Fork',command:'git push -u origin homework-intro',cards:[{title:'老師的 GitHub',tag:'main 尚未改變',lines:['還沒收到作業成果']},{title:'自己的 GitHub',tag:'homework-intro',lines:['introduction.md 已上傳']},{title:'自己的電腦',tag:'homework-intro',lines:['作業已提交','只 push 自己的 origin']}],note:'沒有老師專案的寫入權限，也能先在自己 Fork 的分支工作。'},
+      {title:'開分支、commit、push 到自己的 Fork',command:'git push -u origin homework-intro',cards:[{title:'老師的 GitHub',tag:'main 尚未改變',lines:['還沒收到作業成果']},{title:'自己的 GitHub',tag:'homework-intro',lines:['homework/你的帳號/','introduction.md 已上傳']},{title:'自己的電腦',tag:'homework-intro',lines:['作業已提交','只 push 自己的 origin']}],note:'沒有老師專案的寫入權限，也能先在自己 Fork 的分支工作。'},
       {title:'跨 Fork PR：來源與目標要選對',command:'base 老師/main ← compare 自己/homework-intro',cards:[{title:'老師的 GitHub',tag:'PR 目標',lines:['base repository：老師','base branch：main']},{title:'自己的 GitHub',tag:'PR 來源',lines:['head repository：自己','compare：homework-intro']},{title:'老師審查',tag:'先讀差異再合併',lines:['需要修改就繼續 push','同一份 PR 會更新']}],note:'送 PR 不等於交上去的內容已合併。'},
-      {title:'老師合併後，同步自己的 main',command:'git fetch upstream；git merge --ff-only upstream/main；git push origin main',cards:[{title:'老師的 GitHub',tag:'main 已合併',lines:['包含 introduction.md']},{title:'自己的 GitHub',tag:'origin/main 已同步',lines:['包含 introduction.md']},{title:'自己的電腦',tag:'本地 main 已同步',lines:['包含 introduction.md','之後從 main 開新任務']}],note:'從老師拿更新，再把自己的 main 上傳到 Fork；不是 push 到老師的 upstream。'}
+      {title:'老師合併後，同步自己的 main',command:'git fetch upstream；git merge --ff-only upstream/main；git push origin main',cards:[{title:'老師的 GitHub',tag:'main 已合併',lines:['各自帳號目錄內的作業已同步']},{title:'自己的 GitHub',tag:'origin/main 已同步',lines:['各自帳號目錄內的作業已同步']},{title:'自己的電腦',tag:'本地 main 已同步',lines:['各自帳號目錄內的作業已同步','之後從 main 開新任務']}],note:'從老師拿更新，再把自己的 main 上傳到 Fork；不是 push 到老師的 upstream。'}
     ]
   },
   {

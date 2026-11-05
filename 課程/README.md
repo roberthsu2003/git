@@ -41,3 +41,40 @@
 - 會選擇適當的復原方法，能說出哪些內容將被改變。
 
 其他 AI、文案與跨領域備課素材已整理到 [延伸主題](./延伸主題.md)，不列入 Git 主線。
+
+
+## 課堂案例核對表
+
+以下是老師帶做時的核對基準，不包含章末自主練習。獨立專案一律從未使用、且不在其他 Repository 內的練習位置開始；接續案例須沿用上一個案例的結果。每到表中的停點，先等學生核對，再往下操作。
+
+| 案例 | 開始條件 | 示範完成時核對 |
+| --- | --- | --- |
+| VS Code 入門 | 開啟專用資料夾，確認是否已有 Repository | hello.py 顯示最新問候語，已有兩筆 Commit，預期修改都已提交 |
+| 01 暫存區 | 新建 git-first | 三筆提交；index.txt 有首頁、團隊、聯絡三行；乾淨 |
+| 02 歷史 | 新建 history-demo | main，三筆提交；index.txt、about.txt、contact.txt；乾淨 |
+| 03 分支 | 新建 branch-demo | main 有 login.txt；feature-login 已刪除；乾淨 |
+| 分支延伸案例一 | 新建 merge-demo | main 有 about.txt、contact.txt；歷史有 merge commit；乾淨 |
+| 分支延伸案例二 | 接續案例一 | merge 時先確認 UU 與衝突標記；解決後 main 的 index.txt 是 Hello and welcome；乾淨 |
+| 04 忽略 | 新建 ignore-demo | local.config 仍在磁碟，但不再追蹤且已被忽略；乾淨 |
+| 05 共同開發 | A 建立含 README 的遠端，B 接受邀請；每人 clone | 兩份 PR 合併後，兩人本地 main 都有 course.md、members.md；乾淨 |
+| 06 Fork | 老師提供可 Fork 且主要分支為 main 的專案 | PR 只改個人路徑；合併並同步後本地 main、origin/main、upstream/main 一致；乾淨 |
+| 07 worktree 案例一 | 新建 worktree-demo；旁邊 hotfix 路徑未使用 | main 有正確首頁與兩行 login.txt；只剩原 worktree；乾淨 |
+| 07 worktree 案例二 | 接續案例一；review 路徑未使用 | main 有 about.txt；審查 worktree 已移除；乾淨 |
+| 07 worktree 案例三 | 接續案例二；old 路徑未使用 | 舊版看不到 about.txt；清理後回到原 main、只剩原 worktree |
+| 08 AI 模擬 | 第 4 節新建 ai-git-demo；前面查詢範例不必照貼 | main 的 search.txt 有 ready 與 Hint；保留 Revert 紀錄；乾淨 |
+| 09 復原 | 新建 restore-demo | note.txt 是 Version 1；保留 Revert 紀錄；scratch.txt 已清除；乾淨 |
+| 10 reset | 新建 reset-demo | 每種模式先核對 HEAD、暫存區與工作區；最後 main 回 V3、三筆提交、乾淨 |
+| 11 amend | 新建 amend-demo | 最新是補充聯絡方式；前一筆包含 about.txt、contact.txt；共四筆提交、乾淨 |
+| 13 tag | 新建 tag-demo | 本機第 2 節完成後回 main；v1.0 仍對應 Release 1；乾淨；分享標籤另行帶做 |
+| 14 舊版本 | 新建 history-view-demo | 查看第一版時只見 a.txt；第 3 節回 main 後 a、b、c 都在；乾淨 |
+| 15 rebase | 新建 rebase-demo，先確認編輯器能儲存離開 | reword 後四筆、squash 後兩筆、拆分後三筆；與 before-rebase 無檔案差異；乾淨 |
+
+每一章開始時都重複確認資料夾、分支與 status；尚未建立 Repository 時，Git 指令顯示 not a git repository 是正常的。看到非預期錯誤先停下，依[首頁卡關流程](../README.md#課堂跟做與卡關)處理。
+
+## 進階示範的拆分
+
+- worktree 三個案例分次帶，每次先核對前一案例的完成狀態；第一次只做緊急修復即可。
+- rebase 分為改訊息、合併提交、拆分提交三次示範，每次核對提交數及檔案差異後才繼續。編輯器中的操作要由學生親手完成。
+- 合併方式比較先示範 fast-forward 與 merge commit，再另一次比較 squash 與 rebase；每次先預測歷史，再核對結果。
+- SSH 與 HTTPS 由老師依教室環境先選一條路線，課前測試登入與自己的任務分支 push；多帳號、其他 helper 與 CLI 建庫留作選讀。
+- Fork 收作業前，老師用兩個不同帳號路徑演練，確認 PR 各自只新增自己的檔案。兩人 PR 練習則每組使用自己的共用儲存庫，避免全班共用相同任務分支。

@@ -11,6 +11,10 @@
 <h2 id="開始之前">開始之前</h2>
 <p>先完成 <a href="setup.html">環境安裝與設定</a>：準備 Git、VS Code 與其 Terminal，設定提交用的姓名與電子郵件。Windows 的指令練習請在 VS Code Terminal 使用 Git Bash。</p>
 <p>操作前先確認三件事：<strong>在哪個資料夾？在哪個分支？這一步會改變什麼？</strong> 用 <code>pwd</code>、<code>git branch --show-current</code>、<code>git status</code> 檢查。</p>
+<h2 id="課堂跟做與卡關">課堂跟做與卡關</h2>
+<p>每個案例以「老師示範一段 → 學生操作 → 核對結果 → 解釋變化」進行。不要一次貼完整章的指令。各章的開始條件與完成狀態，請對照<a href="course.html#課堂案例核對表">教師課程安排的核對表</a>；章末「換你做」會增加提交或檔案，完成狀態以進入自主練習前為準。</p>
+<p>結果不同時，先停在目前狀態，保留錯誤訊息。用 pwd、git branch --show-current、git status 核對位置與狀態，將「最後成功的一步、剛執行的指令、完整錯誤」告訴老師。不要重貼整段、刪除 .git 或自行 reset。若進度差太多，先保留原資料夾，由老師協助在新的同層資料夾從案例起點重做，後續路徑也要一起替換。</p>
+<p>若 log、show 或 diff 進入常見的 less 閱讀畫面，看到 <code>(END)</code> 時可按 q 回到提示符號，再輸入下一個指令；這不是 Git 卡住，也不是提交訊息編輯器。</p>
 <h2 id="第一階段建立版本">第一階段｜建立版本</h2>
 <p>目標：自己建立記錄點，能試做新功能，也能保留原本可用的版本。</p>
 <div class="table-scroll"><table><thead><tr><th scope="col">章節</th><th scope="col">學習內容</th><th scope="col">完成後你能做什麼？</th></tr></thead><tbody><tr><td>01</td><td><a href="staging.html">工作區與暫存區</a></td><td>用 add 與 commit 保存正確的檔案版本</td></tr><tr><td>02</td><td><a href="history.html">main、HEAD 與歷史</a></td><td>看懂目前分支與各筆 commit 的關係；HEAD 細節可在熟悉提交後再讀</td></tr><tr><td>03</td><td><a href="branch.html">分支與合併</a></td><td>在功能分支開發，完成後整合回 main</td></tr><tr><td>04</td><td><a href="ignore.html">忽略不需要追蹤的檔案</a></td><td>用 .gitignore 排除暫存檔，理解已追蹤檔案的差別</td></tr></tbody></table></div>

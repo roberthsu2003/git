@@ -23,9 +23,19 @@ git init -b main
 printf 'Home page\n' > index.txt
 git add index.txt
 git commit -m "新增首頁"
+```
+
+**停下核對：** 資料夾是 history-demo、目前分支 main，只有 index.txt 與第一筆提交。先請學生說出提交保存了什麼，再新增下一個檔案。
+
+```bash
 printf 'About our team\n' > about.txt
 git add about.txt
 git commit -m "新增團隊介紹"
+```
+
+**停下核對：** 第二筆提交新增 about.txt，第一筆首頁仍在歷史裡。學生完成後再新增第三個檔案。
+
+```bash
 printf 'Contact us\n' > contact.txt
 git add contact.txt
 git commit -m "新增聯絡資訊"

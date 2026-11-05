@@ -22,11 +22,24 @@ git remote -v
 git switch main
 git fetch upstream
 git merge --ff-only upstream/main
+```
+
+**停下核對：** 目前資料夾是 class-homework、分支是 main，工作區乾淨；origin 指向自己的 Fork，upstream 指向老師。網址或分支不同先處理，再繼續。
+
+全班作業使用不同路徑，避免把同學的介紹改掉。下方每個 `YOUR_ACCOUNT` 都換成自己的 GitHub 帳號；本次個人資料夾應尚未存在。若已存在，先檢查是否已做過，不要直接覆寫。自我介紹內容也請改成自己的文字。
+
+```bash
 git switch -c homework-intro
-printf '# 我的作業\n這是我的自我介紹。\n' > introduction.md
-git add introduction.md
+mkdir -p homework/YOUR_ACCOUNT
+printf '# 我的作業\n這是我的自我介紹。\n' > homework/YOUR_ACCOUNT/introduction.md
+git add homework/YOUR_ACCOUNT/introduction.md
 git diff --staged
 git commit -m "新增自我介紹作業"
+```
+
+**停下核對：** 目前在 homework-intro，最新提交只新增自己的 homework/帳號/introduction.md，工作區乾淨。確認沒有混入其他同學的檔案後再上傳。
+
+```bash
 git push -u origin homework-intro
 ```
 
@@ -44,11 +57,11 @@ git merge --ff-only upstream/main
 git push origin main
 ```
 
-預期自己的本地 main 與 Fork 的 main 都收到老師已合併的內容。你只 push 自己的 origin，不需要老師專案的寫入權限。
+預期目前在 class-homework 的 main、工作區乾淨，自己的個人路徑存在；本地 main 與 Fork 的 main 都收到老師已合併的內容。你只 push 自己的 origin，不需要老師專案的寫入權限。
 
 ## 換你自己做
 
-Fork 老師指定的練習專案，用新的任務分支新增一份自我介紹，向老師的 main 提出 PR。老師合併後，同步自己的 main 與 Fork。
+Fork 老師指定的練習專案，用新的任務分支新增一份自我介紹，放在 `homework/自己的GitHub帳號/introduction.md`，向老師的 main 提出 PR。若本章示範已使用此路徑，改為更新自己的介紹，不要覆寫同學的檔案。老師合併後，同步自己的 main 與 Fork。
 
 完成標準：PR 的目標是老師專案、來源是自己的任務分支；能解釋 origin 與 upstream 指向誰，並在合併後更新自己的副本。
 

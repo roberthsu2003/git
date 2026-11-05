@@ -28,8 +28,18 @@ git switch main
 printf &#39;Hello\n&#39; &gt; index.txt
 git add index.txt
 git commit -m &quot;更新主要分支標題&quot;</code></pre></div>
-<p>在 main 執行 <code>git merge feature-title</code>，Git 會因同一行有不同修改而暫停。用 <code>git status</code> 確認衝突檔案，在編輯器開啟 <code>index.txt</code>，決定最後內容並移除 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 標記。本練習將內容改成 <code>Hello and welcome</code>，再完成合併：</p>
-<div class="reading-code"><span>bash</span><pre><code>printf &#39;Hello and welcome\n&#39; &gt; index.txt
+<h3 id="停點一製造衝突">停點一：製造衝突</h3>
+<p>操作位置：merge-demo 的 main，工作區乾淨。以下 merge <strong>預期會失敗並停在衝突狀態</strong>，這就是本次要觀察的結果。</p>
+<div class="reading-code"><span>bash</span><pre><code>git merge feature-title
+git status --short
+cat index.txt</code></pre></div>
+<h3 id="停點二辨認並手動處理">停點二：辨認並手動處理</h3>
+<p><strong>停下核對：</strong> status 顯示 <code>UU index.txt</code>；檔案內有 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>。先指出哪一側是 main 的 Hello、哪一側是 feature-title 的 Welcome。</p>
+<p>在編輯器開啟 index.txt，親手把內容改為一行 <code>Hello and welcome</code>，移除衝突標記並儲存。老師先等全班完成，不要直接貼覆寫檔案的指令。下面文字是要在編輯器保留的內容，不是終端機指令：</p>
+<div class="reading-code"><span>text</span><pre><code>Hello and welcome</code></pre></div>
+<h3 id="停點三記錄解決結果">停點三：記錄解決結果</h3>
+<p>先查看差異，確認保留內容正確，再完成合併：</p>
+<div class="reading-code"><span>bash</span><pre><code>git diff
 git add index.txt
 git commit -m &quot;整合首頁標題&quot;
 cat index.txt

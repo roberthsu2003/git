@@ -11,13 +11,17 @@ git remote add upstream https://github.com/TEACHER_ACCOUNT/class-homework.git
 git remote -v
 git switch main
 git fetch upstream
-git merge --ff-only upstream/main
-git switch -c homework-intro
-printf &#39;# 我的作業\n這是我的自我介紹。\n&#39; &gt; introduction.md
-git add introduction.md
+git merge --ff-only upstream/main</code></pre></div>
+<p><strong>停下核對：</strong> 目前資料夾是 class-homework、分支是 main，工作區乾淨；origin 指向自己的 Fork，upstream 指向老師。網址或分支不同先處理，再繼續。</p>
+<p>全班作業使用不同路徑，避免把同學的介紹改掉。下方每個 <code>YOUR_ACCOUNT</code> 都換成自己的 GitHub 帳號；本次個人資料夾應尚未存在。若已存在，先檢查是否已做過，不要直接覆寫。自我介紹內容也請改成自己的文字。</p>
+<div class="reading-code"><span>bash</span><pre><code>git switch -c homework-intro
+mkdir -p homework/YOUR_ACCOUNT
+printf &#39;# 我的作業\n這是我的自我介紹。\n&#39; &gt; homework/YOUR_ACCOUNT/introduction.md
+git add homework/YOUR_ACCOUNT/introduction.md
 git diff --staged
-git commit -m &quot;新增自我介紹作業&quot;
-git push -u origin homework-intro</code></pre></div>
+git commit -m &quot;新增自我介紹作業&quot;</code></pre></div>
+<p><strong>停下核對：</strong> 目前在 homework-intro，最新提交只新增自己的 homework/帳號/introduction.md，工作區乾淨。確認沒有混入其他同學的檔案後再上傳。</p>
+<div class="reading-code"><span>bash</span><pre><code>git push -u origin homework-intro</code></pre></div>
 <p>origin 是自己的 Fork，upstream 是老師的原專案。練習中的 main 只用來同步老師版本；若 <code>--ff-only</code> 拒絕，表示本地 main 已分岔，先檢查歷史，不要用 force 跳過。</p>
 <ol><li>在 GitHub 建立 PR，必要時選 compare across forks：<strong>base repository 選老師的專案、base 選 main；head repository 選自己的 Fork、compare 選 homework-intro</strong>。</li><li>老師要求修改時，繼續在 homework-intro 修改、commit、push。老師合併後，再同步老師的 main。</li></ol>
 <p>同步操作位置：自己電腦的 class-homework，先確認工作區乾淨。</p>
@@ -25,9 +29,9 @@ git push -u origin homework-intro</code></pre></div>
 git fetch upstream
 git merge --ff-only upstream/main
 git push origin main</code></pre></div>
-<p>預期自己的本地 main 與 Fork 的 main 都收到老師已合併的內容。你只 push 自己的 origin，不需要老師專案的寫入權限。</p>
+<p>預期目前在 class-homework 的 main、工作區乾淨，自己的個人路徑存在；本地 main 與 Fork 的 main 都收到老師已合併的內容。你只 push 自己的 origin，不需要老師專案的寫入權限。</p>
 <h2 id="換你自己做">換你自己做</h2>
-<p>Fork 老師指定的練習專案，用新的任務分支新增一份自我介紹，向老師的 main 提出 PR。老師合併後，同步自己的 main 與 Fork。</p>
+<p>Fork 老師指定的練習專案，用新的任務分支新增一份自我介紹，放在 <code>homework/自己的GitHub帳號/introduction.md</code>，向老師的 main 提出 PR。若本章示範已使用此路徑，改為更新自己的介紹，不要覆寫同學的檔案。老師合併後，同步自己的 main 與 Fork。</p>
 <p>完成標準：PR 的目標是老師專案、來源是自己的任務分支；能解釋 origin 與 upstream 指向誰，並在合併後更新自己的副本。</p>
 <hr>
 <p><a href="collaboration.html">← GitHub 共同開發</a>　｜　<a href="worktree.html">worktree：多任務工作 →</a></p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>
