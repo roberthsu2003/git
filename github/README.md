@@ -1,10 +1,10 @@
 # GitHub 基本操作
 
-**延伸圖解 · 第 12 章**　[學習路線](../README.md) · [互動圖解](../docs/README.md)
+**共同開發前置與同步查詢**　[學習路線](../README.md) · [同步互動圖解 12](../docs/README.md)
 
 本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#sync/1`，按下一步觀察本地 main、origin/main 與 GitHub main 的位置。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
-Git 管理本地版本，GitHub 提供遠端儲存庫與共同開發功能。先完成前四章，再準備本章的帳號與連線；合作實作見 [GitHub 共同開發](../協作與PullRequest/README.md)。
+Git 管理本地版本，GitHub 提供遠端儲存庫與共同開發功能。完成前四章後，先閱讀本頁第 1～2 節，了解登入與 clone，再進入[第 05 章：GitHub 共同開發](../協作與PullRequest/README.md)。第 3 節起是其他建庫方式與同步指令，按需查閱；互動圖解中的「12」是同步主題的編號，不代表必須在第 05 章之後才讀本頁。
 
 ![三個位置：本地 main、origin/main、GitHub main](../docs/diagrams/sync-1.svg)
 
@@ -29,7 +29,7 @@ git branch --show-current
 git status
 ```
 
-clone 自動設定 origin，並依遠端預設分支取出檔案。不需要再 init 或再次 `remote add origin`。本教材練習的預設分支是 main，其他專案請看實際名稱。
+clone 自動設定 origin，並依遠端預設分支取出檔案。不需要再 init 或再次 `remote add origin`。本教材練習的預設分支是 main，其他專案請看實際名稱。如果還沒有要 clone 的練習儲存庫，可以先閱讀本段；第 05 章會說明如何建立。
 
 ## 3. 路線 B：自己的本地專案，推到全新空白遠端
 

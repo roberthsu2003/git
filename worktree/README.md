@@ -4,7 +4,7 @@
 
 本章附 SVG 圖解；可先讀 [互動版使用說明](../docs/README.md)，再用瀏覽器開啟 `docs/index.html#worktree/1`，按下一步觀察變化。GitHub 的 README 顯示靜態圖，下載教材後即可離線操作互動版。
 
-學完本章，你可以保留尚未完成的功能，在另一個資料夾修 bug，再把修正合併回主要分支。
+學完本章，你可以用不同資料夾並行處理工作，並了解如何整合成果與清理資料夾。本章依序實作三個案例：緊急修復、審查既有分支，以及查看舊版本。
 
 ## 1. 什麼時候會用到？
 
@@ -39,7 +39,7 @@
 
 本章所有 `bash` 區塊都是要輸入的指令；`text` 區塊是預期結果，不用輸入。請依順序做，`cd` 表示切換資料夾，`..` 表示上一層。
 
-## 3. 實作：功能寫到一半，先去修 bug
+## 3. 案例一：功能寫到一半，先去修 bug
 
 ### 步驟一：建立有初始 commit 的專案
 
@@ -231,7 +231,71 @@ git status --short
 
 `remove` 會移除那個工作資料夾與 worktree 登記，**不會刪除分支**。這裡兩個分支都已合併，所以再用 `branch -d` 刪除。不要站在準備移除的資料夾裡執行 remove。
 
-## 4. 常用指令與卡關處理
+## 4. 案例二：審查同事的既有分支
+
+**情境：** 同事已經完成「關於我們」頁面，你想在獨立資料夾檢查它，同時保留原本的工作環境。這個練習在本機建立一個既有分支，模擬同事交來的內容；不需要連線。
+
+接續案例一，操作位置是 `worktree-demo` 的 `main`。先模擬同事完成一筆提交，然後回到 main：
+
+```bash
+git switch -c feature-about
+printf 'About our team\n' > about.txt
+git add about.txt
+git commit -m "新增關於我們頁面"
+git switch main
+```
+
+現在分支已經存在，但沒有任何工作資料夾正在使用它。建立審查用資料夾：
+
+```bash
+git worktree add ../worktree-review feature-about
+git worktree list
+cd ../worktree-review
+git branch --show-current
+cat about.txt
+```
+
+預期分支是 `feature-about`，檔案內容是 `About our team`。這裡不加 `-b`，因為分支已存在。真實協作時，先取得同事的分支；如果只有遠端追蹤分支，需先建立對應的本機分支。若該分支已在其他 worktree 使用，請直接到那個資料夾審查。
+
+審查後，回到 main 整合，並清理練習資料夾：
+
+```bash
+cd ../worktree-demo
+git merge --ff-only feature-about
+cat about.txt
+git worktree remove ../worktree-review
+git branch -d feature-about
+```
+
+本例 main 沒有其他新提交，因此可以 fast-forward。實際審查可能需要修改或透過 pull request 合併；建立 worktree 本身不會自動合併任何內容。
+
+## 5. 案例三：查看上一個版本
+
+**情境：** 新版「關於我們」頁面上線後，你想看看上一版的專案內容，但不想離開目前的 main。
+
+接續案例二，在 `worktree-demo` 執行：
+
+```bash
+git worktree add --detach ../worktree-old HEAD~1
+git worktree list
+cd ../worktree-old
+git status -sb
+ls
+```
+
+`HEAD~1` 是目前 main 的前一筆 commit；案例二的 `about.txt` 還不存在於那個版本。`--detach` 讓新資料夾直接指向該 commit，而不佔用分支；`git status -sb` 會顯示 `HEAD (no branch)` 或本地化的對應文字。你可以在這裡閱讀檔案或執行適合該版本的測試；各 worktree 的依賴套件或忽略檔案不一定會自動出現，可能需要另外準備。
+
+看完後回到原資料夾並移除：
+
+```bash
+cd ../worktree-demo
+git worktree remove ../worktree-old
+git worktree list
+```
+
+如果在 detached HEAD 中做了需要保留的 commit，先建立分支指向它，再移除 worktree；否則之後可能難以找回。查看其他版本時，也可以用 commit 編號或 tag 取代 `HEAD~1`。
+
+## 6. 常用指令與卡關處理
 
 以下是查詢用的範例，不是接續步驟八全部執行的指令。
 
@@ -254,17 +318,17 @@ git status --short
 
 **資料夾名稱重複**：換一個尚未使用的路徑；不要直接覆蓋現有資料夾。
 
-## 5. 換你練習
+## 7. 換你練習
 
-保留步驟八完成的 `worktree-demo`，再做一次不同任務：
+保留三個案例完成的 `worktree-demo`，再做一次不同任務：
 
-1. 從 main 建立 `feature-about` 分支，搭配旁邊的 `worktree-about` 資料夾。
-2. 在新資料夾建立 `about.txt`，寫下自己的名字並 commit。
-3. 回到原資料夾，確認 main 還沒有 `about.txt`。
-4. 在 main 合併 feature-about，確認 `about.txt` 出現。
-5. 移除 worktree-about，再刪除已合併的分支。
+1. 從 main 建立 `feature-contact` 分支，搭配旁邊的 `worktree-contact` 資料夾。
+2. 在新資料夾建立 `contact.txt`，寫下自己的名字並 commit。
+3. 回到原資料夾，確認 main 還沒有 `contact.txt`。
+4. 在 main 合併 feature-contact，確認 `contact.txt` 出現。
+5. 移除 worktree-contact，再刪除已合併的分支。
 
-完成標準：main 有 `index.txt`、`login.txt`、`about.txt`；`git worktree list` 只剩原本的 worktree。
+完成標準：main 有 `index.txt`、`login.txt`、`about.txt`、`contact.txt`；`git worktree list` 只剩原本的 worktree。
 
 想一想：
 

@@ -78,4 +78,4 @@ git status --short --ignored
 
 ---
 
-[← 分支與合併](../分支/README.md)　｜　[GitHub 共同開發 →](../協作與PullRequest/README.md)
+[← 分支與合併](../分支/README.md)　｜　[下一步：GitHub 基本操作 →](../github/README.md)

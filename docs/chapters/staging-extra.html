@@ -1,0 +1,24 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>閱讀差異與選擇提交內容｜Git 學習筆記</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../styles.css"></head><body><div class="app-shell reading-shell"><aside class="sidebar"><a class="brand" href="overview.html"><span class="brand-mark" aria-hidden="true">g.</span><span>Git 學習筆記<small>CLASSROOM HANDBOOK</small></span></a><div class="sidebar-intro"><span class="overline">實作講義</span><p>看懂圖解之後，<br>用自己的操作確認。</p></div><nav aria-label="講義章節"><section class="topic-group"><h2 class="group-heading"><span>01</span>建立版本</h2><a class="reading-topic " href="staging.html"><span class="topic-index">01</span><span>工作區與暫存區</span></a><a class="reading-topic " href="history.html"><span class="topic-index">02</span><span>main、HEAD 與歷史</span></a><a class="reading-topic " href="branch.html"><span class="topic-index">03</span><span>分支與合併</span></a><a class="reading-topic " href="ignore.html"><span class="topic-index">04</span><span>忽略不需要追蹤的檔案</span></a></section><section class="topic-group"><h2 class="group-heading"><span>02</span>一起開發</h2><a class="reading-topic " href="github.html"><span class="topic-index">先讀</span><span>GitHub 基本操作</span></a><a class="reading-topic " href="collaboration.html"><span class="topic-index">05</span><span>GitHub 共同開發</span></a><a class="reading-topic " href="fork.html"><span class="topic-index">06</span><span>用 Fork 交作業</span></a><a class="reading-topic " href="worktree.html"><span class="topic-index">07</span><span>worktree：多任務工作</span></a><a class="reading-topic " href="ai.html"><span class="topic-index">08</span><span>AI 開發的 Git 節奏</span></a></section><section class="topic-group"><h2 class="group-heading"><span>03</span>復原與整理</h2><a class="reading-topic " href="restore.html"><span class="topic-index">09</span><span>還原檔案與取消暫存</span></a><a class="reading-topic " href="reset.html"><span class="topic-index">10</span><span>reset 的三種模式</span></a><a class="reading-topic " href="amend.html"><span class="topic-index">11</span><span>整理最後一筆提交</span></a></section><section class="topic-group"><h2 class="group-heading"><span>04</span>延伸圖解</h2><a class="reading-topic " href="sync.html"><span class="topic-index">12</span><span>同步三角：push、fetch、pull</span></a><a class="reading-topic " href="tag.html"><span class="topic-index">13</span><span>tag：固定指向版本</span></a><a class="reading-topic " href="checkout.html"><span class="topic-index">14</span><span>查看過去版本與 detached</span></a><a class="reading-topic " href="rebase.html"><span class="topic-index">15</span><span>rebase：整理尚未分享的歷史</span></a></section></nav><div class="sidebar-footer"><a href="overview.html">教材總覽 ↗</a><a href="course.html">教師課程安排 ↗</a></div></aside><div class="workspace"><header class="topbar"><a class="reading-home" href="overview.html">← 教材總覽</a><a class="text-link" href="../index.html#staging/1">互動圖解教室 ↗</a></header><main class="reading-main"><div class="reading-eyebrow">GIT CLASSROOM · 課程講義</div><article class="reading-content"><h1 id="延伸練習閱讀差異與選擇提交內容">延伸練習：閱讀差異與選擇提交內容</h1>
+<p>完成<a href="staging.html">工作區與暫存區</a>後，可以用這兩個練習更仔細地觀察 diff。以下延續第一章的 <code>git-first</code>；先確認它的工作區乾淨。</p>
+<h2 id="只提交其中一個檔案">只提交其中一個檔案</h2>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;News\n&#39; &gt; news.txt
+printf &#39;Notes\n&#39; &gt; notes.txt
+git status --short
+git add news.txt
+git diff --staged
+git commit -m &quot;新增消息&quot;
+git status --short</code></pre></div>
+<p><code>news.txt</code> 已提交，<code>notes.txt</code> 仍是未追蹤檔案。<code>git diff</code> 預設不顯示未追蹤檔案的內容；使用 <code>cat notes.txt</code> 閱讀它，再決定是否加入。</p>
+<h2 id="比較已暫存與未暫存的差異">比較已暫存與未暫存的差異</h2>
+<div class="reading-code"><span>bash</span><pre><code>printf &#39;First line\n&#39; &gt;&gt; index.txt
+git add index.txt
+printf &#39;Second line\n&#39; &gt;&gt; index.txt
+git diff
+git diff --staged</code></pre></div>
+<p><code>git diff</code> 顯示暫存後加入的 <code>Second line</code>；<code>git diff --staged</code> 顯示自上一筆提交以來、準備放進下次提交的 <code>First line</code>。差異中 <code>+</code> 表示新增的行，<code>-</code> 表示移除的行；開頭的 <code>@@</code> 描述位置範圍。</p>
+<p>練習完後，保留兩行修改並一併提交：</p>
+<div class="reading-code"><span>bash</span><pre><code>git add index.txt notes.txt
+git diff --staged
+git commit -m &quot;補充首頁與筆記&quot;
+git status --short</code></pre></div>
+<p>若想取消暫存或丟棄指定修改，先閱讀<a href="restore.html">還原檔案與取消暫存</a>。</p></article><footer><span>Git 學習筆記 · 先理解，再實作。</span><a href="overview.html">回學習路線 ↗</a></footer></main></div></div></body></html>

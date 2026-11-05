@@ -11,7 +11,7 @@ globalThis.GIT_COURSE = {
     history:{name:'main、HEAD 與歷史',goal:'看懂分支名稱與目前位置如何跟著 commit 移動。',practice:'建立三筆 commit，用 git log 找到每一個記錄點。',href:'../使用main主要分支/README.md',level:'入門'},
     branch:{name:'分支與合併',goal:'在功能分支試做，再把完成的成果整合回 main。',practice:'完成會員功能與關於我們頁面，觀察切換前後的檔案。',href:'../分支/README.md',level:'入門'},
     ignore:{name:'忽略不需要追蹤的檔案',goal:'了解忽略規則對新檔案與既有檔案的不同效果。',practice:'新增一個測試用暫存檔，設定忽略規則並檢查 status。',href:'../不想被追蹤的檔案/README.md',level:'入門'},
-    collaboration:{name:'GitHub 共同開發',goal:'分清楚 commit、push、PR、merge 與 pull。',practice:'兩人各開任務分支，互相檢查 PR，再更新自己的 main。',href:'../協作與PullRequest/README.md',level:'合作'},
+    collaboration:{name:'GitHub 共同開發',goal:'分清楚 commit、push、PR、merge 與 pull。',practice:'先閱讀本章前置的 GitHub 基本操作；再與同學各開任務分支，互相檢查 PR，更新自己的 main。',href:'../協作與PullRequest/README.md',level:'合作'},
     fork:{name:'用 Fork 交作業',goal:'選對自己的 origin 與老師的 upstream，以及 PR 方向。',practice:'Fork 練習專案，提交自我介紹，向原專案送出 PR。',href:'../Fork交作業/README.md',level:'合作'},
     worktree:{name:'worktree：多任務工作',goal:'保留未完成的功能，在另一個資料夾修正問題。',practice:'建立修正用 worktree，整合兩項成果，再清理工作資料夾。',href:'../worktree/README.md',level:'合作'},
     ai:{name:'AI 開發的 Git 節奏',goal:'把 AI 修改拆成可閱讀、可驗證、可復原的小段成果。',practice:'模擬一次失敗修改，檢查差異，再提交與復原。',href:'../日常工作流程/README.md',level:'應用'},

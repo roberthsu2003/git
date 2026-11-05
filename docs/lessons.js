@@ -8,31 +8,31 @@ globalThis.GIT_LESSONS = [
         { title: '暫存區', tag: '準備提交的版本', lines: ['目前沒有檔案'] },
         { title: 'commit 紀錄', tag: '已保存的版本', lines: ['還沒有 commit'] }
       ], note: '先在工作區建立檔案，再決定要把哪個版本加入暫存區。' },
-      { title: '建立檔案：Git 尚未追蹤', command: 'touch index.txt', cards: [
-        { title: '工作區', tag: '未追蹤 ??', lines: ['index.txt：空檔案'] },
+      { title: '建立首頁：Git 尚未追蹤', command: "printf 'Home page\\n' > index.txt", cards: [
+        { title: '工作區', tag: '未追蹤 ??', lines: ['index.txt：Home page'] },
         { title: '暫存區', tag: '尚未 add', lines: ['沒有 index.txt'] },
         { title: 'commit 紀錄', tag: '尚未 commit', lines: ['還沒有 commit'] }
       ], note: '建立檔案不等於 Git 已保存它；新檔案要先 git add。' },
-      { title: '第一次 add：保存空檔案版本', command: 'git add index.txt', cards: [
-        { title: '工作區', tag: '版本 V1', lines: ['index.txt：空檔案'] },
-        { title: '暫存區', tag: '已暫存 A', lines: ['index.txt：空檔案 V1'] },
-        { title: 'commit 紀錄', tag: '尚未 commit', lines: ['還沒有 commit'] }
-      ], note: 'add 把當下的檔案版本放入暫存區；檔案仍留在工作區。' },
-      { title: 'add 後又編輯：兩區版本不同', command: '編輯 index.txt，寫入「markdown 語法介紹」', cards: [
-        { title: '工作區', tag: '版本 V2', lines: ['index.txt：有文字', 'markdown 語法介紹'] },
-        { title: '暫存區', tag: '仍是 V1', lines: ['index.txt：仍是空檔案'] },
-        { title: 'commit 紀錄', tag: '尚未 commit', lines: ['還沒有 commit'] }
-      ], note: '暫存區不會隨編輯自動更新。status 可能同時列出已暫存與未暫存變更。', question: '現在直接 commit，會記錄文字還是空檔案？', answer: '空檔案。commit 使用暫存區的 V1，必須再次 add 才能提交 V2。' },
-      { title: '再次 add：暫存區更新到 V2', command: 'git add index.txt', cards: [
-        { title: '工作區', tag: '版本 V2', lines: ['index.txt：有文字', 'markdown 語法介紹'] },
-        { title: '暫存區', tag: '版本 V2', lines: ['index.txt：有文字', 'markdown 語法介紹'] },
-        { title: 'commit 紀錄', tag: '尚未 commit', lines: ['還沒有 commit'] }
-      ], note: '現在工作區與暫存區一致，這次 commit 才會保存文字版本。' },
-      { title: 'commit：記錄暫存區的版本', command: 'git commit -m "新增語法介紹"', cards: [
-        { title: '工作區', tag: '沒有未暫存變更', lines: ['index.txt：V2'] },
-        { title: '暫存區', tag: '與 HEAD 相同', lines: ['index.txt：V2', '暫存區不是空的', '只是沒有待提交差異'] },
-        { title: 'commit C1', tag: '已記錄 V2', lines: ['index.txt：V2', 'main 指向 C1', 'HEAD 指向 main'] }
-      ], note: '工作區乾淨表示沒有待處理差異，不代表檔案或暫存區被清空。' }
+      { title: '保存首頁：建立第一筆 commit', command: 'git add index.txt；git commit -m "新增首頁"', cards: [
+        { title: '工作區', tag: '沒有待處理差異', lines: ['Home page'] },
+        { title: '暫存區', tag: '與 HEAD 相同', lines: ['Home page'] },
+        { title: 'commit C1', tag: '已保存首頁', lines: ['Home page','HEAD → main → C1'] }
+      ], note: 'add 選擇當下版本，commit 記錄暫存區；乾淨不代表檔案或暫存區被清空。' },
+      { title: '新增團隊介紹並 add', command: '加入 About our team；git add index.txt', cards: [
+        { title: '工作區', tag: '已有兩行', lines: ['Home page','About our team'] },
+        { title: '暫存區', tag: '包含團隊介紹', lines: ['Home page','About our team'] },
+        { title: 'commit C1', tag: '仍只有首頁', lines: ['Home page'] }
+      ], note: 'add 把當下的檔案版本放入暫存區；尚未建立下一筆 commit。' },
+      { title: 'add 後又加入聯絡資訊', command: '加入 Contact us；git status --short', cards: [
+        { title: '工作區', tag: '已有三行', lines: ['Home page','About our team','Contact us'] },
+        { title: '暫存區', tag: '仍是兩行', lines: ['Home page','About our team'] },
+        { title: 'commit C1', tag: '仍只有首頁', lines: ['Home page'] }
+      ], note: '暫存區不會隨編輯自動更新；狀態顯示 MM，代表同一檔案同時有已暫存與未暫存差異。', question: '現在直接 commit，會包含 Contact us 嗎？', answer: '不會。這行還沒 add，所以只留在工作區。' },
+      { title: 'commit 只記錄已暫存的版本', command: 'git commit -m "新增團隊介紹"', cards: [
+        { title: '工作區', tag: '仍有未暫存差異', lines: ['Home page','About our team','Contact us'] },
+        { title: '暫存區', tag: '與新 HEAD 相同', lines: ['Home page','About our team'] },
+        { title: 'commit C2', tag: '已記錄團隊介紹', lines: ['Home page','About our team','HEAD → main → C2'] }
+      ], note: 'Contact us 仍在工作區；要保存它，回到講義再次 add 並 commit。' }
     ]
   },
   {
@@ -109,16 +109,16 @@ globalThis.GIT_LESSONS = [
     id:'amend',title:'09｜amend：建立新的替代 commit',intro:'amend 不是原地改寫同一個 commit 的內容。',
     frames:[
       {title:'只改訊息：檔案不變，識別碼仍改變',command:'git commit --amend -m "新訊息"',nodes:[{id:'P',x:150,y:175,ref:'共同父 commit'},{id:'C1',x:480,y:150,ref:'原本訊息'},{id:'C2',x:480,y:245,ref:'HEAD → main'}],edges:[['P','C1'],['P','C2']],cards:[{title:'C1：舊訊息版本',tag:'原本 commit',lines:['檔案相同','訊息有錯字','main 不再指向它']},{title:'C2：新訊息版本',tag:'新的識別碼',lines:['檔案與 C1 相同','訊息已修正','相同的父 commit P']}],note:'即使只改一個字，amend 仍建立全新的 commit；識別碼一定改變。'},
-      {title:'把暫存變更加入最後一筆提交',command:'git add f2.html；git commit --amend',nodes:[{id:'P',x:150,y:175,ref:'共同父 commit'},{id:'C1',x:480,y:150,ref:'原本 commit'},{id:'C2',x:480,y:245,ref:'HEAD → main'}],edges:[['P','C1'],['P','C2']],cards:[{title:'C1：原本版本',tag:'識別碼原樣保留',lines:['只有 f1.html','main 不再指向它']},{title:'C2：替代版本',tag:'新的識別碼',lines:['f1.html 與 f2.html','相同的父 commit P']}],note:'舊 commit 不是立即消失；amend 建立新 commit，分支改指向新版本。先用尚未分享的提交練習。'},
+      {title:'把暫存變更加入最後一筆提交',command:'git add contact.txt；git commit --amend --no-edit',nodes:[{id:'P',x:150,y:175,ref:'共同父 commit'},{id:'C1',x:480,y:150,ref:'原本 commit'},{id:'C2',x:480,y:245,ref:'HEAD → main'}],edges:[['P','C1'],['P','C2']],cards:[{title:'C1：原本版本',tag:'識別碼原樣保留',lines:['新增 about.txt','main 不再指向它']},{title:'C2：替代版本',tag:'新的識別碼',lines:['新增 about.txt 與 contact.txt','相同的父 commit P']}],note:'舊 commit 不是立即消失；amend 建立新 commit，分支改指向新版本。先用尚未分享的提交練習。'},
       {title:'已分享的提交不要 amend',command:'已 push 的 C2：改用新增修正 commit',nodes:[{id:'P',x:120,y:175,ref:'共同起點'},{id:'C2',x:350,y:175,ref:'你已分享的版本'},{id:'C2’',x:580,y:150,ref:'你改寫的版本'},{id:'C3',x:580,y:245,ref:'同學接續的版本'}],edges:[['P','C2'],['P','C2’'],['C2','C3']],cards:[{title:'你的改寫',tag:'C2’ 識別碼不同',lines:['同學的 C3 接在 C2 後','C2’ 與 C3 已分岔']},{title:'正確做法',tag:'新增修正',lines:['保留 C2','再提交修正 commit','不用改寫歷史']}],note:'改寫已分享歷史會讓同學的接續提交分岔；最後一筆已分享時，優先新增修正 commit。'}
     ]
   },
   {
     id:'history',title:'10｜main、HEAD 與歷史',intro:'每個 commit 都記錄當時的專案版本；main 指向最新的提交。',
     frames:[
-      {title:'第一筆 commit：建立三個 a 檔案',command:'git add a1.html a2.html a3.html；git commit',nodes:[{id:'C1',x:180,y:175,ref:'HEAD → main'}],edges:[],cards:[{title:'專案資料夾',tag:'C1 的版本',lines:['a1.html、a2.html、a3.html']}],note:'HEAD 指向 main，main 指向 C1。提交記錄版本，不是只有一段訊息。'},
-      {title:'三次新增 b 檔案：分支跟著新提交往前',command:'依序新增 b1.html、b2.html、b3.html，每次 add 與 commit',nodes:[{id:'C1',x:120,y:175,ref:'建立三個 a 檔案'},{id:'C2',x:350,y:175,ref:'新增 b1.html'},{id:'C3',x:580,y:175,ref:'新增 b2.html'},{id:'C4',x:810,y:175,ref:'HEAD → main'}],edges:[['C1','C2'],['C2','C3'],['C3','C4']],cards:[{title:'專案資料夾',tag:'C4 的版本',lines:['a1.html、a2.html、a3.html','b1.html、b2.html、b3.html']}],note:'C4 提交 b3.html；舊 commit 仍保留各自當時的版本。main 是可移動的分支名稱。'},
-      {title:'查詢歷史不會移動分支',command:'git show HEAD；git ls-tree --name-only HEAD~3；git diff --name-status HEAD~3 HEAD',cards:[{title:'show 與 ls-tree',tag:'只讀取不切換',lines:['show 看某筆內容','ls-tree 列該筆檔名','工作區不受影響']},{title:'diff 比較兩筆',tag:'--name-status 列清單',lines:['第一筆只有三個 a','差異列出新增的 b','HEAD~3 沿第一父回溯']}],note:'這些查詢不會切換分支或改動工作區；真的要在舊版本操作才用 switch --detach。'}]
+      {title:'第一筆 commit：建立首頁',command:'git add index.txt；git commit -m "新增首頁"',nodes:[{id:'C1',x:180,y:175,ref:'HEAD → main'}],edges:[],cards:[{title:'history-demo/',tag:'C1 的版本',lines:['index.txt：Home page']}],note:'HEAD 指向 main，main 指向 C1。提交記錄版本，不是只有一段訊息。'},
+      {title:'依序新增團隊介紹與聯絡資訊',command:'新增 about.txt、contact.txt，各自 add 與 commit',nodes:[{id:'C1',x:120,y:175,ref:'新增首頁'},{id:'C2',x:450,y:175,ref:'新增團隊介紹'},{id:'C3',x:780,y:175,ref:'HEAD → main'}],edges:[['C1','C2'],['C2','C3']],cards:[{title:'history-demo/',tag:'C3 的版本',lines:['index.txt','about.txt','contact.txt']}],note:'C3 新增聯絡資訊；舊 commit 仍保留各自當時的版本。main 是可移動的分支名稱。'},
+      {title:'查詢歷史不會移動分支',command:'git show HEAD；git show HEAD~1；git diff HEAD~1 HEAD',cards:[{title:'show',tag:'只讀取不切換',lines:['HEAD 是新增聯絡資訊','HEAD~1 是新增團隊介紹','工作區不受影響']},{title:'diff 比較兩筆',tag:'前一筆 → 目前版本',lines:['差異是新增 contact.txt','HEAD~1 沿第一父回溯']}],note:'這些查詢不會切換分支或改動工作區；真的要在舊版本操作才用 switch --detach。'}]
   },
   {
     id:'ignore',title:'11｜.gitignore：忽略未追蹤檔案',intro:'忽略清單不是清除歷史，也不會自動停止追蹤既有檔案。',
